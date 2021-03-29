@@ -1,2 +1,4 @@
 from .db import db
-from .user import User
+from .song_user import User, Song
+from .comment import Comment
+from .playlist import Playlist
