@@ -2,6 +2,7 @@ from .db import db
 from datetime import datetime
 
 
+
 class Playlist(db.Model):
     __tablename__ = 'playlists'
 
@@ -19,9 +20,7 @@ class Playlist(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
 
-    songs = db.relationship('Song', back_populates='playlists')
-    comments = db.relationship(
-        'Comment', back_populates='playlist', cascade='all, delete-orphan')
+    
 
     def to_dict(self):
         return {

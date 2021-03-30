@@ -2,7 +2,7 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-
+# song_user join Table
 song_users = db.Table(
     'song_users',
     db.Column(
@@ -15,7 +15,74 @@ song_users = db.Table(
     )
 )
 
+# followers_users join Table
+followers_users = db.Table(
+    'followers_users',
+    db.Column(
+        "followings_id", db.Integer, db.ForeignKey('users.id'),
+        nullable=True
+    ),
+    db.Column(
+        'followers_id', db.Integer, db.ForeignKey('users.id'),
+        nullable=True
+    )
+)
 
+# comments_likes join Table
+comments_likes = db.Table(
+    'comments_likes',
+    db.Column(
+        "user_id", db.Integer, db.ForeignKey('users.id'),
+        nullable=False
+    ),
+    db.Column(
+        'comment_id', db.Integer, db.ForeignKey('comments.id'),
+        nullable=False
+    )
+)
+
+# songs_likes join Table
+songs_likes = db.Table(
+    'songs_likes',
+    db.Column(
+        "user_id", db.Integer, db.ForeignKey('users.id'),
+        nullable=False
+    ),
+    db.Column(
+        'song_id', db.Integer, db.ForeignKey('songs.id'),
+        nullable=False
+    )
+)
+
+
+# playlist_likes join Table
+playlist_likes = db.Table(
+    'playlist_likes',
+    db.Column(
+        'playlist_id', db.Integer, db.ForeignKey('playlists.id'),
+        nullable=False
+    ),
+    db.Column(
+        "user_id", db.Integer, db.ForeignKey('users.id'),
+        nullable=False
+    )
+
+)
+
+
+
+# songs_playlists join Table
+song_playlists = db.Table(
+    'song_playlists',
+    db.Column(
+        'song_id', db.Integer, db.ForeignKey('songs.id'),
+        nullable=False
+    ),
+     db.Column(
+        "playlist_id", db.Integer, db.ForeignKey('playlists.id'),
+        nullable=False
+    )
+)
 
 
 
@@ -26,6 +93,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable = False, unique = True)
     email = db.Column(db.String(255), nullable = False, unique = True)
     hashed_password = db.Column(db.String(255), nullable = False)
+    artist = db.Column(db.Boolean, nullable=False)
     profile_URL = db.Column(db.String(255))
     created_at = db.Column(
             db.DateTime, nullable=False, default=datetime.utcnow()
@@ -34,15 +102,48 @@ class User(db.Model, UserMixin):
             db.DateTime, nullable=False, default=datetime.utcnow()
         )
 
+    
     #-----------------------------------------------------------
     song_admin = db.relationship('Song', back_populates='artist')
-    comments = db.relationship('Comment', back_populates='user')
+    # comments = db.relationship('Comment', back_populates='user')
+    # songs relationship
     songs = db.relationship(
             'Song', secondary=song_users, back_populates='users', lazy='dynamic'
         )
+    # songs likes
+    song_like = db.relationship(
+            'Song', secondary=songs_likes, back_populates='user_song_like', lazy='dynamic'
+        )
+
+    # playlist_likes
+    playlist_like = db.relationship(
+            'Playlist', secondary=playlist_likes, back_populates='user_playlist_like', lazy='dynamic'
+        )
+
+    #  comments_likes
+    comment_like = db.relationship(
+            'Comment', secondary=comments_likes, back_populates='user_like', lazy='dynamic'
+        )
+
+    #followings relationship
+    # followers = db.relationship(
+    #         'User', secondary=followers_users, back_populates='followers_id', lazy='dynamic'
+    #     )
     
+    # followings = db.relationship(
+    #         'User', secondary=followers_users, back_populates='followings_id', lazy='dynamic'
+    #     )
+
+
+    # followers_id = db.relationship(
+    #         'User', secondary=followers_users, back_populates='followers', lazy='dynamic'
+    #     )
+    
+    # followings_id = db.relationship(
+    #         'User', secondary=followers_users, back_populates='followings', lazy='dynamic'
+    #     )
   
-  
+    
     @property
     def password(self):
         return self.hashed_password
@@ -62,6 +163,7 @@ class User(db.Model, UserMixin):
         "id": self.id,
         "username": self.username,
         "email": self.email,
+        "artist": self.artist,
         "profile_URL":self.profile_URL
         }
 
@@ -72,6 +174,7 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     artist_id = db.Column(db.Integer, db.ForeignKey(
         'users.id'), nullable=False, )
+    song = db.Column(db.String(500), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255))
     category = db.Column(db.String(50), nullable=False)
@@ -87,13 +190,29 @@ class Song(db.Model):
     )
 
     artist = db.relationship('User', back_populates='song_admin')
-    playlists = db.relationship(
-        'Playlist', back_populates='songs', cascade='all, delete-orphan')
+    
+     #  songs relationship
     users = db.relationship(
         'User', secondary=song_users, back_populates='songs',
         lazy='dynamic'
     )
+    # playlist relationship
+    songs_playlist = db.relationship(
+        'Playlist', secondary=song_playlists, back_populates='playlists',
+        lazy='dynamic'
+    )
+    #  playlist relationship Like
 
+
+    # songs relationship Like
+    user_song_like = db.relationship(
+        'User', secondary=songs_likes, back_populates='song_like',
+        lazy='dynamic'
+    )
+    #  comments relationship
+    comments = db.relationship('Comment', back_populates='song')
+   
+ 
     def to_dict(self):
         return {
             "id": self.id,
@@ -105,4 +224,81 @@ class Song(db.Model):
             "public": self.public,
             "image_url": self.image_url,
             "waveform_url": self.waveform_url,
+        }
+
+
+
+
+
+
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    likes = db.Column(db.Integer, default=0, nullable=False)
+    descrition = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    song_id = db.Column(
+        db.Integer, db.ForeignKey('songs.id'), nullable=False
+    )
+    created_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow()
+    )
+    updated_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow()
+    )
+    # user relationship 
+    # user = db.relationship('User', back_populates='comments')
+    song = db.relationship(
+        'Song', back_populates='comments')
+    user_like = db.relationship(
+        'User', secondary=comments_likes, back_populates='comment_like',
+        lazy='dynamic'
+    )   
+
+    
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'likes': self.likes,
+            'message': self.message,
+            'user_id': self.user_id,
+            'song_id': self.song_id
+        }
+
+
+
+
+
+
+class Playlist(db.Model):
+    __tablename__ = 'playlists'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    image_url = db.Column(db.String(255))
+    likes = db.Column(db.Integer, default=0, nullable=False)
+    created_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow()
+    )
+    updated_at = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow()
+    )
+    playlists = db.relationship(
+            'Song', secondary=song_playlists, back_populates='songs_playlist', lazy='dynamic'
+        )
+    user_playlist_like = db.relationship(
+        'User', secondary=playlist_likes, back_populates='playlist_like',
+        lazy='dynamic'
+    )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "server_id": self.server_id,
+            "likes": self.likes
         }
