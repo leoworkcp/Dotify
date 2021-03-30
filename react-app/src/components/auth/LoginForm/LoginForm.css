@@ -1,13 +1,8 @@
 .LoginErrorModalContainer {
   border-radius: 10px;
 
-  margin-left: 10px;
+  margin-left: 4px;
   color: #f04747;
-}
-
-.login-errors__container {
-  /* background-color: aqua;
-  color: #f04747; */
 }
 
 .LoginModalContainer {
@@ -48,22 +43,6 @@
   border-radius: 3px;
 }
 
-/* .LoginModalSubmit {
-  font: inherit;
-  background-color: #7289da;
-  border: none;
-  color: white;
-  padding: 10px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.LoginModalSubmit:hover {
-  background-color: #6476b9;
-} */
-
 .not-a-member {
   margin-left: 25%;
   margin-top: 10%;
@@ -75,6 +54,5 @@
 }
 
 .not-a-member:hover {
-  /* color: #15883e; */
   text-decoration: underline;
 }
