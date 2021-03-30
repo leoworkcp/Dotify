@@ -1,0 +1,80 @@
+.LoginErrorModalContainer {
+  border-radius: 10px;
+
+  margin-left: 10px;
+  color: #f04747;
+}
+
+.login-errors__container {
+  /* background-color: aqua;
+  color: #f04747; */
+}
+
+.LoginModalContainer {
+  color: grey;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.LoginModalFormTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+.LoginErrorModalContainer > div {
+  padding: 5px;
+}
+
+.LoginModalInputContainer {
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+.LoginModalInputContainer label {
+  margin-bottom: 10px;
+}
+
+.LoginModalInputContainer > input {
+  font: inherit;
+  padding: 5px;
+  border: 1px solid rgb(170, 170, 170);
+  width: 300px;
+  border-radius: 3px;
+}
+
+/* .LoginModalSubmit {
+  font: inherit;
+  background-color: #7289da;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.LoginModalSubmit:hover {
+  background-color: #6476b9;
+} */
+
+.not-a-member {
+  margin-left: 25%;
+  margin-top: 10%;
+  border: none;
+  background: none;
+  color: #15883e;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.not-a-member:hover {
+  /* color: #15883e; */
+  text-decoration: underline;
+}

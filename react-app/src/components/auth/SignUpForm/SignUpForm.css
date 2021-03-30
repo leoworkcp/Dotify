@@ -1,0 +1,72 @@
+.SignUpModalContainer {
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+  color: grey;
+  background-color: #2c2f33;
+}
+
+.SignUpModalFormTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+.SignUpErrorModalContainer {
+  border-radius: 10px;
+  margin-left: 10px;
+  color: #f04747;
+}
+
+.SignUpErrorModalContainer > div {
+  padding: 5px;
+}
+
+.SignUpModalInputContainer {
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+.SignUpModalInputContainer label {
+  margin-bottom: 10px;
+}
+
+.SignUpModalInputContainer > input {
+  font: inherit;
+  padding: 5px;
+  border: 1px solid rgb(170, 170, 170);
+  width: 300px;
+}
+
+/* .SignUpModalSubmit {
+  font: inherit;
+  background-color: #7289da;
+  border: none;
+
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.SignUpModalSubmit:hover {
+  background-color: #6476b9;
+} */
+
+.already-a-member {
+  margin-left: 25%;
+  margin-top: 10%;
+  border: none;
+  background: none;
+  color: #15883e;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.already-a-member:hover {
+  /* color: #6476b9; */
+  text-decoration: underline;
+}

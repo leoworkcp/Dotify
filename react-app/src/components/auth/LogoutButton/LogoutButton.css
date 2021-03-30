@@ -1,0 +1,14 @@
+.LogoutModalSubmit {
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  color: grey;
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.LogoutModalSubmit:hover {
+  color: #fff;
+}

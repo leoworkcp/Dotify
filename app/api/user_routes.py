@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User
+from app.models import User, db, Song
 
 user_routes = Blueprint('users', __name__)
 
@@ -17,3 +17,28 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+# edit song
+@user_routes.route('/songs/', methods=['PUT'])
+def userSongs():
+    userId = request.json
+
+    songs = User.query.get(userId).songs.all()
+    songList = []
+    for song in songs:
+        songList.append(song.to_dict())
+
+    return jsonify(songList)
+
+
+@user_routes.route('/songs/', methods=['POST'])
+def joinSongs():
+    data = request.json
+    user = User.query.get(data['userId'])
+    song = Song.query.get(data['songId'])
+    user.songs.append(song)
+    song.users.append(user)
+    db.session.commit()
+    user_songs = [song.to_dict() for song in user.songs]
+    return jsonify(user_songs)
