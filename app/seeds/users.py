@@ -6,7 +6,7 @@ from app.models.song_user import User
 def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password')
+                password='password', artist=True)
 
     db.session.add(demo)
 
