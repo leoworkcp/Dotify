@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+.mainNavBar {
+  background-color: #292b2f;
+  width: auto;
+  height: 58px;
+}
+
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  height: 58px;
+  box-sizing: border-box;
+}
+
+.LoginModalSubmit,
+.SignUpModalSubmit {
+  font: inherit;
+  border: none;
+  color: gray;
+  background-color: transparent;
+  /* background-color: #15883e; */
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.LoginSignupLogout {
+  display: flex;
+  width: auto;
+}
+
+.LoginModalSubmit:hover,
+.SignUpModalSubmit:hover {
+  color: #fff;
+}
+
+.developers__link--container {
+  padding: 5px 10px;
+  padding-top: 10px;
+  border-style: solid;
+  border-radius: 10px;
+  border: none;
+  /* background-color: #15883e; */
+  cursor: pointer;
+}
+.developers__link--container > div > a {
+  color: gray;
+}
+
+.developers__link--container > div > a:hover {
+  color: #fff;
+}
+
+.mainLogoLink {
+  display: inline-block;
+  height: fit-content;
+  position: absolute;
+  top: 5px;
+  right: 44%;
+  /* left: 44%; */
+}
+
+.mainLogoContainer {
+  display: flex;
+  align-items: center;
+  color: gray;
+  font-size: 1.5em;
+}
+.mainLogoContainer:hover {
+  color: #fff;
+}
+.mainLogoText {
+  font-family: "Catamaran", sans-serif;
+}
+
+.mainLogo {
+  font-family: "Pacifico", cursive;
+  background-color: #15883e;
+  border-radius: 100%;
+  padding: 0px 6px;
+  margin-right: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #292b2f;
+}
