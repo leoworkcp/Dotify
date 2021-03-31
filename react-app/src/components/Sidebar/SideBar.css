@@ -87,6 +87,9 @@ td:hover {
 .sideBar-button__library {
   padding-bottom: 24px;
 }
+.sideBar-button__home {
+  padding-top: 1px;
+}
 
 .sideBar-button__home > .sideBar,
 .sideBar-button__search > .sideBar,
@@ -94,7 +97,7 @@ td:hover {
 .sideBar-button__playlist > .sideBar,
 .sideBar-button__liked > .sideBar {
   border-radius: 5px;
-  height: 50px;
+  height: 45px;
   color: #fff;
   /* background-color: aqua; */
 }
@@ -102,10 +105,14 @@ td:hover {
 .sideBar-button__home > .sideBar:hover,
 .sideBar-button__search > .sideBar:hover,
 .sideBar-button__library > .sideBar:hover {
-  background-color: #383838;
-  color: #fff;
+  /* background-color: #383838; */
+  /* color: #fff; */
 }
-
+.sideBar-button__home > .sideBar:focus,
+.sideBar-button__search > .sideBar:focus,
+.sideBar-button__library > .sideBar:focus {
+  background-color: #383838;
+}
 .sideBar-button__playlist > .sideBar:hover,
 .sideBar-button__liked > .sideBar:hover {
   color: #fff;

@@ -14,9 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
 import { authenticate } from "./store/auth";
 import ProtectedRoute from "./components/auth/ProtectedRoute/index";
+import * as sessionActions from "./store/session";
+// components
 import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
-import * as sessionActions from "./store/session";
+import Waveform from "./components/MediaPlayer/Waveform.js";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -44,12 +46,14 @@ export default function App() {
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
         />
-        <Sidebar
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        ></Sidebar>
-        {/* new stuff */}
         <div className="mainContent">
+          <Sidebar
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+          {/* new stuff */}
+          <Route>{/* <Waveform /> */}</Route>
+
           <Switch>
             <ProtectedRoute
               path="/users"
