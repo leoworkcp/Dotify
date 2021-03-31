@@ -102,7 +102,6 @@ class User(db.Model, UserMixin):
 
     # -----------------------------------------------------------
     song_admin = db.relationship('Song', back_populates='artist')
-    # comments = db.relationship('Comment', back_populates='user')
     # songs relationship
     songs = db.relationship(
         'Song', secondary=song_users, back_populates='users', lazy='dynamic'
@@ -121,23 +120,6 @@ class User(db.Model, UserMixin):
     comment_like = db.relationship(
         'Comment', secondary=comments_likes, back_populates='user_like', lazy='dynamic'
     )
-
-    # followings relationship
-    # followers = db.relationship(
-    #         'User', secondary=followers_users, back_populates='followers_id', lazy='dynamic'
-    #     )
-
-    # followings = db.relationship(
-    #         'User', secondary=followers_users, back_populates='followings_id', lazy='dynamic'
-    #     )
-
-    # followers_id = db.relationship(
-    #         'User', secondary=followers_users, back_populates='followers', lazy='dynamic'
-    #     )
-
-    # followings_id = db.relationship(
-    #         'User', secondary=followers_users, back_populates='followings', lazy='dynamic'
-    #     )
 
     @property
     def password(self):
@@ -234,7 +216,6 @@ class Comment(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
     # user relationship
-    # user = db.relationship('User', back_populates='comments')
     song = db.relationship(
         'Song', back_populates='comments')
     user_like = db.relationship(

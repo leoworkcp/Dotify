@@ -70,7 +70,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         </div>
         <NavLink className="mainLogoLink" to="/">
           <div className="mainLogoContainer">
-            <div className="mainLogo">SD</div>
+            <div className="mainLogo">DS</div>
             <div className="mainLogoText">Dotify</div>
           </div>
         </NavLink>

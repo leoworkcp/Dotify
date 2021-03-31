@@ -1,0 +1,126 @@
+.sidebar-main-container {
+  /* background-color: rgb(53, 53, 175); */
+  width: 220px;
+  margin-left: 8px;
+}
+
+.sideBar-title-container {
+  display: inline-flex;
+  margin-left: 20px;
+}
+
+#spoty-log {
+  border-radius: 50px;
+  /* background-color: #b9bbbe; */
+  width: 37px;
+  height: 37px;
+  margin-right: 5px;
+  margin-top: 20px;
+}
+
+.MuiIconButton-label > svg {
+  margin-left: 5px;
+  width: 35px;
+  height: 35px;
+  color: grey;
+  transition: all 1.3s ease-in-out;
+}
+.MuiIconButton-label > svg:hover {
+  transition: all 1s ease-in-out;
+  color: rgba(255, 255, 255, 0.801);
+}
+.MuiIconButton-label > .playlist-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  margin: 0;
+  margin-left: 2px;
+}
+
+.MuiIconButton-label > .fav-icon {
+  width: 32px;
+  height: 32px;
+  margin-left: 6px;
+  margin-right: 4px;
+}
+
+.fav-icon {
+  border-radius: 4px;
+  margin-top: 7px;
+  color: gray;
+}
+
+.fav-icon:hover {
+  transition: all 1s ease-in-out;
+  color: rgba(255, 255, 255, 0.801);
+}
+.background-color {
+  width: 32px;
+  height: 32px;
+  margin-left: 6px;
+  margin-right: 4px;
+  border-radius: 4px;
+  background: linear-gradient(149.46deg, #450af5b4, #8e8ee5b9 99.16%);
+}
+.background-color:hover {
+  background: linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+}
+.MuiIconButton-label {
+  height: 50px;
+}
+td {
+  display: flex;
+  font-size: 16px;
+  margin-left: 20px;
+  color: #b9bbbee3;
+  /* background-color: yellow; */
+  transition: all ease-in 0.2s;
+  height: 34px;
+  width: 140px;
+  margin-top: 20px;
+}
+td:hover {
+  color: #fff;
+  text-shadow: #b9bbbe23 -3px 3px;
+}
+
+.sideBar-button__library {
+  padding-bottom: 24px;
+}
+
+.sideBar-button__home > .sideBar,
+.sideBar-button__search > .sideBar,
+.sideBar-button__library > .sideBar,
+.sideBar-button__playlist > .sideBar,
+.sideBar-button__liked > .sideBar {
+  border-radius: 5px;
+  height: 50px;
+  color: #fff;
+  /* background-color: aqua; */
+}
+
+.sideBar-button__home > .sideBar:hover,
+.sideBar-button__search > .sideBar:hover,
+.sideBar-button__library > .sideBar:hover {
+  background-color: #383838;
+  color: #fff;
+}
+
+.sideBar-button__playlist > .sideBar:hover,
+.sideBar-button__liked > .sideBar:hover {
+  color: #fff;
+}
+
+.sideBar-title {
+  color: #e4e8ee;
+  font-size: 1.7em;
+
+  display: flex;
+}
+
+.divider-container {
+  margin-top: 10px;
+  width: 200px;
+  background-color: #383838;
+  margin-left: 12px;
+}
