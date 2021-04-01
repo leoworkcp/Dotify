@@ -4,7 +4,7 @@ import { getUserSongs } from "../../store/songs";
 import { useParams } from "react-router-dom";
 import ProfileSongInfo from "./ProfileSongInfo";
 
-const ProfileSongs = () => {
+const ProfileSongs = ({ authenticated, setAuthenticated }) => {
   const { userId } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -30,7 +30,11 @@ const ProfileSongs = () => {
     isLoaded && (
       <div id="profile-user__page">
         {userSongsValues.map((song, idx) => (
-          <ProfileSongInfo song={song} />
+          <ProfileSongInfo
+            song={song}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
         ))}
       </div>
     )

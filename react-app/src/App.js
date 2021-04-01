@@ -91,7 +91,10 @@ export default function App() {
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
               >
-                <ProfilePage />
+                <ProfilePage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
                 {/* <SongForm /> */}
               </ProtectedRoute>
               <ProtectedRoute

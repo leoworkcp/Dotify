@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const ProfileSongInfo = ({ song }) => {
+import MessageDropdown from "../MessageDropdown/index";
+const ProfileSongInfo = ({ song, authenticated, setAuthenticated }) => {
   return (
     <>
       <div
@@ -14,6 +14,12 @@ const ProfileSongInfo = ({ song }) => {
         // }}
       >
         {/* <img src={song.image_url} alt="profile-song" /> */}
+        <div className="messageButtons">
+          <MessageDropdown
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+        </div>
         <Link id="profile-song-link" to={`/song/${song.id}`}>
           <div className="song-image__container">
             <img
