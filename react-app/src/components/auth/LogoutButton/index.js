@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import { logout } from "../../../store/session";
+
 import BlurCircularRoundedIcon from "@material-ui/icons/BlurCircularRounded";
 import { withStyles } from "@material-ui/styles";
 import "./LogoutButton.css";
@@ -22,6 +24,7 @@ const CustomBlurCircularRoundedIcon = withStyles({
 const LogoutButton = ({ setAuthenticated }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const onLogout = async (e) => {
     await dispatch(logout());
     setAuthenticated(false);
@@ -29,14 +32,18 @@ const LogoutButton = ({ setAuthenticated }) => {
   };
 
   const loggedInUser = useSelector((state) => state?.session.user);
-  console.log(loggedInUser?.profile_URL);
+  // console.log(loggedInUser?.profile_URL);
+  const userId = loggedInUser?.id;
   return (
     <>
       <button className="LogoutModalSubmit" onClick={onLogout}>
         Logout
       </button>
       {!loggedInUser?.profile_URL ? (
-        <div className="profile-icon">
+        <div
+          className="profile-icon"
+          onClick={() => history.push(`/profile/${userId}`)}
+        >
           <CustomBlurCircularRoundedIcon />
         </div>
       ) : (

@@ -153,9 +153,10 @@ class Song(db.Model):
     description = db.Column(db.String(255))
     category = db.Column(db.String(50), nullable=False)
     likes = db.Column(db.Integer, default=0, nullable=False)
-    public = db.Column(db.Boolean, nullable=False)
+    public = db.Column(db.Boolean, nullable=False, default=True)
     image_url = db.Column(db.String(255))
     waveform_url = db.Column(db.String(255))
+    # waveform_url1 = db.Column(db.String(255) default="default")
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
@@ -183,12 +184,13 @@ class Song(db.Model):
         lazy='dynamic'
     )
     #  comments relationship
-    comments = db.relationship('Comment', back_populates='song')
+    comments = db.relationship('Comment', back_populates='song_comments')
 
     def to_dict(self):
         return {
             "id": self.id,
             "artist_id": self.artist_id,
+            "song": self.song,
             "name": self.name,
             "description": self.description,
             "category": self.category,
@@ -215,8 +217,8 @@ class Comment(db.Model):
     updated_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
-    # user relationship
-    song = db.relationship(
+    # user relationship to change song variable
+    song_comments = db.relationship(
         'Song', back_populates='comments')
     user_like = db.relationship(
         'User', secondary=comments_likes, back_populates='comment_like',

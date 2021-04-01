@@ -18,13 +18,20 @@ import * as sessionActions from "./store/session";
 // components
 import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
+import SongForm from "./components/SongForm/index";
+
+import ProfilePage from "./components/ProfilePage";
+// for later to work
 import Waveform from "./components/MediaPlayer/Waveform.js";
+
+import { getAllSongs } from "./store/songs";
 
 export default function App() {
   const dispatch = useDispatch();
 
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [songsLoaded, setSongsLoaded] = useState(false);
 
   useEffect(async () => {
     const user = await authenticate();
@@ -35,42 +42,69 @@ export default function App() {
     setLoaded(true);
   }, [dispatch]);
 
+  const songs = useSelector((state) => Object.values(state.songs));
+
+  useEffect(() => {
+    if (songs) {
+      dispatch(getAllSongs()).then((req) => setSongsLoaded(true));
+    }
+  }, [dispatch]);
+
   if (!loaded) {
     return null;
   }
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <NavBar
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-        <div className="mainContent">
-          <Sidebar
+    songsLoaded && (
+      <ThemeProvider>
+        <BrowserRouter>
+          <NavBar
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />
-          {/* new stuff */}
-          <Route>{/* <Waveform /> */}</Route>
+          <div className="mainContent">
+            <Sidebar
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+            />
+            {/* new stuff */}
+            <ProtectedRoute
+              path="/test"
+              exact={true}
+              authenticated={authenticated}
+            ></ProtectedRoute>
 
-          <Switch>
-            <ProtectedRoute
-              path="/users"
-              exact={true}
-              authenticated={authenticated}
-            ></ProtectedRoute>
-            <ProtectedRoute
-              path="/users/:userId"
-              exact={true}
-              authenticated={authenticated}
-            ></ProtectedRoute>
-            <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-              {/* home will go here */}
-            </ProtectedRoute>
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </ThemeProvider>
+            <Switch>
+              <ProtectedRoute
+                path="/users"
+                exact={true}
+                authenticated={authenticated}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/users/:userId"
+                exact={true}
+                authenticated={authenticated}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path={"/profile/:userId"}
+                exact={true}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              >
+                <ProfilePage />
+                {/* <SongForm /> */}
+              </ProtectedRoute>
+              <ProtectedRoute
+                path="/"
+                exact={true}
+                authenticated={authenticated}
+              >
+                {/* home will go here */}
+              </ProtectedRoute>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    )
   );
 }

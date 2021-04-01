@@ -5,7 +5,7 @@ import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
-
+import SongForm from "../SongForm/index";
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -36,6 +36,7 @@ Modal.setAppElement("#root");
 const NavBar = ({ authenticated, setAuthenticated }) => {
   const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
   const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
+  const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
 
   function openModalLogin() {
     setIsOpenLogin(true);
@@ -45,6 +46,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     setIsOpenSignUp(true);
   }
 
+  function openModalSongForm() {
+    setIsOpenSongForm(true);
+  }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     // subtitle.style.color = '#f00';
@@ -56,6 +60,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
 
   function closeModalSignUp() {
     setIsOpenSignUp(false);
+  }
+  function closeModalSongForm() {
+    setIsOpenSongForm(false);
   }
 
   return (
@@ -135,6 +142,35 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             )}
           </div>
         </div>
+        {/* new stuff */}
+        <div className="LoginSongForm">
+          <div>
+            {authenticated === false ? (
+              ""
+            ) : (
+              <button
+                className="SongFormModalSubmit"
+                onClick={openModalSongForm}
+              >
+                Upload
+              </button>
+            )}
+          </div>
+
+          <Modal
+            isOpen={modalIsOpenSongForm}
+            onRequestClose={closeModalSongForm}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <SongForm
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+              closeModalSongForm={closeModalSongForm}
+            />
+          </Modal>
+        </div>
+        {/* new stuff */}
       </div>
     </nav>
   );
