@@ -20,7 +20,7 @@ const ProfileSongs = () => {
     ? (userSongsValues = Object.values(userSongs))
     : (userSongsValues = null);
 
-  console.log("user Id", userId);
+  // console.log("user Id", userId);
   useEffect(() => {
     dispatch(getUserSongs(userId)).then((req) => setIsLoaded(true));
     // dispatch(getAllSongs())

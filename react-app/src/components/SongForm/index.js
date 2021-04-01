@@ -6,12 +6,7 @@ import "./SongForm.css";
 import { getUserSongs } from "../../store/songs";
 import { useParams } from "react-router-dom";
 
-const SongForm = ({
-  authenticated,
-  setAuthenticated,
-  closeModalSignUp,
-  openModalLogin,
-}) => {
+const SongForm = ({ closeModalSongForm }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.session.user);
@@ -38,6 +33,7 @@ const SongForm = ({
     };
     setSongLoading(true);
     setImageLoading(true);
+    closeModalSongForm();
     const res = await dispatch(newUpload(song_path, songAttributes));
     /* aws uploads can be a bit slow—displaying
     some sort of loading message is a good idea*/
@@ -45,7 +41,8 @@ const SongForm = ({
       await res.json();
       setSongLoading(false);
       setImageLoading(false);
-      history.push("/");
+
+      //  history.push("/");
     } else {
       // setErrors(user.payload.errors);
       setSongLoading(false);
@@ -60,7 +57,7 @@ const SongForm = ({
     ? (userSongsValues = Object.values(userSongs))
     : (userSongsValues = null);
 
-  console.log("user Id", userId);
+  // console.log("user Id", userId);
   useEffect(() => {
     dispatch(getUserSongs(userId)).then((req) => setUserSongsLoaded(true));
     // dispatch(getAllSongs())
