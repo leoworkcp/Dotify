@@ -2,9 +2,16 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import userInfoReducer from "./userInfo";
+import playingReducer from "./playing";
+import songsReducer from "./songs";
+import usersReducer from "./users";
+
 const rootReducer = combineReducers({
   session: sessionReducer,
   userSongs: userInfoReducer,
+  playing: playingReducer,
+  songs: songsReducer,
+  users: usersReducer,
 });
 
 let enhancer;
