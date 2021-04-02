@@ -79,20 +79,21 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
    This will build the dockerfile and push the image to your heroku container registry
 
    ```bash
-   heroku container:push web -a dotify-sound
+   heroku container:push web -a dotify-sound-v1
    ```
 
 8. Release your docker container to heroku
 
    ```bash
-   heroku container:release web -a dotify-sound
+   heroku container:release web -a dotify-sound-v1
    ```
 
 9. set up your database:
 
    ```bash
-   heroku run -a dotify-sound flask db upgrade
-   heroku run -a dotify-sound flask seed all
+   heroku run -a dotify-sound-v1 flask db migrate
+   heroku run -a dotify-sound-v1 flask db upgrade
+   heroku run -a dotify-sound-v1 flask seed all
    ```
 
 10. Under Settings find "Config Vars" and add any additional/secret .env variables.
