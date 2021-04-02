@@ -41,13 +41,13 @@ export default function App() {
     setLoaded(true);
   }, [dispatch]);
 
-  const songs = useSelector((state) => Object.values(state.songs));
+  const songs = useSelector((state) => Object.values(state?.songs));
 
-  useEffect(() => {
-    if (songs) {
-      dispatch(getAllSongs()).then((req) => setSongsLoaded(true));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (songs) {
+  //     dispatch(getAllSongs()).then((req) => setSongsLoaded(true));
+  //   }
+  // }, [dispatch]);
 
   if (!loaded) {
     return null;

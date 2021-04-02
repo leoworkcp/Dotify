@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProfileSongs from "./ProfileSongs";
-import { getArtist } from "../../store/users";
+// import { getArtist } from "../../store/users";
 import "./ProfilePage.css";
 
 const ProfilePage = ({ authenticated, setAuthenticated }) => {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  // const artist = useSelector((state) => state.users.username);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [songsClicked, setSongsClicked] = useState(true);
   const [popularClicked, setPopularClicked] = useState(false);
-
+  // const artist = useSelector((state) => state.users.username);
   // useEffect(() => {
   //   // if (sessionUser.user) setIsLoaded(true);
   //   dispatch(getArtist(userId)).then(() => setIsLoaded(true));
