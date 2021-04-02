@@ -23,8 +23,8 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     seed_users()
-    seed_songs()
-    seed_comments()
+    # seed_songs()
+    # seed_comments()
     # seed_playlists()
 
 
@@ -32,6 +32,6 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
-    undo_songs()
-    undo_comments()
-    undo_playlists()
+    # undo_songs()
+    # undo_comments()
+    # undo_playlists()
