@@ -54,49 +54,47 @@ export default function App() {
   }
 
   return (
-    songsLoaded && (
-      <ThemeProvider>
-        <BrowserRouter>
-          <NavBar
+    <ThemeProvider>
+      <BrowserRouter>
+        <NavBar
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
+        <div className="mainContent">
+          <Sidebar
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />
-          <div className="mainContent">
-            <Sidebar
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-            />
-            {/* new stuff */}
-            <Route
-              path="/test"
+          {/* new stuff */}
+          <Route
+            path="/test"
+            exact={true}
+            authenticated={authenticated}
+          ></Route>
+
+          <Switch>
+            <ProtectedRoute
+              path="/users"
               exact={true}
               authenticated={authenticated}
-            ></Route>
-
-            <Switch>
-              <ProtectedRoute
-                path="/users"
-                exact={true}
+            ></ProtectedRoute>
+            <ProtectedRoute
+              path="/users/:userId"
+              exact={true}
+              authenticated={authenticated}
+            ></ProtectedRoute>
+            <Route path={"/profile/:userId"} exact={true}>
+              <ProfilePage
                 authenticated={authenticated}
-              ></ProtectedRoute>
-              <ProtectedRoute
-                path="/users/:userId"
-                exact={true}
-                authenticated={authenticated}
-              ></ProtectedRoute>
-              <Route path={"/profile/:userId"} exact={true}>
-                <ProfilePage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                />
-              </Route>
-              <Route path="/" exact={true} authenticated={authenticated}>
-                {/* home will go here */}
-              </Route>
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </ThemeProvider>
-    )
+                setAuthenticated={setAuthenticated}
+              />
+            </Route>
+            <Route path="/" exact={true} authenticated={authenticated}>
+              {/* home will go here */}
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
