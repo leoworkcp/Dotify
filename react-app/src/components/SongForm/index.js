@@ -19,6 +19,8 @@ const SongForm = ({ closeModalSongForm }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [newSong, setNewSong] = useState(false);
+  const [isLoaded, setIsLoaded] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ const SongForm = ({ closeModalSongForm }) => {
     const res = await dispatch(newUpload(song_path, songAttributes));
     /* aws uploads can be a bit slow—displaying
     some sort of loading message is a good idea*/
+
     if (res.ok) {
       await res.json();
       setSongLoading(false);
@@ -49,6 +52,11 @@ const SongForm = ({ closeModalSongForm }) => {
       setImageLoading(false);
     }
   };
+
+  function extra(e) {
+    const item = e.target.value;
+    setIsLoaded((isLoaded) => [...isLoaded, item]);
+  }
   const { userId } = useParams();
   const [userSongsLoaded, setUserSongsLoaded] = useState(false);
   const userSongs = useSelector((state) => state.songs.user_songs);
@@ -61,7 +69,8 @@ const SongForm = ({ closeModalSongForm }) => {
   useEffect(() => {
     dispatch(getUserSongs(userId)).then((req) => setUserSongsLoaded(true));
     // dispatch(getAllSongs())
-  }, [dispatch, userId]);
+    return setNewSong(false);
+  }, [dispatch, newSong, userId]);
 
   const updateSong = (e) => {
     const file = e.target.files[0];
@@ -71,6 +80,13 @@ const SongForm = ({ closeModalSongForm }) => {
     const file = e.target.files[0];
     setImage(file);
   };
+
+  const newSongSubmit = () => {
+    return setTimeout(() => {
+      setNewSong(true);
+    }, 10);
+  };
+
   return (
     <div className="SignUpModalWrapper">
       <div className="SignUpModalContainer">
@@ -131,7 +147,7 @@ const SongForm = ({ closeModalSongForm }) => {
             {imageLoading && <p>Loading...</p>}
           </div>
           <div id="upload-submit-button-div">
-            <button id="upload-submit-button" type="submit">
+            <button id="upload-submit-button" type="submit" onClick={extra}>
               Submit
             </button>
           </div>

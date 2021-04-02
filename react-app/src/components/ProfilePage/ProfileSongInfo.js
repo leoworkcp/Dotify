@@ -18,6 +18,7 @@ const ProfileSongInfo = ({ song, authenticated, setAuthenticated }) => {
           <MessageDropdown
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
+            songsId={song.id}
           />
         </div>
         <Link id="profile-song-link" to={`/song/${song.id}`}>

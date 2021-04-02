@@ -1,3 +1,5 @@
+import { authenticate } from "./auth";
+
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
 const EDIT_USER = "song/editUser";
@@ -55,10 +57,16 @@ export const logout = () => (dispatch) => {
 };
 
 // authenticate
+// export const restoreUser = () => async (dispatch) => {
+//   const response = await fetch("/api/auth/");
+//   const data = await response.json();
+//   return dispatch(setUser(data));
+// };
+
 export const restoreUser = () => async (dispatch) => {
-  const response = await fetch("/api/auth/");
-  const data = await response.json();
-  return dispatch(setUser(data));
+  const res = await authenticate();
+  dispatch(setUser(res));
+  return res;
 };
 
 export const updateExistingUser = (user) => async (dispatch) => {

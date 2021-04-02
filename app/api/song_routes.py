@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import db, Song
+from app.models import db, Song, Comment
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, allowed_audio_file)
 
 from app.forms.song_form import SongForm
-
+from app.forms.comment_form import CommentForm
 
 song_routes = Blueprint('songs', __name__)
 
@@ -19,13 +19,6 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f"{field} : {error}")
     return errorMessages
-
-
-# @song_routes.route("/<int:id>")
-# def song_by_id(id):
-#     song = Song.query.get(id)
-#     songDict = {"song": song.to_dict()}
-#     return songDict
 
 
 @song_routes.route('/upload/', methods=['POST'])
@@ -101,11 +94,39 @@ def new_song():
 
 
 @song_routes.route("/")
-@login_required
 def songs():
-    # all_songs = Song.query.all()
-    # songsDict = {"songs": [each_song.to_dict() for each_song in all_songs]}
-    # print(songsDict)
-    # return songsDict
     songs = Song.query.all()
     return {"songs": [song.to_dict() for song in songs]}
+
+
+# get one song by ID
+@song_routes.route("/<int:id>/")
+def song_by_id(id):
+    song = Song.query.get(id)
+    songDict = {"song": song.to_dict()}
+    print(songDict)
+    return songDict
+
+
+# comments routes
+@song_routes.route('/<int:id>/comment/', methods=['POST'])
+def song_comment(id):
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        comment = Comment(
+            description=form.data["description"],
+            user_id=form.data["user_id"],
+            song_id=id
+        )
+        print(comment)
+        db.session.add(comment)
+        db.session.commit()
+    return comment.to_dict()
+
+# @song_routes.route('/comment/<int:id>/delete', methods=["DELETE"])
+# def delete_song_comment(id):
+#     comment = Comment.query.get(id)
+#     db.session.delete(comment)
+#     db.session.commit()
+#     return comment

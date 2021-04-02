@@ -77,3 +77,28 @@ a {
 input {
   border-radius: 4px;
 }
+
+textarea:focus {
+  outline: none;
+}
+
+textarea {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+p {
+  word-break: break-all;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+body::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}

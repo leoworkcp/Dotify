@@ -11,10 +11,11 @@ import { withStyles } from "@material-ui/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import CommentRoundedIcon from "@material-ui/icons/CommentRounded";
 import SongForm from "../SongForm/index";
+import CommentForm from "../CommentForm/CommentForm";
 import Modal from "react-modal";
-
+import "./MessageDropdown.css";
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -77,11 +78,10 @@ const CustomIconButton = withStyles({
   },
 })(IconButton);
 
-const MessageDropdown = ({ authenticated, setAuthenticated }) => {
+const MessageDropdown = ({ authenticated, setAuthenticated, songsId }) => {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [showDeleteMessageModal, setShowDeleteMessageModal] = useState(false);
-  const [showEditMessageModal, setShowEditMessageModal] = useState(false);
+
   const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
 
   function openModalSongForm() {
@@ -93,24 +93,31 @@ const MessageDropdown = ({ authenticated, setAuthenticated }) => {
     setOpen(false);
   }
 
-  const openEditMessageModal = (e) => {
-    setShowEditMessageModal((prev) => !prev);
-    setOpen(false);
-  };
-  const openDeleteMessageModal = (e) => {
-    setShowDeleteMessageModal((prev) => !prev);
-    setOpen(false);
-  };
-
   function openModal() {
     setOpen(true);
+  }
+
+  // comment modal
+  const [openComments, setOpenComments] = useState(false);
+  const [modalIsOpenComments, setIsOpenComments] = useState(false);
+
+  function openModalComments() {
+    setIsOpenComments(true);
+  }
+
+  function closeModalComments() {
+    setIsOpenComments(false);
+    setOpenComments(false);
+  }
+
+  function openModal2() {
+    setOpenComments(true);
   }
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -146,9 +153,11 @@ const MessageDropdown = ({ authenticated, setAuthenticated }) => {
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
-              <CustomMenuItem onClick={(e) => openModalSongForm(e)}>
-                <div className="serverModalCategory">Edit</div>
-                <EditIcon style={{ color: "white" }} />
+              <CustomMenuItem onClick={(e) => openModal(e)}>
+                <div className="edit-dropdown__container">
+                  <button onClick={(e) => openModalSongForm(e)}>Edit</button>
+                  <EditIcon style={{ color: "white" }} />
+                </div>
                 <div className="LoginSongForm">
                   <Modal
                     isOpen={modalIsOpenSongForm}
@@ -164,10 +173,37 @@ const MessageDropdown = ({ authenticated, setAuthenticated }) => {
                   </Modal>
                 </div>
               </CustomMenuItem>
-              <CustomMenuItem onClick={(e) => openDeleteMessageModal(e)}>
-                <div className="serverModalCategory">Delete</div>
+              <CustomMenuItem>
+                <div className="edit-dropdown__container">
+                  <button>Delete</button>
+                </div>
                 <DeleteIcon style={{ color: "white" }} />
               </CustomMenuItem>
+              {/* view comments modal */}
+              <CustomMenuItem onClick={(e) => openModal2(e)}>
+                <div className="edit-dropdown__container">
+                  <button onClick={(e) => openModalComments(e)}>
+                    Comments
+                  </button>
+                  <CommentRoundedIcon style={{ color: "white" }} />
+                </div>
+                <div className="LoginSongForm">
+                  <Modal
+                    isOpen={modalIsOpenComments}
+                    onRequestClose={closeModalComments}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                  >
+                    <CommentForm
+                      authenticated={authenticated}
+                      setAuthenticated={setAuthenticated}
+                      closeModalComments={closeModalComments}
+                      songsId={songsId}
+                    />
+                  </Modal>
+                </div>
+              </CustomMenuItem>
+              {/* view comments modal ends*/}
             </CustomMenuList>
           </ClickAwayListener>
         </Paper>
