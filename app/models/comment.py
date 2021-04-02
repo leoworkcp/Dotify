@@ -19,7 +19,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     likes = db.Column(db.Integer, default=0, nullable=False)
-    descrition = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     song_id = db.Column(
         db.Integer, db.ForeignKey('songs.id'), nullable=False
@@ -42,7 +42,7 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'likes': self.likes,
-            'message': self.message,
+            'description': self.description,
             'user_id': self.user_id,
             'song_id': self.song_id
         }

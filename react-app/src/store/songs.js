@@ -85,15 +85,16 @@ export const getSong = (songId) => async (dispatch) => {
   return data;
 };
 
+// comment POST
 export const postUserComment = (comment, songId) => async (dispatch) => {
-  const { content, user_id } = comment;
-  const res = await fetch(`/api/songs/${songId}/comment`, {
+  const { description, user_id } = comment;
+  const res = await fetch(`/api/songs/${songId}/comment/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      content,
+      description,
       user_id,
       song_id: songId,
     }),
@@ -105,7 +106,7 @@ export const postUserComment = (comment, songId) => async (dispatch) => {
 
   return data;
 };
-
+// comment DELETE
 export const deleteUserComment = (commentId) => async (dispatch) => {
   const res = await fetch(`/api/songs/comment/${commentId}/delete`, {
     method: "DELETE",

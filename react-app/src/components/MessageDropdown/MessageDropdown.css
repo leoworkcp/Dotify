@@ -1,0 +1,17 @@
+.edit-dropdown__container {
+  width: 135px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-dropdown__container > button {
+  /* background-color: aqua; */
+  background-color: transparent;
+  width: 100px;
+  text-align: left;
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #fff;
+  letter-spacing: 0.01938em;
+  padding-right: 10px;
+}

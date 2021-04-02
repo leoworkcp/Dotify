@@ -18,8 +18,8 @@ import * as sessionActions from "./store/session";
 // components
 import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
-import SongForm from "./components/SongForm/index";
 
+import CommentForm from "./components/CommentForm/CommentForm";
 import ProfilePage from "./components/ProfilePage";
 // for later to work
 import Waveform from "./components/MediaPlayer/Waveform.js";
@@ -34,9 +34,8 @@ export default function App() {
   const [songsLoaded, setSongsLoaded] = useState(false);
 
   useEffect(async () => {
-    const user = await authenticate();
+    const user = await dispatch(sessionActions.restoreUser());
     if (!user.errors) {
-      dispatch(sessionActions.restoreUser());
       setAuthenticated(true);
     }
     setLoaded(true);
@@ -68,11 +67,11 @@ export default function App() {
               setAuthenticated={setAuthenticated}
             />
             {/* new stuff */}
-            <ProtectedRoute
+            <Route
               path="/test"
               exact={true}
               authenticated={authenticated}
-            ></ProtectedRoute>
+            ></Route>
 
             <Switch>
               <ProtectedRoute
@@ -85,25 +84,15 @@ export default function App() {
                 exact={true}
                 authenticated={authenticated}
               ></ProtectedRoute>
-              <ProtectedRoute
-                path={"/profile/:userId"}
-                exact={true}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
-              >
+              <Route path={"/profile/:userId"} exact={true}>
                 <ProfilePage
                   authenticated={authenticated}
                   setAuthenticated={setAuthenticated}
                 />
-                {/* <SongForm /> */}
-              </ProtectedRoute>
-              <ProtectedRoute
-                path="/"
-                exact={true}
-                authenticated={authenticated}
-              >
+              </Route>
+              <Route path="/" exact={true} authenticated={authenticated}>
                 {/* home will go here */}
-              </ProtectedRoute>
+              </Route>
             </Switch>
           </div>
         </BrowserRouter>

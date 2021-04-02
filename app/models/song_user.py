@@ -101,7 +101,11 @@ class User(db.Model, UserMixin):
     )
 
     # -----------------------------------------------------------
-    song_admin = db.relationship('Song', back_populates='artist')
+    song_admin = db.relationship('Song', back_populates='artists')
+
+    # comment relationship
+    comments_users = db.relationship(
+        "Comment", back_populates='users_comments')
     # songs relationship
     songs = db.relationship(
         'Song', secondary=song_users, back_populates='users', lazy='dynamic'
@@ -164,7 +168,7 @@ class Song(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
 
-    artist = db.relationship('User', back_populates='song_admin')
+    artists = db.relationship('User', back_populates='song_admin')
 
     #  songs relationship
     users = db.relationship(
@@ -198,6 +202,8 @@ class Song(db.Model):
             "public": self.public,
             "image_url": self.image_url,
             "waveform_url": self.waveform_url,
+            "comments": [comment.to_dict() for comment in self.comments],
+            "artist": self.artists.to_dict(),
         }
 
 
@@ -206,7 +212,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     likes = db.Column(db.Integer, default=0, nullable=False)
-    descrition = db.Column(db.Text, nullable=False)
+    description = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     song_id = db.Column(
         db.Integer, db.ForeignKey('songs.id'), nullable=False
@@ -218,8 +224,12 @@ class Comment(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
     # user relationship to change song variable
+    users_comments = db.relationship('User', back_populates='comments_users')
+    # song relationship
     song_comments = db.relationship(
         'Song', back_populates='comments')
+
+    # like joins table
     user_like = db.relationship(
         'User', secondary=comments_likes, back_populates='comment_like',
         lazy='dynamic'
@@ -229,7 +239,7 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'likes': self.likes,
-            'message': self.message,
+            'description': self.description,
             'user_id': self.user_id,
             'song_id': self.song_id
         }
