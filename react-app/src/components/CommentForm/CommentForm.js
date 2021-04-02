@@ -66,7 +66,7 @@ const CommentForm = ({ songsId }) => {
 
   //
 
-  const { userId } = useParams();
+  // const { userId } = useParams();
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
@@ -74,19 +74,19 @@ const CommentForm = ({ songsId }) => {
 
   // new Stuff -------------------------->>>\
   // const likes = useSelector((state) => state.songs.likes);
-  // const sessionUser = useSelector((state) => state.user);
+  const sessionUser = useSelector((state) => state?.session);
   // const allLikes = useSelector((state) => state.songs.likes);
   // const artist = useSelector((state) => state.users);
   const song = useSelector((state) => state.songs?.currentSong);
-  console.log(song);
+  console.log(sessionUser);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [deleteShown, setDeleteShown] = useState(false);
+  const [deleteShown, setDeleteShown] = useState(true);
   const [newComment, setNewComment] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
   let comments;
-  // let userId;
+  let userId;
 
   // const someFunction = () => {
   //   console.log("hello", sessionUser?.user?.id)
@@ -99,30 +99,12 @@ const CommentForm = ({ songsId }) => {
   //   }
   // };
 
-  // if (sessionUser.user) userId = sessionUser?.user?.id;
+  if (sessionUser.user) userId = sessionUser?.user?.id;
 
   if (isLoaded) {
     comments = song.comments;
   }
 
-  console.log(comments);
-  const deleteComment = (e) => {
-    console.log();
-    if (userId == e.target.className.split(" ")[1]) {
-      dispatch(deleteUserComment(e.target.id));
-      setDeleted(true);
-      setTimeout(() => {
-        setDeleted(false);
-      }, 100);
-    }
-  };
-
-  useEffect(async () => {
-    dispatch(getSong(songsId)).then(() => setIsLoaded(true));
-    // dispatch(getAllLikes());
-
-    return setNewComment(false);
-  }, [dispatch, newComment, deleted]);
   // new Stuff -------------------------->>> ENDS
 
   const commentSubmit = async (e) => {
@@ -145,80 +127,103 @@ const CommentForm = ({ songsId }) => {
     }, 100);
   };
 
-  useEffect(() => {
-    setComment("");
-  }, [newComment, liked]);
-
   const newCommentSubmit = () => {
     return setTimeout(() => {
       setNewComment(true);
     }, 10);
   };
 
+  const deleteComment = (e) => {
+    console.log();
+    if (userId == e.target.className.split(" ")[1]) {
+      dispatch(deleteUserComment(e.target.id));
+      setDeleted(true);
+      setTimeout(() => {
+        setDeleted(false);
+      }, 100);
+    }
+  };
+  console.log(userId);
+
+  useEffect(() => {
+    setComment("");
+  }, [newComment, liked]);
+
+  useEffect(async () => {
+    dispatch(getSong(songsId)).then(() => setIsLoaded(true));
+    // dispatch(getAllLikes());
+
+    return setNewComment(false);
+  }, [dispatch, newComment, deleted]);
+
   return (
-    <div className="SignUpModalWrapper">
-      <div className="SignUpModalContainer">
-        <div className="SignUpModalFormTitleContainer">
-          <div className="SignUpModalFormTitle">Comments</div>
-        </div>
-        <div className="comment-form__container">
-          {comments?.map((comment) => {
-            return (
-              <>
-                <div className="comment-container">
-                  <p id="old-comments">{comment?.description}</p>
-                </div>
-                <div id="like-comment__container">
-                  {liked ? (
-                    <button id="btn-likes" onClick={likeSong}>
-                      <FavoriteRoundedIcon id="like-btn" />
-                    </button>
-                  ) : (
-                    <button id="btn-likes" onClick={likeSong}>
-                      <FavoriteBorderRoundedIcon id="liked-btn" />
-                    </button>
-                  )}
-                </div>
-                <CustomMenuItem onClick={(e) => openDeleteMessageModal(e)}>
-                  <DeleteIcon style={{ color: "white" }} />
-                </CustomMenuItem>
-              </>
-            );
-          })}
-          {/* <div id="like-comment__container">
-            {liked ? (
-              <button id="like-btn" onClick={likeSong}>
-                liked
-               
-              </button>
-            ) : (
-              <button id="like-btn" onClick={likeSong}>
-                like
-              
-              </button>
-            )}
-          </div> */}
-          <form onSubmit={commentSubmit}>
-            <div className="SignUpModalInputContainer">
-              <textarea
-                rows="3"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Add a comment at..."
-              ></textarea>
-            </div>
-            <div className="SignUpModalButtonContainer">
-              <button
-                id="comment-submit"
-                className="SignUpModalSubmit"
-                onClick={newCommentSubmit}
-                type="submit"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-          {/* <ConfirmDeleteMessage
+    isLoaded && (
+      <div className="SignUpModalWrapper">
+        <div className="SignUpModalContainer">
+          <div className="SignUpModalFormTitleContainer">
+            <div className="SignUpModalFormTitle">Comments</div>
+          </div>
+          <div
+            className="comment-form__container"
+            // onMouseEnter={() => setDeleteShown(true)}
+            // onMouseLeave={() => setDeleteShown(false)}
+          >
+            {comments?.map((comment) => {
+              return (
+                <>
+                  <div id={comment.id} className="comment-container">
+                    <p id="old-comments">{comment?.description}</p>
+
+                    <div id="like-comment__container">
+                      {liked ? (
+                        <button id="btn-likes" onClick={likeSong}>
+                          <FavoriteRoundedIcon id="like-btn" />
+                        </button>
+                      ) : (
+                        <button id="btn-likes" onClick={likeSong}>
+                          <FavoriteBorderRoundedIcon id="liked-btn" />
+                        </button>
+                      )}
+
+                      {deleteShown && userId === comment.user_id && (
+                        <button
+                          className={`delete-comment__btn ${comment.user_id}`}
+                          id={comment.id}
+                          userId={comment.user_id}
+                          onClick={deleteComment}
+                        >
+                          🗑️
+                          {/* <DeleteIcon /> */}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+
+            <form onSubmit={commentSubmit}>
+              <div className="SignUpModalInputContainer">
+                <textarea
+                  id="textarea-id"
+                  rows="3"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Add a comment at..."
+                ></textarea>
+              </div>
+              <div className="SignUpModalButtonContainer" id="submit-comment">
+                <button
+                  id="comment-submit"
+                  className="SignUpModalSubmit"
+                  onClick={newCommentSubmit}
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+            {/* <ConfirmDeleteMessage
         showDeleteMessageModal={showDeleteMessageModal}
         setShowDeleteMessageModal={setShowDeleteMessageModal}
       />
@@ -226,9 +231,10 @@ const CommentForm = ({ songsId }) => {
         showEditMessageModal={showEditMessageModal}
         setShowEditMessageModal={setShowEditMessageModal}
       /> */}
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
