@@ -12,6 +12,7 @@ def users():
 
 
 @user_routes.route('/<int:id>/')
+@login_required
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
@@ -50,7 +51,7 @@ def user_songs(id):
     return songsDict
 
 
-@user_routes.route("/songs/")
-def songs():
-    songs = Song.query.all()
-    return {"songs": [song.to_dict() for song in songs]}
+# @user_routes.route("/songs/")
+# def songs():
+#     songs = Song.query.all()
+#     return {"songs": [song.to_dict() for song in songs]}

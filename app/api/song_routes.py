@@ -104,7 +104,7 @@ def songs():
 def song_by_id(id):
     song = Song.query.get(id)
     songDict = {"song": song.to_dict()}
-    print(songDict)
+    # print(songDict)
     return songDict
 
 
