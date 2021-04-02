@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // like icons
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
-
+import Timestamp from "react-timestamp";
 //
 import {
   MenuList,
@@ -78,7 +78,6 @@ const CommentForm = ({ songsId }) => {
   // const allLikes = useSelector((state) => state.songs.likes);
   // const artist = useSelector((state) => state.users);
   const song = useSelector((state) => state.songs?.currentSong);
-  console.log(sessionUser);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [deleteShown, setDeleteShown] = useState(true);
@@ -105,8 +104,6 @@ const CommentForm = ({ songsId }) => {
     comments = song.comments;
   }
 
-  // new Stuff -------------------------->>> ENDS
-
   const commentSubmit = async (e) => {
     e.preventDefault();
 
@@ -115,7 +112,7 @@ const CommentForm = ({ songsId }) => {
       user_id: Number(userId),
       description: comment,
     };
-    // console.log(songsId, userComment);
+
     await dispatch(postUserComment(userComment, songsId));
   };
 
@@ -134,7 +131,6 @@ const CommentForm = ({ songsId }) => {
   };
 
   const deleteComment = (e) => {
-    console.log();
     if (userId == e.target.className.split(" ")[1]) {
       dispatch(deleteUserComment(e.target.id));
       setDeleted(true);
@@ -143,7 +139,6 @@ const CommentForm = ({ songsId }) => {
       }, 100);
     }
   };
-  console.log(userId);
 
   useEffect(() => {
     setComment("");
@@ -169,6 +164,9 @@ const CommentForm = ({ songsId }) => {
             // onMouseLeave={() => setDeleteShown(false)}
           >
             {comments?.map((comment) => {
+              {
+                console.log(comment);
+              }
               return (
                 <>
                   <div id={comment.id} className="comment-container">
@@ -184,7 +182,12 @@ const CommentForm = ({ songsId }) => {
                           <FavoriteBorderRoundedIcon id="liked-btn" />
                         </button>
                       )}
-
+                      <Timestamp
+                        // relative
+                        date={comment.created_at}
+                        options={{ includeDay: true, twentyFourHour: true }}
+                        autoUpdate
+                      />
                       {deleteShown && userId === comment.user_id && (
                         <button
                           className={`delete-comment__btn ${comment.user_id}`}

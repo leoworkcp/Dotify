@@ -87,7 +87,7 @@ export const getSong = (songId) => async (dispatch) => {
 
 // comment POST
 export const postUserComment = (comment, songId) => async (dispatch) => {
-  const { description, user_id } = comment;
+  const { description, user_id, created_at } = comment;
   const res = await fetch(`/api/songs/${songId}/comment/`, {
     method: "POST",
     headers: {
@@ -97,6 +97,7 @@ export const postUserComment = (comment, songId) => async (dispatch) => {
       description,
       user_id,
       song_id: songId,
+      created_at,
     }),
   });
 

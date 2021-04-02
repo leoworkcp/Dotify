@@ -241,7 +241,8 @@ class Comment(db.Model):
             'likes': self.likes,
             'description': self.description,
             'user_id': self.user_id,
-            'song_id': self.song_id
+            'song_id': self.song_id,
+            'created_at': self.created_at
         }
 
 

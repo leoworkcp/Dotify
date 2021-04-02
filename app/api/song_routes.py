@@ -117,7 +117,8 @@ def song_comment(id):
         comment = Comment(
             description=form.data["description"],
             user_id=form.data["user_id"],
-            song_id=id
+            song_id=id,
+            created_at=form.data["created_at"]
         )
         print(comment)
         db.session.add(comment)
