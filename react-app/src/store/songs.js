@@ -108,7 +108,7 @@ export const postUserComment = (comment, songId) => async (dispatch) => {
 };
 // comment DELETE
 export const deleteUserComment = (commentId) => async (dispatch) => {
-  const res = await fetch(`/api/songs/comment/${commentId}/delete`, {
+  const res = await fetch(`/api/songs/comment/${commentId}/delete/`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
