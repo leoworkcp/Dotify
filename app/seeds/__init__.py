@@ -23,8 +23,8 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     seed_users()
-    # seed_songs()
-    # seed_comments()
+    seed_songs()
+    seed_comments()
     # seed_playlists()
 
 
