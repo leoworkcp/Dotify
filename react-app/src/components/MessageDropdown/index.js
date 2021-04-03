@@ -15,6 +15,8 @@ import CommentRoundedIcon from "@material-ui/icons/CommentRounded";
 import SongForm from "../SongForm/index";
 import CommentForm from "../CommentForm/CommentForm";
 import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUserSong } from "../../store/songs";
 import "./MessageDropdown.css";
 const customStyles = {
   overlay: {
@@ -78,11 +80,27 @@ const CustomIconButton = withStyles({
   },
 })(IconButton);
 
-const MessageDropdown = ({ authenticated, setAuthenticated, songsId }) => {
+const MessageDropdown = ({
+  authenticated,
+  setAuthenticated,
+  songsId,
+  song,
+}) => {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
+  //  new stuff delete song
+  const [deleteShown, setDeleteShown] = useState(true);
+  const [deleted, setDeleted] = useState(false);
+  const sessionUser = useSelector((state) => state?.session);
+  let userId;
+  if (sessionUser.user) userId = sessionUser?.user?.id;
+
+  console.log(song?.artist_id);
+
+  console.log(userId);
+  //  end delete song
 
   function openModalSongForm() {
     setIsOpenSongForm(true);
@@ -119,6 +137,16 @@ const MessageDropdown = ({ authenticated, setAuthenticated, songsId }) => {
       return;
     }
     setOpen(false);
+  };
+
+  const deleteSong = (e) => {
+    if (userId == e.target.className.split(" ")[1]) {
+      dispatch(deleteUserSong(e.target.id));
+      setDeleted(true);
+      setTimeout(() => {
+        setDeleted(false);
+      }, 100);
+    }
   };
 
   return (
@@ -175,7 +203,16 @@ const MessageDropdown = ({ authenticated, setAuthenticated, songsId }) => {
               </CustomMenuItem>
               <CustomMenuItem>
                 <div className="edit-dropdown__container">
-                  <button>Delete</button>
+                  {deleteShown && userId === song.artist_id && (
+                    <button
+                      className={`delete-comment__btn ${song.artist_id}`}
+                      id={song.id}
+                      userId={song.artist_id}
+                      onClick={deleteSong}
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
                 <DeleteIcon style={{ color: "white" }} />
               </CustomMenuItem>

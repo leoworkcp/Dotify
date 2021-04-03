@@ -3,6 +3,7 @@ const USER_SONGS = "/songs/userSongs";
 const SONG = "/songs/song";
 const POST_COMMENT = "/songs/postComment";
 const DELETE_COMMENT = "/songs/deleteComment";
+const DELETE_SONG = "/songs/deleteSong";
 const LIKE = "/songs/like";
 const ALL_LIKES = "/songs/allLikes";
 
@@ -36,6 +37,12 @@ const postComment = (comment) => {
 const deleteComment = () => {
   return {
     type: DELETE_COMMENT,
+  };
+};
+
+const deleteSong = () => {
+  return {
+    type: DELETE_SONG,
   };
 };
 
@@ -122,6 +129,21 @@ export const deleteUserComment = (commentId) => async (dispatch) => {
 
   return data;
 };
+// Delete user song
+export const deleteUserSong = (songId) => async (dispatch) => {
+  const res = await fetch(`/api/songs/${songId}/delete/`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("response", res);
+  const data = await res.json();
+
+  dispatch(deleteSong());
+
+  return data;
+};
 
 export const userLike = (songId, userId) => async (dispatch) => {
   const res = await fetch(`/api/songs/likes/${songId}/${userId}`);
@@ -167,6 +189,9 @@ const songsReducer = (state = initialState, action) => {
       newState.currentSong = song;
       return newState;
     }
+    case DELETE_SONG: {
+      return state;
+    }
     case POST_COMMENT: {
       newState = { ...state };
       // const userSongs = newState.user_songs = {}
@@ -177,6 +202,7 @@ const songsReducer = (state = initialState, action) => {
     case DELETE_COMMENT: {
       return state;
     }
+
     case ALL_LIKES: {
       newState = { ...state };
       const likes = action.likes;

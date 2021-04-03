@@ -19,6 +19,7 @@ const ProfileSongInfo = ({ song, authenticated, setAuthenticated }) => {
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
             songsId={song.id}
+            song={song}
           />
         </div>
         <Link id="profile-song-link" to={`/song/${song.id}`}>

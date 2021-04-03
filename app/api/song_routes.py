@@ -132,3 +132,12 @@ def delete_song_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return comment.to_dict()
+
+
+@song_routes.route('/<int:id>/delete/', methods=["DELETE"])
+def delete_song(id):
+    song = Song.query.get(id)
+    db.session.delete(song)
+    db.session.commit()
+    # db.session.flush()
+    return song.to_dict()

@@ -101,28 +101,29 @@ class User(db.Model, UserMixin):
     )
 
     # -----------------------------------------------------------
-    song_admin = db.relationship('Song', back_populates='artists')
+    song_admin = db.relationship(
+        'Song', back_populates='artists',)
 
     # comment relationship
     comments_users = db.relationship(
-        "Comment", back_populates='users_comments')
+        "Comment", back_populates='users_comments', cascade="all")
     # songs relationship
     songs = db.relationship(
-        'Song', secondary=song_users, back_populates='users', lazy='dynamic'
+        'Song', secondary=song_users, back_populates='users', lazy='dynamic',
     )
     # songs likes
     song_like = db.relationship(
-        'Song', secondary=songs_likes, back_populates='user_song_like', lazy='dynamic'
+        'Song', secondary=songs_likes, back_populates='user_song_like', lazy='dynamic',
     )
 
     # playlist_likes
     playlist_like = db.relationship(
-        'Playlist', secondary=playlist_likes, back_populates='user_playlist_like', lazy='dynamic'
+        'Playlist', secondary=playlist_likes, back_populates='user_playlist_like', lazy='dynamic',
     )
 
     #  comments_likes
     comment_like = db.relationship(
-        'Comment', secondary=comments_likes, back_populates='user_like', lazy='dynamic'
+        'Comment', secondary=comments_likes, back_populates='user_like', lazy='dynamic',
     )
 
     @property
@@ -168,27 +169,32 @@ class Song(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
 
-    artists = db.relationship('User', back_populates='song_admin')
+
+# single_parent = True
+    artists = db.relationship(
+        'User', back_populates='song_admin',)
+
+  #  comments relationship
+    comments = db.relationship(
+        'Comment', back_populates='song_comments',  cascade="all")
 
     #  songs relationship
     users = db.relationship(
         'User', secondary=song_users, back_populates='songs',
-        lazy='dynamic'
+        lazy='dynamic',
     )
     # playlist relationship
     songs_playlist = db.relationship(
         'Playlist', secondary=song_playlists, back_populates='playlists',
-        lazy='dynamic'
+        lazy='dynamic',
     )
     #  playlist relationship Like
 
     # songs relationship Like
     user_song_like = db.relationship(
         'User', secondary=songs_likes, back_populates='song_like',
-        lazy='dynamic'
+        lazy='dynamic',
     )
-    #  comments relationship
-    comments = db.relationship('Comment', back_populates='song_comments')
 
     def to_dict(self):
         return {
@@ -224,15 +230,16 @@ class Comment(db.Model):
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
     # user relationship to change song variable
-    users_comments = db.relationship('User', back_populates='comments_users')
+    users_comments = db.relationship(
+        'User', back_populates='comments_users', )
     # song relationship
     song_comments = db.relationship(
-        'Song', back_populates='comments')
+        'Song', back_populates='comments', )
 
     # like joins table
     user_like = db.relationship(
         'User', secondary=comments_likes, back_populates='comment_like',
-        lazy='dynamic'
+        lazy='dynamic',
     )
 
     def to_dict(self):
