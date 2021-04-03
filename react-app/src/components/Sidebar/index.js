@@ -50,7 +50,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-function Sidebar({ authenticated, setAuthenticated }) {
+function Sidebar({ authenticated, setAuthenticated, userId }) {
   const classes = useStyles();
 
   const history = useHistory();
@@ -93,7 +93,7 @@ function Sidebar({ authenticated, setAuthenticated }) {
   }
 
   function libraryButton() {
-    history.push("/collection/playlist");
+    history.push(`/profile/${userId}`);
   }
 
   function createPlaylist() {

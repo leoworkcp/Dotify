@@ -42,7 +42,8 @@ export default function App() {
   }, [dispatch]);
 
   const songs = useSelector((state) => Object.values(state?.songs));
-
+  const loggedInUser = useSelector((state) => state?.session.user);
+  const userId = loggedInUser?.id;
   // useEffect(() => {
   //   if (songs) {
   //     dispatch(getAllSongs()).then((req) => setSongsLoaded(true));
@@ -59,9 +60,11 @@ export default function App() {
         <NavBar
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
+          loggedInUser={loggedInUser}
         />
         <div className="mainContent">
           <Sidebar
+            userId={userId}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />

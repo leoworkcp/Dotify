@@ -33,7 +33,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const NavBar = ({ authenticated, setAuthenticated }) => {
+const NavBar = ({ authenticated, setAuthenticated, loggedInUser }) => {
   const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
   const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
   const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
@@ -138,7 +138,10 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             {authenticated === false ? (
               ""
             ) : (
-              <LogoutButton setAuthenticated={setAuthenticated} />
+              <LogoutButton
+                setAuthenticated={setAuthenticated}
+                loggedInUser={loggedInUser}
+              />
             )}
           </div>
         </div>

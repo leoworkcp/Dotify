@@ -21,7 +21,7 @@ const CustomBlurCircularRoundedIcon = withStyles({
   },
 })(BlurCircularRoundedIcon);
 
-const LogoutButton = ({ setAuthenticated }) => {
+const LogoutButton = ({ setAuthenticated, loggedInUser }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -31,19 +31,13 @@ const LogoutButton = ({ setAuthenticated }) => {
     history.push("/");
   };
 
-  const loggedInUser = useSelector((state) => state?.session.user);
-  // console.log(loggedInUser?.profile_URL);
-  const userId = loggedInUser?.id;
   return (
     <>
       <button className="LogoutModalSubmit" onClick={onLogout}>
         Logout
       </button>
       {!loggedInUser?.profile_URL ? (
-        <div
-          className="profile-icon"
-          onClick={() => history.push(`/profile/${userId}`)}
-        >
+        <div className="profile-icon">
           <CustomBlurCircularRoundedIcon />
         </div>
       ) : (
