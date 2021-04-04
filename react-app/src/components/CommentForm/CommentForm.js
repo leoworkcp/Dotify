@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // like icons
@@ -64,9 +64,6 @@ const CommentForm = ({ songsId }) => {
     setShowDeleteMessageModal((prev) => !prev);
   };
 
-  //
-
-  // const { userId } = useParams();
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
@@ -180,7 +177,10 @@ const CommentForm = ({ songsId }) => {
                         usersLoaded &&
                         user?.id === comment?.user_id && (
                           <div className="profile-icon__comments">
-                            <img src={user?.profile_URL} alt="profile-img" />
+                            <NavLink to={`profile/${comment.user_id}`}>
+                              <img src={user?.profile_URL} alt="profile-img" />
+                              <p id="profile-username">{user?.username}</p>
+                            </NavLink>
                           </div>
                         )
                       );
