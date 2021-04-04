@@ -6,7 +6,7 @@ import ProfileSongs from "./ProfileSongs";
 import "./ProfilePage.css";
 
 const ProfilePage = ({ authenticated, setAuthenticated, loggedInUser }) => {
-  const { userId } = useParams();
+  const { userid } = useParams();
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -15,8 +15,8 @@ const ProfilePage = ({ authenticated, setAuthenticated, loggedInUser }) => {
   // const artist = useSelector((state) => state.users.username);
   // useEffect(() => {
   //   // if (sessionUser.user) setIsLoaded(true);
-  //   dispatch(getArtist(userId)).then(() => setIsLoaded(true));
-  // }, [dispatch, userId]);
+  //   dispatch(getArtist(userid)).then(() => setIsLoaded(true));
+  // }, [dispatch, userid]);
 
   const displaySongs = () => {
     setSongsClicked(true);
@@ -58,7 +58,7 @@ const ProfilePage = ({ authenticated, setAuthenticated, loggedInUser }) => {
             <ProfileSongs
               authenticated={authenticated}
               setAuthenticated={setAuthenticated}
-              userId={userId}
+              userid={userid}
               loggedInUser={loggedInUser}
             />
           </div>

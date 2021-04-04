@@ -76,8 +76,8 @@ export const getAllSongs = () => async (dispatch) => {
 
   return data;
 };
-export const getUserSongs = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/users/songs/${userId}/`);
+export const getUserSongs = (userid) => async (dispatch) => {
+  const res = await fetch(`/api/users/songs/${userid}/`);
   const data = await res.json();
   // console.log("data", data);
   dispatch(userSongs(data.songs));
@@ -145,8 +145,8 @@ export const deleteUserSong = (songId) => async (dispatch) => {
   return data;
 };
 
-export const userLike = (songId, userId) => async (dispatch) => {
-  const res = await fetch(`/api/songs/likes/${songId}/${userId}`);
+export const userLike = (songId, userid) => async (dispatch) => {
+  const res = await fetch(`/api/songs/likes/${songId}/${userid}`);
   const data = await res.json();
   // console.log(data)
   dispatch(like(data));

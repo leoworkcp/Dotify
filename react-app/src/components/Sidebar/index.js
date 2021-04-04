@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Sidebar({ userId }) {
+function Sidebar({ userid }) {
   const classes = useStyles();
 
   const history = useHistory();
@@ -33,7 +33,7 @@ function Sidebar({ userId }) {
   }
 
   function libraryButton() {
-    history.push(`/profile/${userId}`);
+    history.push(`/profile/${userid}`);
   }
 
   function createPlaylist() {

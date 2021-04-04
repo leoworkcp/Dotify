@@ -7,7 +7,7 @@ import ProfileSongInfo from "./ProfileSongInfo";
 const ProfileSongs = ({
   authenticated,
   setAuthenticated,
-  userId,
+  userid,
   loggedInUser,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,14 +23,15 @@ const ProfileSongs = ({
     : (userSongsValues = null);
 
   useEffect(() => {
-    dispatch(getUserSongs(userId)).then((req) => setIsLoaded(true));
-  }, [dispatch, userId]);
+    dispatch(getUserSongs(userid)).then((req) => setIsLoaded(true));
+  }, [dispatch, userid]);
 
   return (
     isLoaded && (
       <div id="profile-user__page">
         {userSongsValues.map((song, idx) => (
           <ProfileSongInfo
+            key={idx}
             song={song}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
