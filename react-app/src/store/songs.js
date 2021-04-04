@@ -79,7 +79,7 @@ export const getAllSongs = () => async (dispatch) => {
 export const getUserSongs = (userId) => async (dispatch) => {
   const res = await fetch(`/api/users/songs/${userId}/`);
   const data = await res.json();
-  console.log("data from thunk", data);
+  // console.log("data", data);
   dispatch(userSongs(data.songs));
 
   return data;

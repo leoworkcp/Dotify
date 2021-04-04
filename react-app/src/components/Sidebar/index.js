@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import LoginForm from "../auth/LoginForm";
 import SignUpForm from "../auth/SignUpForm";
 
-import { fetchUserSongs } from "../../store/userInfo";
 import Modal from "react-modal";
 import "./SideBar.css";
 
@@ -79,11 +78,6 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
   function closeModalSignUp() {
     setIsOpenSignUp(false);
   }
-
-  //   useEffect(() => {
-  //     dispatch(fetchUserSongs(loggedInUser?.id));
-  //     setIsLoaded(true);
-  //   }, [dispatch]);
 
   function homeButton() {
     history.push("/");

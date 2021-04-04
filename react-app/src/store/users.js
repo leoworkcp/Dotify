@@ -42,12 +42,7 @@ const usersReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case ALL_USERS: {
-      newState = { ...state };
-      const users = action.users;
-      const allUsers = {};
-      users.forEach((user) => (allUsers[user.id] = user));
-      newState.users = allUsers;
-      return newState;
+      return action.users;
     }
     case ARTIST: {
       newState = { ...state };

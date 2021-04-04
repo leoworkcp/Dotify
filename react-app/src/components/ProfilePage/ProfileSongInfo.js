@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MessageDropdown from "../MessageDropdown/index";
-const ProfileSongInfo = ({ song, authenticated, setAuthenticated }) => {
+const ProfileSongInfo = ({
+  song,
+  authenticated,
+  setAuthenticated,
+  loggedInUser,
+}) => {
   return (
     <>
       <div
@@ -20,6 +25,7 @@ const ProfileSongInfo = ({ song, authenticated, setAuthenticated }) => {
             setAuthenticated={setAuthenticated}
             songsId={song.id}
             song={song}
+            loggedInUser={loggedInUser}
           />
         </div>
         <Link id="profile-song-link" to={`/song/${song.id}`}>

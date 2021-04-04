@@ -223,6 +223,7 @@ class Comment(db.Model):
     song_id = db.Column(
         db.Integer, db.ForeignKey('songs.id'), nullable=False
     )
+
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )

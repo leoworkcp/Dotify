@@ -23,7 +23,7 @@ import { postUserComment, userLike } from "../../store/songs";
 import "./CommentForm.css";
 import { getSong } from "../../store/songs";
 
-import { getArtist } from "../../store/users";
+import { getAllUsers } from "../../store/users";
 
 import { deleteUserComment, getAllLikes } from "../../store/songs";
 // new Imports
@@ -83,10 +83,11 @@ const CommentForm = ({ songsId }) => {
   const [deleteShown, setDeleteShown] = useState(true);
   const [newComment, setNewComment] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  // users
+  const [usersLoaded, setUsersLoaded] = useState(false);
 
   let comments;
   let userId;
-
   // const someFunction = () => {
   //   console.log("hello", sessionUser?.user?.id)
   //   if (allLikes && sessionUser.user) {
@@ -103,6 +104,13 @@ const CommentForm = ({ songsId }) => {
   if (isLoaded) {
     comments = song.comments;
   }
+
+  useEffect(() => {
+    dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
+  }, [dispatch]);
+  const allUsers = useSelector((state) => state?.users);
+  console.log(allUsers[1]);
+  // const allUsers = useSelector((state) => state.session);
 
   const commentSubmit = async (e) => {
     e.preventDefault();
@@ -163,15 +171,23 @@ const CommentForm = ({ songsId }) => {
             // onMouseEnter={() => setDeleteShown(true)}
             // onMouseLeave={() => setDeleteShown(false)}
           >
-            {comments?.map((comment) => {
-              {
-                console.log(comment);
-              }
+            {comments?.map((comment, index) => {
               return (
                 <>
+                  {allUsers.map((user) => {
+                    {
+                      return (
+                        usersLoaded &&
+                        user?.id === comment?.user_id && (
+                          <div className="profile-icon__comments">
+                            <img src={user?.profile_URL} alt="profile-img" />
+                          </div>
+                        )
+                      );
+                    }
+                  })}
                   <div id={comment.id} className="comment-container">
                     <p id="old-comments">{comment?.description}</p>
-
                     <div id="like-comment__container">
                       {liked ? (
                         <button id="btn-likes" onClick={likeSong}>

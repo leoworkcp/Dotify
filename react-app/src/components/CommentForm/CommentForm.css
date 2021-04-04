@@ -99,3 +99,15 @@ textarea::-webkit-scrollbar {
   float: right;
   background-color: transparent;
 }
+
+.profile-icon__comments > img {
+  height: 40px;
+  width: 40px;
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 85px;
+  margin-top: 15px;
+}

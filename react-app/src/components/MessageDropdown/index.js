@@ -85,6 +85,7 @@ const MessageDropdown = ({
   setAuthenticated,
   songsId,
   song,
+  loggedInUser,
 }) => {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -93,13 +94,14 @@ const MessageDropdown = ({
   //  new stuff delete song
   const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const sessionUser = useSelector((state) => state?.session);
+
+  // const sessionUser = useSelector((state) => state?.session);
   let userId;
-  if (sessionUser.user) userId = sessionUser?.user?.id;
+  if (loggedInUser) userId = loggedInUser?.id;
 
-  console.log(song?.artist_id);
+  // console.log(song?.artist_id);
 
-  console.log(userId);
+  // console.log(userId);
   //  end delete song
 
   function openModalSongForm() {
@@ -205,7 +207,7 @@ const MessageDropdown = ({
                 <div className="edit-dropdown__container">
                   {deleteShown && userId === song.artist_id && (
                     <button
-                      className={`delete-comment__btn ${song.artist_id}`}
+                      className={`delete-song__btn ${song.artist_id}`}
                       id={song.id}
                       userId={song.artist_id}
                       onClick={deleteSong}

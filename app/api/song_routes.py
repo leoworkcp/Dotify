@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import db, Song, Comment
+from app.models import db, Song, Comment, User
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename, allowed_audio_file)
 
@@ -74,6 +74,7 @@ def song_upload():
 
 @song_routes.route('/newsong/', methods=['POST'])
 def new_song():
+
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
