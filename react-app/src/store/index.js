@@ -5,10 +5,12 @@ import userInfoReducer from "./userInfo";
 import playingReducer from "./playing";
 import songsReducer from "./songs";
 import usersReducer from "./users";
+import publicSongReducer from "./publicSongs";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   userSongs: userInfoReducer,
+  publicSong: publicSongReducer,
   playing: playingReducer,
   songs: songsReducer,
   users: usersReducer,
