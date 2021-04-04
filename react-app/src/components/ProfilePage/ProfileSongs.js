@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSongs } from "../../store/songs";
-import { useParams } from "react-router-dom";
+
 import ProfileSongInfo from "./ProfileSongInfo";
 
-const ProfileSongs = ({ authenticated, setAuthenticated }) => {
-  const { userId } = useParams();
+const ProfileSongs = ({
+  authenticated,
+  setAuthenticated,
+  userId,
+  loggedInUser,
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const userSongs = useSelector((state) => state.songs.user_songs);
@@ -13,17 +17,13 @@ const ProfileSongs = ({ authenticated, setAuthenticated }) => {
 
   // const userSongsObject = Object.values(userSongs)
 
-  // console.log("all songs:", allSongs)
-  // if(userSongs) console.log("user songs", Object.values(userSongs))
   let userSongsValues;
   isLoaded
     ? (userSongsValues = Object.values(userSongs))
     : (userSongsValues = null);
 
-  // console.log("user Id", userId);
   useEffect(() => {
     dispatch(getUserSongs(userId)).then((req) => setIsLoaded(true));
-    // dispatch(getAllSongs())
   }, [dispatch, userId]);
 
   return (
@@ -34,6 +34,7 @@ const ProfileSongs = ({ authenticated, setAuthenticated }) => {
             song={song}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
+            loggedInUser={loggedInUser}
           />
         ))}
       </div>

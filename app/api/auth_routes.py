@@ -70,6 +70,8 @@ def sign_up():
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
         url = upload["url"]
+    else:
+        url = 'https://i.stack.imgur.com/l60Hf.png'
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

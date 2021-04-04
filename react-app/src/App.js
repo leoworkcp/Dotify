@@ -88,6 +88,7 @@ export default function App() {
             ></ProtectedRoute>
             <Route path={"/profile/:userId"} exact={true}>
               <ProfilePage
+                loggedInUser={loggedInUser}
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
               />

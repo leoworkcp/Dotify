@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, db, Song
+from app.models import User, db, Song, Comment
 
 user_routes = Blueprint('users', __name__)
 

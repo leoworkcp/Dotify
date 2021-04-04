@@ -5,7 +5,7 @@ import ProfileSongs from "./ProfileSongs";
 // import { getArtist } from "../../store/users";
 import "./ProfilePage.css";
 
-const ProfilePage = ({ authenticated, setAuthenticated }) => {
+const ProfilePage = ({ authenticated, setAuthenticated, loggedInUser }) => {
   const { userId } = useParams();
   const dispatch = useDispatch();
 
@@ -58,6 +58,8 @@ const ProfilePage = ({ authenticated, setAuthenticated }) => {
             <ProfileSongs
               authenticated={authenticated}
               setAuthenticated={setAuthenticated}
+              userId={userId}
+              loggedInUser={loggedInUser}
             />
           </div>
           <div id="profile-popular-div">
