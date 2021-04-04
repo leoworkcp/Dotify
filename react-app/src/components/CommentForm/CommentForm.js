@@ -77,7 +77,7 @@ const CommentForm = ({ songsId }) => {
   const [usersLoaded, setUsersLoaded] = useState(false);
 
   let comments;
-  let userId;
+  let userid;
   // const someFunction = () => {
   //   console.log("hello", sessionUser?.user?.id)
   //   if (allLikes && sessionUser.user) {
@@ -89,7 +89,7 @@ const CommentForm = ({ songsId }) => {
   //   }
   // };
 
-  if (sessionUser.user) userId = sessionUser?.user?.id;
+  if (sessionUser.user) userid = sessionUser?.user?.id;
 
   if (isLoaded) {
     comments = song.comments;
@@ -107,7 +107,7 @@ const CommentForm = ({ songsId }) => {
 
     // if (!sessionUser?.user) history.push("/");
     const userComment = {
-      user_id: Number(userId),
+      user_id: Number(userid),
       description: comment,
     };
 
@@ -116,7 +116,7 @@ const CommentForm = ({ songsId }) => {
 
   const likeSong = (e) => {
     e.preventDefault();
-    dispatch(userLike(songsId, userId));
+    dispatch(userLike(songsId, userid));
     return setTimeout(() => {
       setLiked(true);
     }, 100);
@@ -129,7 +129,7 @@ const CommentForm = ({ songsId }) => {
   };
 
   const deleteComment = (e) => {
-    if (userId === e.target.className.split(" ")[1]) {
+    if (userid === e.target.className.split(" ")[1]) {
       dispatch(deleteUserComment(e.target.id));
       setDeleted(true);
       setTimeout(() => {
@@ -193,11 +193,11 @@ const CommentForm = ({ songsId }) => {
                         options={{ includeDay: true, twentyFourHour: true }}
                         autoUpdate
                       />
-                      {deleteShown && userId === comment.user_id && (
+                      {deleteShown && userid === comment.user_id && (
                         <button
                           className={`delete-comment__btn ${comment.user_id}`}
                           id={comment.id}
-                          userId={comment.user_id}
+                          userid={comment.user_id}
                           onClick={deleteComment}
                         >
                           🗑️

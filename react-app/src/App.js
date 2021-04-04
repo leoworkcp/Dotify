@@ -30,7 +30,7 @@ export default function App() {
   }, [dispatch]);
 
   const loggedInUser = useSelector((state) => state?.session.user);
-  const userId = loggedInUser?.id;
+  const userid = loggedInUser?.id;
 
   if (!loaded) {
     return null;
@@ -46,7 +46,7 @@ export default function App() {
         />
         <div className="mainContent">
           <Sidebar
-            userId={userId}
+            userid={userid}
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />
@@ -66,11 +66,11 @@ export default function App() {
               authenticated={authenticated}
             ></ProtectedRoute>
             <ProtectedRoute
-              path="/users/:userId"
+              path="/users/:userid"
               exact={true}
               authenticated={authenticated}
             ></ProtectedRoute>
-            <Route path={"/profile/:userId"} exact={true}>
+            <Route path={"/profile/:userid"} exact={true}>
               <ProfilePage
                 loggedInUser={loggedInUser}
                 authenticated={authenticated}

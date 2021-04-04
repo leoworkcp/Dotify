@@ -10,14 +10,14 @@ const removeUserSongs = () => ({
   type: REMOVE_USER_SONGS,
 });
 
-export const fetchUserSongs = (userId) => async (dispatch) => {
-  if (!userId) return;
+export const fetchUserSongs = (userid) => async (dispatch) => {
+  if (!userid) return;
   const response = await fetch("/api/users/songs/", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userId),
+    body: JSON.stringify(userid),
   });
   const userSongs = await response.json();
   return dispatch(findUserSongs(userSongs));
@@ -27,13 +27,13 @@ export const resetUserSongs = () => async (dispatch) => {
   dispatch(removeUserSongs());
 };
 
-export const joinSong = (songId, userId) => async (dispatch) => {
+export const joinSong = (songId, userid) => async (dispatch) => {
   const response = await fetch("/api/users/songs/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ songId, userId }),
+    body: JSON.stringify({ songId, userid }),
   });
   const userSongs = await response.json();
   return dispatch(findUserSongs(userSongs));

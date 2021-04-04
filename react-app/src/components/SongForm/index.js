@@ -54,7 +54,7 @@ const SongForm = ({ closeModalSongForm }) => {
     const item = e.target.value;
     setIsLoaded((isLoaded) => [...isLoaded, item]);
   }
-  const { userId } = useParams();
+  const { userid } = useParams();
   const [userSongsLoaded, setUserSongsLoaded] = useState(false);
   const userSongs = useSelector((state) => state.songs.user_songs);
   let userSongsValues;
@@ -62,12 +62,12 @@ const SongForm = ({ closeModalSongForm }) => {
     ? (userSongsValues = Object.values(userSongs))
     : (userSongsValues = null);
 
-  // console.log("user Id", userId);
+  // console.log("user Id", userid);
   useEffect(() => {
-    dispatch(getUserSongs(userId)).then((req) => setUserSongsLoaded(true));
+    dispatch(getUserSongs(userid)).then((req) => setUserSongsLoaded(true));
     // dispatch(getAllSongs())
     return setNewSong(false);
-  }, [dispatch, newSong, userId]);
+  }, [dispatch, newSong, userid]);
 
   const updateSong = (e) => {
     const file = e.target.files[0];

@@ -95,12 +95,12 @@ const MessageDropdown = ({
   const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  let userId;
-  if (loggedInUser) userId = loggedInUser?.id;
+  let userid;
+  if (loggedInUser) userid = loggedInUser?.id;
 
   // console.log(song?.artist_id);
 
-  // console.log(userId);
+  // console.log(userid);
   //  end delete song
 
   function openModalSongForm() {
@@ -141,7 +141,7 @@ const MessageDropdown = ({
   };
 
   const deleteSong = (e) => {
-    if (userId === e.target.className.split(" ")[1]) {
+    if (userid == e.target.className.split(" ")[1]) {
       dispatch(deleteUserSong(e.target.id));
       setDeleted(true);
       setTimeout(() => {
@@ -168,7 +168,7 @@ const MessageDropdown = ({
         transition
         disablePortal
         style={{
-          positon: "relative",
+          position: "relative",
           zIndex: 2,
         }}
       >
@@ -203,17 +203,20 @@ const MessageDropdown = ({
                 </div>
               </CustomMenuItem>
               <CustomMenuItem>
+                {console.log(userid)}
+                {console.log(deleteShown)}
                 <div className="edit-dropdown__container">
-                  {deleteShown && userId === song.artist_id && (
+                  {deleteShown && userid === song.artist_id && (
                     <button
                       className={`delete-song__btn ${song.artist_id}`}
                       id={song.id}
-                      userId={song.artist_id}
+                      userid={song.artist_id}
                       onClick={deleteSong}
                     >
                       Delete
                     </button>
                   )}
+                  {console.log(song.artist_id)}
                 </div>
                 <DeleteIcon style={{ color: "white" }} />
               </CustomMenuItem>
