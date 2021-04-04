@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  NavLink,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // new auth to test
@@ -18,20 +10,16 @@ import * as sessionActions from "./store/session";
 // components
 import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
-
-import CommentForm from "./components/CommentForm/CommentForm";
 import ProfilePage from "./components/ProfilePage";
+import HomePage from "./components/HomePage";
 // for later to work
-import Waveform from "./components/MediaPlayer/Waveform.js";
-
-import { getAllSongs } from "./store/songs";
+// import Waveform from "./components/MediaPlayer/Waveform.js";
 
 export default function App() {
   const dispatch = useDispatch();
 
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [songsLoaded, setSongsLoaded] = useState(false);
 
   useEffect(async () => {
     const user = await dispatch(sessionActions.restoreUser());
@@ -41,14 +29,8 @@ export default function App() {
     setLoaded(true);
   }, [dispatch]);
 
-  const songs = useSelector((state) => Object.values(state?.songs));
   const loggedInUser = useSelector((state) => state?.session.user);
   const userId = loggedInUser?.id;
-  // useEffect(() => {
-  //   if (songs) {
-  //     dispatch(getAllSongs()).then((req) => setSongsLoaded(true));
-  //   }
-  // }, [dispatch]);
 
   if (!loaded) {
     return null;
@@ -68,7 +50,9 @@ export default function App() {
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
           />
-          {/* new stuff */}
+          <Route path="/" exact={true}>
+            <HomePage />
+          </Route>
           <Route
             path="/test"
             exact={true}
@@ -92,9 +76,6 @@ export default function App() {
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
               />
-            </Route>
-            <Route path="/" exact={true} authenticated={authenticated}>
-              {/* home will go here */}
             </Route>
           </Switch>
         </div>

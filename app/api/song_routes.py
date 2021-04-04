@@ -94,6 +94,15 @@ def new_song():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
+@song_routes.route("/public/", methods=['GET'])
+def find_public_songs():
+    songSearch = Song.query.filter(Song.public == True).all()
+    songList = []
+    for song in songSearch:
+        songList.append(song.to_dict())
+    return jsonify(songList)
+
+
 @song_routes.route("/")
 def songs():
     songs = Song.query.all()
