@@ -2,7 +2,7 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import "./Carousel.css";
-
+import { NavLink } from "react-router-dom";
 const CarouselSongs = ({ publicSongs, isLoaded, title, header }) => {
   return (
     isLoaded && (
@@ -18,8 +18,10 @@ const CarouselSongs = ({ publicSongs, isLoaded, title, header }) => {
             {publicSongs.map((publicSong, idx) => {
               return (
                 <div key={idx}>
+                  <NavLink to={`song/${publicSong?.id}`}>
+                    <p className="legend">{publicSong?.name}</p>
+                  </NavLink>
                   <img src={publicSong?.image_url}></img>
-                  <p className="legend">{publicSong?.name}</p>
                 </div>
               );
             })}

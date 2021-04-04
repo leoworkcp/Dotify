@@ -1,5 +1,13 @@
 .home-main__container {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 30px;
+  width: 100%;
+}
+
+.music__container {
+  margin-right: 40px;
+  margin-left: 60px;
 }
