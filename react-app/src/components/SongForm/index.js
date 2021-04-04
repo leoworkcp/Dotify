@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import { newUpload } from "../../store/upload";
 import "./SongForm.css";
 import { getUserSongs } from "../../store/songs";
 import { useParams } from "react-router-dom";
 
 const SongForm = ({ closeModalSongForm }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.session.user);
   // console.log(user);
@@ -44,8 +43,6 @@ const SongForm = ({ closeModalSongForm }) => {
       await res.json();
       setSongLoading(false);
       setImageLoading(false);
-
-      //  history.push("/");
     } else {
       // setErrors(user.payload.errors);
       setSongLoading(false);

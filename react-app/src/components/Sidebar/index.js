@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, NavLink, useLocation, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 // ---------------------------------
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
@@ -11,73 +11,19 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 // ---------------------------------
-import LoginForm from "../auth/LoginForm";
-import SignUpForm from "../auth/SignUpForm";
 
-import Modal from "react-modal";
 import "./SideBar.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     "& > svg": {},
   },
 }));
 
-const customStyles = {
-  overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
-  },
-  content: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    borderRadius: "10px",
-    padding: "20px",
-    backgroundColor: "#2c2f33",
-    borderColor: "#2f3135",
-  },
-};
-
-Modal.setAppElement("#root");
-
-function Sidebar({ authenticated, setAuthenticated, userId }) {
+function Sidebar({ userId }) {
   const classes = useStyles();
 
   const history = useHistory();
-
-  const [showSongModal, setShowSongModal] = useState(false);
-  const [songId, setSongId] = useState("");
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
-  const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
-  const location = useLocation();
-
-  const loggedInUser = useSelector((state) => state?.session.user);
-
-  function openModalLogin() {
-    setIsOpenLogin(true);
-  }
-
-  function openModalSignUp() {
-    setIsOpenSignUp(true);
-  }
-
-  function closeModalLogin() {
-    setIsOpenLogin(false);
-  }
-
-  function closeModalSignUp() {
-    setIsOpenSignUp(false);
-  }
 
   function homeButton() {
     history.push("/");
@@ -107,6 +53,7 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
       <div className="sidebar-main-container">
         <div className="sideBar-title-container">
           <img
+            alt="logo"
             id="spoty-log"
             src="https://open.scdn.co/cdn/images/favicon.5cb2bd30.ico"
           />
@@ -119,7 +66,9 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
             fontSize="small"
           >
             <HomeIcon />
-            <td>Home</td>
+            <div>
+              <td>Home</td>
+            </div>
           </IconButton>
         </div>
         <div className="sideBar-button__search">
@@ -129,7 +78,9 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
             fontSize="small"
           >
             <SearchIcon />
-            <td>Search</td>
+            <div>
+              <td>Search</td>
+            </div>
           </IconButton>
         </div>
         <div className="sideBar-button__library">
@@ -139,8 +90,9 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
             fontSize="small"
           >
             <LibraryMusicIcon />
-
-            <td>Your Library</td>
+            <div>
+              <td>Your Library</td>
+            </div>
           </IconButton>
         </div>
         <div className="sideBar-button__playlist">
@@ -150,7 +102,9 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
             fontSize="small"
           >
             <AddBoxIcon className="playlist-icon" />
-            <td>Create Playlist</td>
+            <div>
+              <td>Create Playlist</td>
+            </div>
           </IconButton>
         </div>
         <div className="sideBar-button__liked">
@@ -164,7 +118,9 @@ function Sidebar({ authenticated, setAuthenticated, userId }) {
                 <FavoriteIcon className="fav-icon" fontSize="small" />
               </div>
             </div>
-            <td>Liked Songs</td>
+            <div>
+              <td>Liked Songs</td>
+            </div>
           </IconButton>
         </div>
         <div className="divider-container">

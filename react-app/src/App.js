@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // new auth to test
 import { ThemeProvider } from "@material-ui/styles";
-import { authenticate } from "./store/auth";
+// import { authenticate } from "./store/auth";
 import ProtectedRoute from "./components/auth/ProtectedRoute/index";
 import * as sessionActions from "./store/session";
 // components

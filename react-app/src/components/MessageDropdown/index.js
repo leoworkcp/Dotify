@@ -15,7 +15,7 @@ import CommentRoundedIcon from "@material-ui/icons/CommentRounded";
 import SongForm from "../SongForm/index";
 import CommentForm from "../CommentForm/CommentForm";
 import Modal from "react-modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteUserSong } from "../../store/songs";
 import "./MessageDropdown.css";
 const customStyles = {
@@ -95,7 +95,6 @@ const MessageDropdown = ({
   const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  // const sessionUser = useSelector((state) => state?.session);
   let userId;
   if (loggedInUser) userId = loggedInUser?.id;
 
@@ -142,7 +141,7 @@ const MessageDropdown = ({
   };
 
   const deleteSong = (e) => {
-    if (userId == e.target.className.split(" ")[1]) {
+    if (userId === e.target.className.split(" ")[1]) {
       dispatch(deleteUserSong(e.target.id));
       setDeleted(true);
       setTimeout(() => {

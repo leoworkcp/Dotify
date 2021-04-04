@@ -7,14 +7,7 @@ import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded"
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import Timestamp from "react-timestamp";
 //
-import {
-  MenuList,
-  MenuItem,
-  Popper,
-  Paper,
-  IconButton,
-  ClickAwayListener,
-} from "@material-ui/core";
+import { MenuList, MenuItem } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { withStyles } from "@material-ui/styles";
@@ -136,7 +129,7 @@ const CommentForm = ({ songsId }) => {
   };
 
   const deleteComment = (e) => {
-    if (userId == e.target.className.split(" ")[1]) {
+    if (userId === e.target.className.split(" ")[1]) {
       dispatch(deleteUserComment(e.target.id));
       setDeleted(true);
       setTimeout(() => {
@@ -163,11 +156,7 @@ const CommentForm = ({ songsId }) => {
           <div className="SignUpModalFormTitleContainer">
             <div className="SignUpModalFormTitle">Comments</div>
           </div>
-          <div
-            className="comment-form__container"
-            // onMouseEnter={() => setDeleteShown(true)}
-            // onMouseLeave={() => setDeleteShown(false)}
-          >
+          <div className="comment-form__container">
             {comments?.map((comment, index) => {
               return (
                 <>
