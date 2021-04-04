@@ -1,0 +1,10 @@
+.carousel-title > h3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.carousel-title > h1 {
+  text-align: center;
+}
