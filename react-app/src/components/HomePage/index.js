@@ -14,8 +14,32 @@ const HomePage = () => {
     dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
   }, [dispatch]);
 
-  const publicSongs = useSelector((state) => state?.publicSong);
+  const publicSongs = useSelector((state) => Object.values(state?.publicSong));
   console.log(publicSongs);
+  const rock = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("rock")
+  );
+
+  const hop = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("hip-hop")
+  );
+  const pop = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("pop")
+  );
+  const jazz = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("jazz")
+  );
+  const rnb = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("r&b")
+  );
+  const edm = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("edm")
+  );
+  const rap = publicSongs?.filter((ele) =>
+    ele?.category.toLowerCase().includes("rap")
+  );
+
+  console.log(rock.length);
   return (
     isLoaded && (
       <div className="home-main__container">
@@ -29,67 +53,81 @@ const HomePage = () => {
           />
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="rock"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"Rock"}
-            header={"All the classics"}
-          />
+          {rock.length && (
+            <CarouselSongs
+              key="rock"
+              publicSongs={rock}
+              isLoaded={isLoaded}
+              title={"Rock"}
+              header={"All the classics"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="hip-hop"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"Hip Hop"}
-            header={"Main stream vibes"}
-          />
+          {hop.length && (
+            <CarouselSongs
+              key="hip-hop"
+              publicSongs={hop}
+              isLoaded={isLoaded}
+              title={"Hip Hop"}
+              header={"Main stream vibes"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="pop"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"Pop"}
-            header={"The latest and hottest pop"}
-          />
+          {pop.length && (
+            <CarouselSongs
+              key="pop"
+              publicSongs={pop}
+              isLoaded={isLoaded}
+              title={"Pop"}
+              header={"The latest and hottest pop"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="jazz"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"Jazz"}
-            header={"The latest and hottest jazz"}
-          />
+          {jazz.length && (
+            <CarouselSongs
+              key="jazz"
+              publicSongs={jazz}
+              isLoaded={isLoaded}
+              title={"Jazz"}
+              header={"The latest and hottest jazz"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="rnb"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"R&B"}
-            header={"The latest and hottest R&B"}
-          />
+          {rnb.length && (
+            <CarouselSongs
+              key="rnb"
+              publicSongs={rnb}
+              isLoaded={isLoaded}
+              title={"R&B"}
+              header={"The latest and hottest R&B"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="edm"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"EDM"}
-            header={"The latest and hottest EDM"}
-          />
+          {edm.length && (
+            <CarouselSongs
+              key="edm"
+              publicSongs={edm}
+              isLoaded={isLoaded}
+              title={"EDM"}
+              header={"The latest and hottest EDM"}
+            />
+          )}
         </div>
         <div className="music__container">
-          <CarouselSongs
-            key="rap"
-            publicSongs={publicSongs}
-            isLoaded={isLoaded}
-            title={"Rap"}
-            header={"The latest and hottest rap"}
-          />
+          {rap.length && (
+            <CarouselSongs
+              key="rap"
+              publicSongs={rap}
+              isLoaded={isLoaded}
+              title={"Rap"}
+              header={"The latest and hottest rap"}
+            />
+          )}
         </div>
       </div>
     )
