@@ -182,31 +182,31 @@ const MessageDropdown = ({
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
-              <CustomMenuItem onClick={(e) => openModal(e)}>
-                <div className="edit-dropdown__container">
-                  <button onClick={(e) => openModalSongForm(e)}>Edit</button>
-                  <EditIcon style={{ color: "white" }} />
-                </div>
-                <div className="LoginSongForm">
-                  <Modal
-                    isOpen={modalIsOpenSongForm}
-                    onRequestClose={closeModalSongForm}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                  >
-                    <SongForm
-                      authenticated={authenticated}
-                      setAuthenticated={setAuthenticated}
-                      closeModalSongForm={closeModalSongForm}
-                    />
-                  </Modal>
-                </div>
-              </CustomMenuItem>
-              <CustomMenuItem>
-                {console.log(userid)}
-                {console.log(deleteShown)}
-                <div className="edit-dropdown__container">
-                  {deleteShown && userid === song.artist_id && (
+              {deleteShown && userid === song.artist_id && (
+                <CustomMenuItem onClick={(e) => openModal(e)}>
+                  <div className="edit-dropdown__container">
+                    <button onClick={(e) => openModalSongForm(e)}>Edit</button>
+                    <EditIcon style={{ color: "white" }} />
+                  </div>
+                  <div className="LoginSongForm">
+                    <Modal
+                      isOpen={modalIsOpenSongForm}
+                      onRequestClose={closeModalSongForm}
+                      style={customStyles}
+                      contentLabel="Example Modal"
+                    >
+                      <SongForm
+                        authenticated={authenticated}
+                        setAuthenticated={setAuthenticated}
+                        closeModalSongForm={closeModalSongForm}
+                      />
+                    </Modal>
+                  </div>
+                </CustomMenuItem>
+              )}
+              {deleteShown && userid === song.artist_id && (
+                <CustomMenuItem>
+                  <div className="edit-dropdown__container">
                     <button
                       className={`delete-song__btn ${song.artist_id}`}
                       id={song.id}
@@ -215,11 +215,10 @@ const MessageDropdown = ({
                     >
                       Delete
                     </button>
-                  )}
-                  {console.log(song.artist_id)}
-                </div>
-                <DeleteIcon style={{ color: "white" }} />
-              </CustomMenuItem>
+                  </div>
+                  <DeleteIcon style={{ color: "white" }} />
+                </CustomMenuItem>
+              )}
               {/* view comments modal */}
               <CustomMenuItem onClick={(e) => openModal2(e)}>
                 <div className="edit-dropdown__container">

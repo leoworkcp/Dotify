@@ -17,7 +17,7 @@ const CarouselSongs = ({ publicSongs, isLoaded, title, header }) => {
           <Carousel key={title}>
             {publicSongs.map((publicSong, idx) => {
               return (
-                <div key={idx}>
+                <div key={idx} className="img-controller">
                   <NavLink to={`song/${publicSong?.id}`}>
                     <p className="legend">{publicSong?.name}</p>
                   </NavLink>
