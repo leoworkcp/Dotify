@@ -141,7 +141,7 @@ const MessageDropdown = ({
   };
 
   const deleteSong = (e) => {
-    if (userid == e.target.className.split(" ")[1]) {
+    if (userid === Number(e.target.className.split(" ")[1])) {
       dispatch(deleteUserSong(e.target.id));
       setDeleted(true);
       setTimeout(() => {

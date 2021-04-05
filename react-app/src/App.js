@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
 import ProfilePage from "./components/ProfilePage";
 import HomePage from "./components/HomePage";
+import Player from "./components/AudioPlayer";
 // for later to work
 // import Waveform from "./components/MediaPlayer/Waveform.js";
 
@@ -79,6 +80,11 @@ export default function App() {
             </Route>
           </Switch>
         </div>
+        <Player
+          loggedInUser={loggedInUser}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
       </BrowserRouter>
     </ThemeProvider>
   );

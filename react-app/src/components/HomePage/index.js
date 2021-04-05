@@ -15,7 +15,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
-  console.log(publicSongs);
+
   const rock = publicSongs?.filter((ele) =>
     ele?.category.toLowerCase().includes("rock")
   );
@@ -39,7 +39,6 @@ const HomePage = () => {
     ele?.category.toLowerCase().includes("rap")
   );
 
-  console.log(rock.length);
   return (
     isLoaded && (
       <div className="home-main__container">
@@ -52,8 +51,8 @@ const HomePage = () => {
             header={"The latest and hottest"}
           />
         </div>
-        <div className="music__container">
-          {rock.length && (
+        {rock.length && (
+          <div className="music__container">
             <CarouselSongs
               key="rock"
               publicSongs={rock}
@@ -61,10 +60,10 @@ const HomePage = () => {
               title={"Rock"}
               header={"All the classics"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {hop.length && (
+          </div>
+        )}
+        {hop.length && (
+          <div className="music__container">
             <CarouselSongs
               key="hip-hop"
               publicSongs={hop}
@@ -72,10 +71,10 @@ const HomePage = () => {
               title={"Hip Hop"}
               header={"Main stream vibes"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {pop.length && (
+          </div>
+        )}
+        {pop.length && (
+          <div className="music__container">
             <CarouselSongs
               key="pop"
               publicSongs={pop}
@@ -83,10 +82,10 @@ const HomePage = () => {
               title={"Pop"}
               header={"The latest and hottest pop"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {jazz.length && (
+          </div>
+        )}
+        {jazz.length && (
+          <div className="music__container">
             <CarouselSongs
               key="jazz"
               publicSongs={jazz}
@@ -94,10 +93,10 @@ const HomePage = () => {
               title={"Jazz"}
               header={"The latest and hottest jazz"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {rnb.length && (
+          </div>
+        )}
+        {rnb.length && (
+          <div className="music__container">
             <CarouselSongs
               key="rnb"
               publicSongs={rnb}
@@ -105,10 +104,10 @@ const HomePage = () => {
               title={"R&B"}
               header={"The latest and hottest R&B"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {edm.length && (
+          </div>
+        )}
+        {edm.length && (
+          <div className="music__container">
             <CarouselSongs
               key="edm"
               publicSongs={edm}
@@ -116,10 +115,10 @@ const HomePage = () => {
               title={"EDM"}
               header={"The latest and hottest EDM"}
             />
-          )}
-        </div>
-        <div className="music__container">
-          {rap.length && (
+          </div>
+        )}
+        {rap.length && (
+          <div className="music__container">
             <CarouselSongs
               key="rap"
               publicSongs={rap}
@@ -127,8 +126,8 @@ const HomePage = () => {
               title={"Rap"}
               header={"The latest and hottest rap"}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     )
   );
