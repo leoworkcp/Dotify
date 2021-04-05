@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Catamaran&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 .player-navBar {
-  background-color: #292b2f;
+  background-color: #181818;
   width: 100%;
-  height: 58px;
+  height: 91px;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -12,9 +13,129 @@
 
 .player-navbar__container {
   display: flex;
-  justify-content: space-between;
+
   padding: 10px;
-  height: 68px;
-  box-sizing: border-box;
-  /* position: absolute; */
+  height: 91px;
+  justify-content: space-between;
+  /* new things */
+  /* align-items: center; */
+  /* flex-direction: row; */
+  /* justify-content: space-evenly; */
+  padding: 0 16px;
+}
+.container-playing {
+  display: flex;
+}
+
+.rhap_container {
+  display: flex;
+  background-color: transparent;
+  max-width: 700px;
+  /* min-width: 294px; */
+  margin-left: 15px;
+}
+
+.rhap_time {
+  color: #fff;
+  margin-right: 8px;
+}
+
+.rhap_total-time {
+  margin: 0;
+}
+.song-playing {
+  width: 55px;
+  height: 55px;
+  margin-top: 14px;
+}
+
+.song-title__playing {
+  display: flex;
+  margin-top: 26px;
+  margin-left: 25px;
+  font-size: 14px;
+  max-inline-size: none;
+  /* justify-content: flex-start; */
+}
+.name-artist {
+  display: flex;
+  flex-direction: column;
+}
+
+.song_id {
+  /* display: inline-flex; */
+  width: max-content;
+  height: fit-content;
+  color: #fff;
+  font-weight: 400;
+}
+.song_id:hover {
+  text-decoration: underline;
+}
+.artist_id:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.artist_id {
+  color: #b3b3b3;
+  font-size: 11px;
+  font-weight: 400;
+  height: fit-content;
+}
+
+.like-artist__cover {
+  display: inline-flex;
+  justify-content: space-between;
+  height: fit-content;
+  margin-left: 13px;
+  width: max-content;
+  margin-top: 7px;
+}
+
+/* need to do hover for svg */
+/* .like-artist__cover > svg:hover {
+  transition: all 1s ease-in-out;
+}
+.like-artist__cover > svg:hover {
+  transition: all 1s ease-in-out;
+  background: #fff;
+} */
+
+.see-artist__cover {
+  display: inline-flex;
+  justify-content: space-between;
+  height: fit-content;
+  margin-left: 12px;
+  width: max-content;
+  margin-top: 7px;
+}
+
+.rhap_progress-indicator {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  top: -4px;
+  /* opacity: 0; */
+}
+
+.rhap_play-pause-button {
+  color: rgba(255, 255, 255, 0.774);
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.rhap_button-clear:hover {
+  color: #fff;
+}
+.controllers-queue_screen {
+  display: flex;
+}
+
+.queue-music {
+  width: min-content;
+  height: min-content;
+}
+
+.rhap_volume-indicator {
+  background-color: #fff;
 }
