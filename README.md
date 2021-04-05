@@ -91,6 +91,7 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
 9. set up your database:
 
    ```bash
+   heroku run -a dotify-sound-v1 flask db downgrade
    heroku run -a dotify-sound-v1 flask db migrate
    heroku run -a dotify-sound-v1 flask db upgrade
    heroku run -a dotify-sound-v1 flask seed all
