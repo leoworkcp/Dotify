@@ -28,7 +28,7 @@ const ProfilePage = ({ authenticated, setAuthenticated, loggedInUser }) => {
   };
 
   return (
-    <div id="profile-page-container">
+    <div className="home-main__container">
       <div id="profile-page-contents">
         {/* <div id="profile-header">
             <img

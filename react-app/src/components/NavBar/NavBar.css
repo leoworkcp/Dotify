@@ -2,8 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 .mainNavBar {
   background-color: #292b2f;
-  width: auto;
+  width: 100%;
   height: 58px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 4;
 }
 
 .navbarContainer {
@@ -12,6 +16,7 @@
   padding: 10px;
   height: 58px;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .LoginModalSubmit,
@@ -54,24 +59,26 @@
   color: #fff;
 }
 
-.mainLogoLink {
+/* .mainLogoLink {
   display: inline-block;
   height: fit-content;
   position: absolute;
   top: 5px;
   right: 44%;
-  /* left: 44%; */
-}
+} */
 
 .mainLogoContainer {
   display: flex;
   align-items: center;
   color: gray;
   font-size: 1.5em;
+  flex-wrap: wrap;
+  padding-left: 190px;
 }
 .mainLogoContainer:hover {
   color: #fff;
 }
+
 .mainLogoText {
   font-family: "Catamaran", sans-serif;
 }
@@ -112,4 +119,11 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+}
+
+/* media query Logo */
+@media screen and (max-width: 800px) {
+  .mainLogoLink {
+    display: none;
+  }
 }
