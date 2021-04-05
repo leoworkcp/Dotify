@@ -1,0 +1,28 @@
+.PlayButton {
+  position: absolute;
+  left: 126px;
+  top: 130px;
+}
+
+.PlayButton > button {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.PlayButton > button:hover {
+  background: rgba(0, 0, 0, 0.507);
+  cursor: pointer;
+}
+
+.PlayButton > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: transparent;
+}
+
+.PlayButton > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}

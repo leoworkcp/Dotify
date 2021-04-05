@@ -48,7 +48,10 @@
   height: 55px;
   margin-top: 14px;
 }
-
+.song-playing > img {
+  width: 55px;
+  height: 55px;
+}
 .song-title__playing {
   display: flex;
   margin-top: 26px;
@@ -92,15 +95,94 @@
   margin-top: 7px;
 }
 
-/* need to do hover for svg */
-/* .like-artist__cover > svg:hover {
-  transition: all 1s ease-in-out;
+/* like artist */
+.like-artist__cover > button {
+  background-color: transparent;
 }
-.like-artist__cover > svg:hover {
-  transition: all 1s ease-in-out;
-  background: #fff;
-} */
 
+.like-artist__cover > button:hover {
+  cursor: pointer;
+}
+.like-artist__cover > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.like-artist__cover > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* artist cover */
+.see-artist__cover > button {
+  background-color: transparent;
+}
+
+.see-artist__cover > button:hover {
+  cursor: pointer;
+}
+.see-artist__cover > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.see-artist__cover > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+/* music shuffle */
+.shuffle-btn > button {
+  background-color: transparent;
+}
+
+.shuffle-btn > button:hover {
+  cursor: pointer;
+}
+.shuffle-btn > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.shuffle-btn > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+/* queue music */
+.queue-music > button {
+  background-color: transparent;
+}
+
+.queue-music > button:hover {
+  cursor: pointer;
+}
+.queue-music > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.queue-music > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+/* full screen */
+.full-screen > button {
+  background-color: transparent;
+}
+
+.full-screen > button:hover {
+  cursor: pointer;
+}
+.full-screen > button > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.full-screen > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* other stuff */
 .see-artist__cover {
   display: inline-flex;
   justify-content: space-between;
@@ -138,4 +220,23 @@
 
 .rhap_volume-indicator {
   background-color: #fff;
+}
+
+.rhap_progress-filled {
+  background-color: #fff;
+}
+
+.rhap_download-progress {
+  background-color: #868686;
+}
+
+.rhap_volume-bar {
+  background-color: #868686;
+  border: none;
+}
+
+.rhap_current-time,
+.rhap_time {
+  color: #868686;
+  font-size: 11px;
 }

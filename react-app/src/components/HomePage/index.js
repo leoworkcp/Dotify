@@ -5,7 +5,7 @@ import { findPublicSongs } from "../../store/publicSongs";
 import CarouselSongs from "../CarouselSongs/index";
 import "./HomePage.css";
 
-const HomePage = () => {
+const HomePage = ({ playing, setIsPlaying, pauseSong }) => {
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -44,6 +44,9 @@ const HomePage = () => {
       <div className="home-main__container">
         <div className="music__container">
           <CarouselSongs
+            pauseSong={pauseSong}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
             key="public"
             publicSongs={publicSongs}
             isLoaded={isLoaded}
@@ -54,6 +57,9 @@ const HomePage = () => {
         {rock.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="rock"
               publicSongs={rock}
               isLoaded={isLoaded}
@@ -65,6 +71,9 @@ const HomePage = () => {
         {hop.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="hip-hop"
               publicSongs={hop}
               isLoaded={isLoaded}
@@ -76,6 +85,9 @@ const HomePage = () => {
         {pop.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="pop"
               publicSongs={pop}
               isLoaded={isLoaded}
@@ -87,6 +99,9 @@ const HomePage = () => {
         {jazz.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="jazz"
               publicSongs={jazz}
               isLoaded={isLoaded}
@@ -98,6 +113,9 @@ const HomePage = () => {
         {rnb.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="rnb"
               publicSongs={rnb}
               isLoaded={isLoaded}
@@ -109,6 +127,9 @@ const HomePage = () => {
         {edm.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="edm"
               publicSongs={edm}
               isLoaded={isLoaded}
@@ -120,6 +141,9 @@ const HomePage = () => {
         {rap.length && (
           <div className="music__container">
             <CarouselSongs
+              pauseSong={pauseSong}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
               key="rap"
               publicSongs={rap}
               isLoaded={isLoaded}

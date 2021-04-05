@@ -12,6 +12,17 @@ import App from "./App";
 const store = configureStore();
 
 function Root() {
+  window.addEventListener(
+    "scroll",
+    () => {
+      document.body.style.setProperty(
+        "--scroll",
+        window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+      );
+    },
+    false
+  );
+
   return (
     <Provider store={store}>
       <ModalProvider>

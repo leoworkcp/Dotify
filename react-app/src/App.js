@@ -21,7 +21,7 @@ export default function App() {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
+  const [playing, setIsPlaying] = useState(false);
   useEffect(async () => {
     const user = await dispatch(sessionActions.restoreUser());
     if (!user.errors) {
@@ -29,6 +29,11 @@ export default function App() {
     }
     setLoaded(true);
   }, [dispatch]);
+
+  const pauseSong = (e) => {
+    e.preventDefault();
+    setIsPlaying(false);
+  };
 
   const loggedInUser = useSelector((state) => state?.session.user);
   const userid = loggedInUser?.id;
@@ -52,13 +57,12 @@ export default function App() {
             setAuthenticated={setAuthenticated}
           />
           <Route path="/" exact={true}>
-            <HomePage />
+            <HomePage
+              playing={playing}
+              setIsPlaying={setIsPlaying}
+              pauseSong={pauseSong}
+            />
           </Route>
-          <Route
-            path="/test"
-            exact={true}
-            authenticated={authenticated}
-          ></Route>
 
           <Switch>
             <ProtectedRoute
@@ -84,6 +88,9 @@ export default function App() {
           loggedInUser={loggedInUser}
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
+          playing={playing}
+          setIsPlaying={setIsPlaying}
+          pauseSong={pauseSong}
         />
       </BrowserRouter>
     </ThemeProvider>

@@ -11,12 +11,13 @@ export const setCurrentSong = (url) => async (dispatch) => {
 
 let initialState = {};
 const playingReducer = (state = initialState, action) => {
-  let newState;
+  // let newState;
   switch (action.type) {
     case SET_SONG: {
-      newState = { ...state };
-      newState.playing = action.url;
-      return newState;
+      // newState = { ...state };
+      // newState.playing = action.url;
+      // return newState;
+      return action.url;
     }
     default:
       return state;

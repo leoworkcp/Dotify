@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "./AudioPlayer.css";
@@ -12,7 +14,7 @@ import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 // import CallReceivedIcon from "@material-ui/icons/CallReceived";
 // meantime use fullscreen icon!
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
-
+import ShuffleIcon from "@material-ui/icons/Shuffle";
 // import { withStyles } from "@material-ui/styles";
 
 // const CustomIconButton = withStyles({
@@ -25,58 +27,112 @@ import FullscreenIcon from "@material-ui/icons/Fullscreen";
 //   },
 // })(QueueMusicIcon);
 
-const Player = ({ loggedInUser, authenticated, setAuthenticated }) => {
-  window.addEventListener(
-    "scroll",
-    () => {
-      document.body.style.setProperty(
-        "--scroll",
-        window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
-      );
-    },
-    false
-  );
+const Player = ({
+  loggedInUser,
+  authenticated,
+  setAuthenticated,
+  playing,
+  setIsPlaying,
+  pauseSong,
+}) => {
+  const [songIsLoaded, setSongIsLoaded] = useState(false);
 
+  // const allSongs = useSelector((state) => state.songs);
+
+  const currentSong = useSelector((state) => state.playing);
+  console.log(currentSong?.image_url);
+
+  function muteMe(elem) {
+    elem.muted = true;
+    elem.pause();
+  }
+  function mutePage() {
+    var elems = document.querySelectorAll("video, audio");
+
+    [].forEach.call(elems, function (elem) {
+      muteMe(elem);
+    });
+  }
+  function audioGlitch(e) {
+    e.preventDefault();
+    setTimeout(mutePage, 1000);
+  }
+
+  const playSong = () => {
+    setIsPlaying(true);
+    setSongIsLoaded(true);
+  };
+
+  // // actions
+  // onAbort={action('onAbort')}
+  //  onCanPlay={action('onCanPlay')}
+  //  onCanPlayThrough={action('onCanPlayThrough')}
+  //   onEnded={action('onEnded')}
+  //   onPlaying={action('onPlaying')}
+  //   onSeeking={action('onSeeking')}
+  //   onSeeked={action('onSeeked')}
+  //   onLoadStart={action('onLoadStart')}
+  //   onLoadedMetaData={action('onLoadedMetaData')}
+  //   onLoadedData={action('onLoadedData')}
+  //   onError={action('onError')}
+  //   onListen={action('onListen')}
+  //   onVolumeChange={action('onVolumeChange')}
+  //   onPause={action('onPause')}
+  //   onPlay={action('onPlay')}
+  //   onClickPrevious={action('onClickPrevious')}
+  //   onClickNext={action('onClickNext')}
+  //   volume={0.8}
+  //   // actions ends
+
+  console.log(currentSong?.artist?.username);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
         <div className="container-playing">
-          <div className="song-playing">
-            <img
-              src="https://i.scdn.co/image/ab67616d00004851963416bf0f5fb7373d412780"
-              alt="song-cover"
-            />
-          </div>
+          {songIsLoaded && (
+            <div className="song-playing">
+              <img src={currentSong?.image_url} alt="song-cover" />
+            </div>
+          )}
           <div className="song-title__playing">
             <div className="name-artist">
-              <NavLink className="song_id" to={`/profile/:song_id`}>
-                Playa Playa
+              <NavLink className="song_id" to={`/song/${currentSong?.id}`}>
+                {currentSong?.name}
               </NavLink>
-              <NavLink className="artist_id" to={`/profile/:artist_id`}>
-                D'Angelo
+              <NavLink
+                className="artist_id"
+                to={`/profile/${currentSong?.artist_id}`}
+              >
+                {currentSong?.artist?.username}
               </NavLink>
             </div>
             <div className="like-artist__cover">
-              <FavoriteBorderIcon
-                style={{
-                  color: "#b3b3b3",
-                  // marginTop: "28px",
-                  // fontSize: 28,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
+              <button>
+                <FavoriteBorderIcon
+                  style={{
+                    // color: "#b3b3b3",
+                    // marginTop: "28px",
+                    // fontSize: 28,
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    paddingBottom: "5px",
+                  }}
+                />
+              </button>
             </div>
             <div className="see-artist__cover">
-              <PictureInPictureAltIcon
-                style={{
-                  color: "#b3b3b3",
-                  // marginTop: "28px",
-                  // fontSize: 28,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
+              <button>
+                <PictureInPictureAltIcon
+                  style={{
+                    // color: "#b3b3b3",
+                    // marginTop: "28px",
+                    // fontSize: 28,
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    paddingBottom: "5px",
+                  }}
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -84,33 +140,51 @@ const Player = ({ loggedInUser, authenticated, setAuthenticated }) => {
           showJumpControls={false}
           showSkipControls={true}
           layout="stacked-reverse"
-          autoPlay
-          src="http://example.com/audio.mp3"
-          onPlay={(e) => console.log("onPlay")}
+          // autoPlay
+          src={currentSong?.song}
+          onPlay={(e) => playSong(e)}
+          onPause={(e) => pauseSong(e)}
           // other props here
         />
         <div className="controllers-queue_screen">
+          <div className="shuffle-btn">
+            <button>
+              <ShuffleIcon
+                style={{
+                  // color: "#b3b3b3",
+                  marginTop: "28px",
+                  fontSize: 28,
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
+            </button>
+          </div>
           <div className="queue-music">
-            <QueueMusicIcon
-              style={{
-                color: "#b3b3b3",
-                marginTop: "28px",
-                fontSize: 28,
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            />
+            <button>
+              <QueueMusicIcon
+                style={{
+                  // color: "#b3b3b3",
+                  marginTop: "28px",
+                  fontSize: 30,
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
+            </button>
           </div>
           <div className="full-screen">
-            <FullscreenIcon
-              style={{
-                color: "#b3b3b3",
-                marginTop: "28px",
-                fontSize: 28,
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            />
+            <button>
+              <FullscreenIcon
+                style={{
+                  // color: "#b3b3b3",
+                  marginTop: "28px",
+                  fontSize: 30,
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
+            </button>
           </div>
         </div>
       </div>

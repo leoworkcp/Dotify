@@ -3,7 +3,7 @@
   box-sizing: border-box;
   padding: 20px;
   color: grey;
-  background-color: #2c2f33;
+  background-color: #181818;
 }
 
 .SignUpModalFormTitleContainer {
@@ -38,7 +38,7 @@
 .SignUpModalInputContainer > input {
   font: inherit;
   padding: 5px;
-  border: 1px solid rgb(170, 170, 170);
+  border: 1px solid rgb(170, 170, 170, 0.25);
   width: 300px;
 }
 

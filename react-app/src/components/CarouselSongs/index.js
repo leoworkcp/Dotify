@@ -3,7 +3,17 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import "./Carousel.css";
 import { NavLink } from "react-router-dom";
-const CarouselSongs = ({ publicSongs, isLoaded, title, header }) => {
+import PlayButton from "../PlayButton/index";
+const CarouselSongs = ({
+  publicSongs,
+  isLoaded,
+  title,
+  header,
+  playing,
+  setIsPlaying,
+  pauseSong,
+}) => {
+  // console.log(publicSongs);
   return (
     isLoaded && (
       <div className="carousel-main_container">
@@ -18,6 +28,12 @@ const CarouselSongs = ({ publicSongs, isLoaded, title, header }) => {
             {publicSongs.map((publicSong, idx) => {
               return (
                 <div key={idx} className="img-controller">
+                  <PlayButton
+                    pauseSong={pauseSong}
+                    publicSong={publicSong}
+                    playing={playing}
+                    setIsPlaying={setIsPlaying}
+                  />
                   <NavLink to={`song/${publicSong?.id}`}>
                     <p className="legend">{publicSong?.name}</p>
                   </NavLink>
