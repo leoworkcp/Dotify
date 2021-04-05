@@ -129,7 +129,7 @@ const CommentForm = ({ songsId }) => {
   };
 
   const deleteComment = (e) => {
-    if (userid === e.target.className.split(" ")[1]) {
+    if (userid === Number(e.target.className.split(" ")[1])) {
       dispatch(deleteUserComment(e.target.id));
       setDeleted(true);
       setTimeout(() => {
