@@ -1,16 +1,73 @@
-/* container of all */
-/* #profile-user__page {
-  width: 300px;
-  height: 300px;
+/* start here */
+.profile-header__container {
+  margin-left: 240px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
-.profile-display {
-  width: 300px;
-  height: 300px;
-} */
+
+.profile-header {
+  display: flex;
+
+  height: 340px;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.profile-header > img {
+  display: inline-flex;
+  height: 343px;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
+/* media query Logo */
+@media (min-width: 768px) and (max-width: 1096px) {
+  .profile-header > img {
+    width: 100%;
+  }
+}
+@media (min-width: 1096px) and (max-width: 1196px) {
+  .profile-header > img {
+    width: 965px;
+  }
+}
+@media (min-width: 1196px) and (max-width: 1396px) {
+  .profile-header > img {
+    width: 1165px;
+  }
+}
+@media (min-width: 1396px) and (max-width: 1596px) {
+  .profile-header > img {
+    width: 1365px;
+  }
+}
+@media (min-width: 1596px) and (max-width: 1796px) {
+  .profile-header > img {
+    width: 1565px;
+  }
+}
+@media (min-width: 1796px) and (max-width: 1920px) {
+  .profile-header > img {
+    width: 1680px;
+  }
+}
+
+/* username */
+.profile-username {
+  position: absolute;
+  font-size: 46px;
+  padding-top: 104px;
+  padding-left: 32px;
+  font-style: oblique;
+  z-index: 2;
+}
+
+/* ends here */
 .profile-songs-container {
   display: inline-flex;
-  width: 320px;
-  height: 400x;
+  width: 340px;
+  height: 440px;
   flex-wrap: wrap;
   justify-content: space-around;
   margin-left: 40px;
@@ -22,25 +79,34 @@
   border-radius: 5px;
 }
 
+.album-cover {
+  margin-top: 22px;
+}
+.messageButtons {
+  position: absolute;
+  height: 26px;
+  width: 52px;
+}
+.messageButtons > button {
+  height: 26px;
+  margin-left: 135px;
+  margin-bottom: 5px;
+}
+.song-profile__container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .song-image__container {
-  display: flex;
-  justify-content: center;
-  height: 150px;
+  margin-right: 70px;
 }
-
-#profile-song-image {
-  width: 100px;
-  height: 100px;
+.song-image__container > img {
+  width: 94px;
+  height: 94px;
   border-radius: 50px;
-  margin-top: 20px;
 }
 
-.song-name {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  color: gray;
-}
 .song-description {
   display: flex;
   flex-direction: column;
@@ -49,21 +115,8 @@
   color: gray;
 }
 
-h3 {
+.song-description > h3 {
   font-size: 16px;
-  border: none;
   margin: 0;
   color: rgba(255, 255, 255, 0.863);
 }
-
-/* p {
-  color: #fff;
-} */
-.song-audio__container > .no-outline {
-  /* background-color: #173a80; */
-  /* width: 150px; */
-}
-
-/* audio {
-  width: 150px;
-} */
