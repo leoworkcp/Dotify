@@ -1,11 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MessageDropdown from "../MessageDropdown/index";
+import PlayButton from "../PlayButton/index";
+
 const ProfileSongInfo = ({
   song,
   authenticated,
   setAuthenticated,
   loggedInUser,
+  playing,
+  setIsPlaying,
+  pauseSong,
 }) => {
   // song is already the user songs NOTE
   // console.log(song);
@@ -13,15 +18,7 @@ const ProfileSongInfo = ({
 
   return (
     <>
-      <div
-        className="profile-songs-container"
-        // style={{
-        //   backgroundImage: `url("${song.image_url}")`,
-        //   backgroundRepeat: "no-repeat",
-        //   width: "320px",
-        //   // height: "300x",
-        // }}
-      >
+      <div className="profile-songs-container">
         <div className="messageButtons">
           <MessageDropdown
             authenticated={authenticated}
@@ -29,6 +26,15 @@ const ProfileSongInfo = ({
             songsId={song.id}
             song={song}
             loggedInUser={loggedInUser}
+          />
+        </div>
+        <div className="play-user__btn">
+          <PlayButton
+            songsId={song.id}
+            song={song}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
           />
         </div>
         <div className="album-cover">

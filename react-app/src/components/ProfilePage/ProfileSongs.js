@@ -9,6 +9,9 @@ const ProfileSongs = ({
   setAuthenticated,
   userid,
   loggedInUser,
+  playing,
+  setIsPlaying,
+  pauseSong,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -30,13 +33,18 @@ const ProfileSongs = ({
     isLoaded && (
       <div id="profile-user__page">
         {userSongsValues.map((song, idx) => (
-          <ProfileSongInfo
-            key={idx}
-            song={song}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            loggedInUser={loggedInUser}
-          />
+          <div className="container-prof" key={idx}>
+            <ProfileSongInfo
+              playing={playing}
+              setIsPlaying={setIsPlaying}
+              pauseSong={pauseSong}
+              key={idx}
+              song={song}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+              loggedInUser={loggedInUser}
+            />
+          </div>
         ))}
       </div>
     )

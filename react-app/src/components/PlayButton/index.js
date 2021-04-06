@@ -4,17 +4,20 @@ import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
-const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong }) => {
+const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong, song }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
   // const [isLoaded, setIsLoaded] = useState(false)
 
   const dispatch = useDispatch();
   // console.log(publicSong);
+
   const setSong = (e) => {
     e.preventDefault();
     setIsPlaying(true);
-    dispatch(setCurrentSong(publicSong));
+    if (publicSong) dispatch(setCurrentSong(publicSong));
+    if (song) dispatch(setCurrentSong(song));
+
     document
       .querySelector(
         ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
