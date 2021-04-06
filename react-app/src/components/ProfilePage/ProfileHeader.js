@@ -14,8 +14,6 @@ const ProfilePage = ({
   const [songsClicked, setSongsClicked] = useState(true);
   const [popularClicked, setPopularClicked] = useState(false);
 
-  console.log(loggedInUser);
-  console.log(loggedInUser?.profile_URL);
   const displaySongs = () => {
     setSongsClicked(true);
     setPopularClicked(false);

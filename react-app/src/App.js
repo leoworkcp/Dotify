@@ -62,7 +62,7 @@ export default function App() {
       );
     } else return;
   }
-  console.log(drag);
+
   useEffect(async () => {
     const user = await dispatch(sessionActions.restoreUser());
     if (!user.errors) {
@@ -81,7 +81,7 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-  console.log(drag);
+
   return (
     <ThemeProvider>
       <BrowserRouter>
@@ -123,7 +123,6 @@ export default function App() {
                 setAuthenticated={setAuthenticated}
               />
               <ProfilePage
-                currentSong={currentSong}
                 loggedInUser={loggedInUser}
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
