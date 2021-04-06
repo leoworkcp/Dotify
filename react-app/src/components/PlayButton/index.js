@@ -37,7 +37,7 @@ const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong }) => {
     <>
       <div className="PlayButton">
         {!playing && (
-          <button onClick={(e) => setSong(e)}>
+          <button className="btn-play__active" onClick={(e) => setSong(e)}>
             <PlayArrowIcon
               style={{
                 fontSize: 40,
@@ -46,7 +46,7 @@ const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong }) => {
           </button>
         )}
         {playing && (
-          <button onClick={(e) => pausesSong(e)}>
+          <button className="btn-pause__active" onClick={(e) => pausesSong(e)}>
             <PauseIcon
               style={{
                 fontSize: 40,
