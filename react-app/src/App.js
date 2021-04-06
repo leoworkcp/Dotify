@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import Draggable from "react-draggable";
 // new auth to test
 import { ThemeProvider } from "@material-ui/styles";
 // import { authenticate } from "./store/auth";
@@ -18,10 +18,51 @@ import Player from "./components/AudioPlayer";
 
 export default function App() {
   const dispatch = useDispatch();
+  // draggable
 
+  const [drag, setDrag] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [playing, setIsPlaying] = useState(false);
+
+  const currentSong = useSelector((state) => state.playing);
+
+  // draggable function
+  //   const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const trackPos = (data) => {
+  //   setPosition({ x: data.x, y: data.y });
+  // };
+
+  function draggable() {
+    // <Draggable onDrag={(e, data) => trackPos(data)}>
+    //   <div className="box">
+    //     <div>Here's my position...</div>
+    //     <div>
+    //       x: {position.x.toFixed(0)}, y: {position.y.toFixed(0)}
+    //     </div>
+    //   </div>
+    // </Draggable>
+    // <Draggable handle="#handle">
+    //   <div className="box">
+    //     <span id="handle">Drag here</span>
+    //     <div style={{ padding: "1em" }}>Cannot drag here</div>
+    //   </div>
+    // </Draggable>
+    if (drag === true) {
+      return (
+        <Draggable>
+          <div className="box">
+            <div className="drag-container">
+              <button onClick={() => setDrag(false)}>X</button>
+              <div className="shadow">X</div>
+              <img src={currentSong?.image_url} alt="drag-cover" />
+            </div>
+          </div>
+        </Draggable>
+      );
+    } else return;
+  }
+  console.log(drag);
   useEffect(async () => {
     const user = await dispatch(sessionActions.restoreUser());
     if (!user.errors) {
@@ -30,9 +71,8 @@ export default function App() {
     setLoaded(true);
   }, [dispatch]);
 
-  const pauseSong = (e) => {
-    e.preventDefault();
-    setIsPlaying(false);
+  const pauseSong = async () => {
+    await setIsPlaying(false);
   };
 
   const loggedInUser = useSelector((state) => state?.session.user);
@@ -41,7 +81,7 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-
+  console.log(drag);
   return (
     <ThemeProvider>
       <BrowserRouter>
@@ -84,7 +124,11 @@ export default function App() {
             </Route>
           </Switch>
         </div>
+        {draggable()}
         <Player
+          currentSong={currentSong}
+          drag={drag}
+          setDrag={setDrag}
           loggedInUser={loggedInUser}
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}

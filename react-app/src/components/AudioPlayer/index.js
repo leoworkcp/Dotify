@@ -8,40 +8,25 @@ import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
-
-// maybe build the icon with arrows!!
-// import CallMadeIcon from "@material-ui/icons/CallMade";
-// import CallReceivedIcon from "@material-ui/icons/CallReceived";
-// meantime use fullscreen icon!
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
-// import { withStyles } from "@material-ui/styles";
-
-// const CustomIconButton = withStyles({
-//   root: {
-//     color: "#b3b3b3",
-//     // padding: "6px",
-//     // position: "relative",
-//     // zIndex: 0,
-//     // boxSizing: "border-box",
-//   },
-// })(QueueMusicIcon);
 
 const Player = ({
+  drag,
+  setDrag,
   loggedInUser,
   authenticated,
   setAuthenticated,
   playing,
   setIsPlaying,
   pauseSong,
+  currentSong,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
 
   // const allSongs = useSelector((state) => state.songs);
 
-  const currentSong = useSelector((state) => state.playing);
-  console.log(currentSong?.image_url);
-
+  // function ideas to mute sound of glitch
   function muteMe(elem) {
     elem.muted = true;
     elem.pause();
@@ -84,7 +69,22 @@ const Player = ({
   //   volume={0.8}
   //   // actions ends
 
-  console.log(currentSong?.artist?.username);
+  // console.log(document.querySelector(".btn-pause__active"));
+  async function onNext() {
+    setIsPlaying(false);
+    document.querySelector(".control-arrow.control-next").click();
+    return await document.querySelector(".btn-play__active").click();
+  }
+
+  let next = console.log(document.querySelector(".btn-play__active"));
+  if (next) {
+    console.log(next);
+  }
+  function onPrevious(e, cb) {
+    e.preventDefault();
+    return cb(document.querySelector(".control-arrow.control-prev").click());
+  }
+  console.log(playing);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
@@ -110,9 +110,6 @@ const Player = ({
               <button>
                 <FavoriteBorderIcon
                   style={{
-                    // color: "#b3b3b3",
-                    // marginTop: "28px",
-                    // fontSize: 28,
                     marginLeft: "10px",
                     marginRight: "10px",
                     paddingBottom: "5px",
@@ -121,18 +118,29 @@ const Player = ({
               </button>
             </div>
             <div className="see-artist__cover">
-              <button>
-                <PictureInPictureAltIcon
-                  style={{
-                    // color: "#b3b3b3",
-                    // marginTop: "28px",
-                    // fontSize: 28,
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                    paddingBottom: "5px",
-                  }}
-                />
-              </button>
+              {!drag && (
+                <button onClick={() => setDrag(true)}>
+                  <PictureInPictureAltIcon
+                    style={{
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
+              {drag && (
+                <button onClick={() => setDrag(false)}>
+                  <PictureInPictureAltIcon
+                    style={{
+                      color: "#15883e",
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -144,14 +152,17 @@ const Player = ({
           src={currentSong?.song}
           onPlay={(e) => playSong(e)}
           onPause={(e) => pauseSong(e)}
+          onClickNext={(e) => onNext(e)}
+          onClickPrevious={(e) => onPrevious(e, pauseSong)}
+          // volume={0.8}
           // other props here
         />
+
         <div className="controllers-queue_screen">
           <div className="shuffle-btn">
             <button>
               <ShuffleIcon
                 style={{
-                  // color: "#b3b3b3",
                   marginTop: "28px",
                   fontSize: 28,
                   marginLeft: "10px",
@@ -164,7 +175,6 @@ const Player = ({
             <button>
               <QueueMusicIcon
                 style={{
-                  // color: "#b3b3b3",
                   marginTop: "28px",
                   fontSize: 30,
                   marginLeft: "10px",
@@ -177,7 +187,6 @@ const Player = ({
             <button>
               <FullscreenIcon
                 style={{
-                  // color: "#b3b3b3",
                   marginTop: "28px",
                   fontSize: 30,
                   marginLeft: "10px",
