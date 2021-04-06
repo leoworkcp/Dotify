@@ -21,38 +21,6 @@
   margin-bottom: 20px;
 }
 
-/* media query Logo */
-@media (min-width: 768px) and (max-width: 1096px) {
-  .profile-header > img {
-    width: 100%;
-  }
-}
-@media (min-width: 1096px) and (max-width: 1196px) {
-  .profile-header > img {
-    width: 965px;
-  }
-}
-@media (min-width: 1196px) and (max-width: 1396px) {
-  .profile-header > img {
-    width: 1165px;
-  }
-}
-@media (min-width: 1396px) and (max-width: 1596px) {
-  .profile-header > img {
-    width: 1365px;
-  }
-}
-@media (min-width: 1596px) and (max-width: 1796px) {
-  .profile-header > img {
-    width: 1565px;
-  }
-}
-@media (min-width: 1796px) and (max-width: 1920px) {
-  .profile-header > img {
-    width: 1680px;
-  }
-}
-
 /* username */
 .profile-username {
   position: absolute;

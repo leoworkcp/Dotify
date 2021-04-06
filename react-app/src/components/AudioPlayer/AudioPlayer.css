@@ -17,10 +17,6 @@
   padding: 10px;
   height: 91px;
   justify-content: space-between;
-  /* new things */
-  /* align-items: center; */
-  /* flex-direction: row; */
-  /* justify-content: space-evenly; */
   padding: 0 16px;
 }
 .container-playing {
@@ -204,6 +200,60 @@
   color: rgba(255, 255, 255, 0.774);
   margin-left: 25px;
   margin-right: 25px;
+}
+@media (max-width: 776px) {
+  .player-navbar__container {
+    padding: 0px;
+  }
+  .profile-header__container,
+  .full-screen,
+  .queue-music,
+  .controllers-queue_screen,
+  .shuffle-btn,
+  .container-playing,
+  .see-artist__cover,
+  .like-artist__cover {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .player-navBar {
+    padding-bottom: 0px;
+  }
+  .home-main__container {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-main__container {
+    margin-top: 50px;
+    padding-bottom: 0px;
+    margin-left: 50px;
+  }
+  .sideBar-title-container,
+  .sideBar-button__search,
+  .sideBar-button__library,
+  .sideBar-button__playlist,
+  .sideBar-button__liked,
+  .divider-container {
+    display: none;
+  }
+
+  .sideBar-button__home {
+    margin-top: 10px;
+    z-index: 20;
+  }
+}
+
+@media (max-width: 920px) {
+  .rhap_play-pause-button {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 
 .rhap_button-clear:hover {
