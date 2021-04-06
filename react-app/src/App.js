@@ -15,7 +15,7 @@ import HomePage from "./components/HomePage";
 import Player from "./components/AudioPlayer";
 // for later to work
 // import Waveform from "./components/MediaPlayer/Waveform.js";
-
+import ProfileHeader from "./components/ProfilePage/ProfileHeader";
 export default function App() {
   const dispatch = useDispatch();
   // draggable
@@ -116,10 +116,20 @@ export default function App() {
               authenticated={authenticated}
             ></ProtectedRoute>
             <Route path={"/profile/:userid"} exact={true}>
-              <ProfilePage
+              <ProfileHeader
+                userid={userid}
                 loggedInUser={loggedInUser}
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
+              />
+              <ProfilePage
+                currentSong={currentSong}
+                loggedInUser={loggedInUser}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
               />
             </Route>
           </Switch>

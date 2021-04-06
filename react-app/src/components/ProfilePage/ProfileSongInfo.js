@@ -7,6 +7,10 @@ const ProfileSongInfo = ({
   setAuthenticated,
   loggedInUser,
 }) => {
+  // song is already the user songs NOTE
+  // console.log(song);
+  // console.log(song?.artist?.username);
+
   return (
     <>
       <div
@@ -18,7 +22,6 @@ const ProfileSongInfo = ({
         //   // height: "300x",
         // }}
       >
-        {/* <img src={song.image_url} alt="profile-song" /> */}
         <div className="messageButtons">
           <MessageDropdown
             authenticated={authenticated}
@@ -28,24 +31,23 @@ const ProfileSongInfo = ({
             loggedInUser={loggedInUser}
           />
         </div>
-        <Link id="profile-song-link" to={`/song/${song.id}`}>
-          <div className="song-image__container">
-            <img
-              id="profile-song-image"
-              src={song.image_url}
-              alt="profile-song"
-            />
+        <div className="album-cover">
+          <img src={song.image_url} alt="profile-song" />
+        </div>
+
+        <Link to={`/song/${song.id}`}>
+          <div className="song-profile__container">
+            <div className="song-image__container">
+              <img src={song?.artist?.profile_URL} alt="profile-song" />
+            </div>
+            <div className="song-description">
+              <h3>{song.name}</h3>
+              <p>{song?.artist?.username}</p>
+            </div>
           </div>
-          <div className="song-name">{song.name}</div>
-          <div className="song-description">
-            <h3>Category</h3>
-            <p>{song.category}</p>
-            <h3>Description</h3>
-            <p>{song.description}</p>
-          </div>
-          <div className="song-audio__container">
+          {/* <div className="song-audio__container">
             <audio className="no-outline" controls src={song.song}></audio>
-          </div>
+          </div> */}
         </Link>
       </div>
     </>

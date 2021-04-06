@@ -4,7 +4,6 @@ import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
-import AudioPlayer from "../AudioPlayer/index";
 const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
