@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
-// new auth to test
 import { ThemeProvider } from "@material-ui/styles";
+// new auth to test
 // import { authenticate } from "./store/auth";
 import ProtectedRoute from "./components/auth/ProtectedRoute/index";
 import * as sessionActions from "./store/session";
@@ -13,9 +13,9 @@ import Sidebar from "./components/Sidebar/index";
 import ProfilePage from "./components/ProfilePage";
 import HomePage from "./components/HomePage";
 import Player from "./components/AudioPlayer";
-// for later to work
-// import Waveform from "./components/MediaPlayer/Waveform.js";
 import ProfileHeader from "./components/ProfilePage/ProfileHeader";
+import SongPage from "./components/SongPage/index";
+import { findPublicSongs } from "./store/publicSongs";
 export default function App() {
   const dispatch = useDispatch();
   // draggable
@@ -26,6 +26,14 @@ export default function App() {
   const [playing, setIsPlaying] = useState(false);
 
   const currentSong = useSelector((state) => state.playing);
+
+  // public songs
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
+  }, [dispatch]);
+
+  const publicSongs = useSelector((state) => Object.values(state?.publicSong));
 
   // draggable function
   //   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -98,6 +106,9 @@ export default function App() {
           />
           <Route path="/" exact={true}>
             <HomePage
+              setIsLoaded={setIsLoaded}
+              isLoaded={isLoaded}
+              publicSongs={publicSongs}
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
@@ -131,10 +142,22 @@ export default function App() {
                 pauseSong={pauseSong}
               />
             </Route>
+            <Route path={"/song/:songId"} exact={true}>
+              <SongPage
+                publicSongs={publicSongs}
+                loggedInUser={loggedInUser}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
+              />
+            </Route>
           </Switch>
         </div>
         {draggable()}
         <Player
+          publicSongs={publicSongs}
           currentSong={currentSong}
           drag={drag}
           setDrag={setDrag}

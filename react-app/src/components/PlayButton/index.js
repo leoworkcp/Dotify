@@ -1,22 +1,31 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
-const PlayButton = ({ publicSong, playing, setIsPlaying, pauseSong, song }) => {
+const PlayButton = ({
+  publicSong,
+  playing,
+  setIsPlaying,
+  pauseSong,
+  song,
+  founded,
+}) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
   // const [isLoaded, setIsLoaded] = useState(false)
 
   const dispatch = useDispatch();
-  // console.log(publicSong);
+
+  console.log(founded);
 
   const setSong = (e) => {
     e.preventDefault();
     setIsPlaying(true);
     if (publicSong) dispatch(setCurrentSong(publicSong));
     if (song) dispatch(setCurrentSong(song));
+    if (founded) dispatch(setCurrentSong(founded));
 
     document
       .querySelector(

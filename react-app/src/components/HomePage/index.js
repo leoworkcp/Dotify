@@ -1,20 +1,19 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { findPublicSongs } from "../../store/publicSongs";
+// import { findPublicSongs } from "../../store/publicSongs";
 import CarouselSongs from "../CarouselSongs/index";
 import "./HomePage.css";
 
-const HomePage = ({ playing, setIsPlaying, pauseSong }) => {
-  const dispatch = useDispatch();
-
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
-  }, [dispatch]);
-
-  const publicSongs = useSelector((state) => Object.values(state?.publicSong));
+const HomePage = ({
+  playing,
+  setIsPlaying,
+  pauseSong,
+  publicSongs,
+  isLoaded,
+  setIsLoaded,
+}) => {
+  // const dispatch = useDispatch();
 
   const rock = publicSongs?.filter((ele) =>
     ele?.category.toLowerCase().includes("rock")

@@ -98,7 +98,7 @@ const MessageDropdown = ({
   let userid;
   if (loggedInUser) userid = loggedInUser?.id;
 
-  // console.log(song?.artist_id);
+  // console.log(song);
 
   // console.log(userid);
   //  end delete song

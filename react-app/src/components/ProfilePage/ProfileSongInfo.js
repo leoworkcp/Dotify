@@ -29,6 +29,7 @@ const ProfileSongInfo = ({
           />
         </div>
         <div className="play-user__btn">
+          {console.log(song)}
           <PlayButton
             songsId={song.id}
             song={song}

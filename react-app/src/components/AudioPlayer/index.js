@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
@@ -10,7 +9,7 @@ import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
-
+import PlayButton from "../PlayButton/index";
 const Player = ({
   drag,
   setDrag,
@@ -21,11 +20,11 @@ const Player = ({
   setIsPlaying,
   pauseSong,
   currentSong,
+  publicSongs,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
 
-  // const allSongs = useSelector((state) => state.songs);
-
+  // console.log(publicSongs);
   // function ideas to mute sound of glitch
   function muteMe(elem) {
     elem.muted = true;
@@ -47,6 +46,18 @@ const Player = ({
     setIsPlaying(true);
     setSongIsLoaded(true);
   };
+
+  // shuffle attempt
+  let audio_url = [];
+  let covert = publicSongs.map((song) => {
+    audio_url.push(song.song);
+  });
+  let random_file = audio_url[Math.floor(Math.random() * audio_url.length)];
+  console.log(random_file);
+  let test;
+  let founded = publicSongs?.filter((ele) =>
+    ele?.song.toLowerCase().includes(random_file)
+  );
 
   // // actions
   // onAbort={action('onAbort')}
@@ -78,13 +89,14 @@ const Player = ({
 
   let next = console.log(document.querySelector(".btn-play__active"));
   if (next) {
-    console.log(next);
+    // console.log(next);
   }
   function onPrevious(e, cb) {
     e.preventDefault();
     return cb(document.querySelector(".control-arrow.control-prev").click());
   }
-  console.log(playing);
+  // console.log(playing);
+
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
@@ -145,10 +157,10 @@ const Player = ({
           </div>
         </div>
         <AudioPlayer
+          autoPlay={true}
           showJumpControls={false}
           showSkipControls={true}
           layout="stacked-reverse"
-          // autoPlay
           src={currentSong?.song}
           onPlay={(e) => playSong(e)}
           onPause={(e) => pauseSong(e)}
@@ -160,7 +172,14 @@ const Player = ({
 
         <div className="controllers-queue_screen">
           <div className="shuffle-btn">
-            <button>
+            <div className="shuffle-it">
+              <PlayButton
+                foundedId={founded[0]?.id}
+                founded={founded[0]}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
+              />
               <ShuffleIcon
                 style={{
                   marginTop: "28px",
@@ -169,7 +188,7 @@ const Player = ({
                   marginRight: "10px",
                 }}
               />
-            </button>
+            </div>
           </div>
           <div className="queue-music">
             <button>

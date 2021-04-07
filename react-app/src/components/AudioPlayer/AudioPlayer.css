@@ -126,23 +126,7 @@
   color: #fff;
   transition: all 0.3s ease-in-out;
 }
-/* music shuffle */
-.shuffle-btn > button {
-  background-color: transparent;
-}
 
-.shuffle-btn > button:hover {
-  cursor: pointer;
-}
-.shuffle-btn > button > svg {
-  transition: all 0.3s ease-in-out;
-  color: #b3b3b3;
-}
-
-.shuffle-btn > button > svg:hover {
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
 /* queue music */
 .queue-music > button {
   background-color: transparent;
@@ -289,4 +273,50 @@
 .rhap_time {
   color: #868686;
   font-size: 11px;
+}
+
+/* music shuffle */
+.shuffle-btn > .shuffle-it {
+  background-color: transparent;
+}
+
+.shuffle-btn > .shuffle-it:hover {
+  cursor: pointer;
+}
+.shuffle-btn > .shuffle-it > svg {
+  transition: all 0.3s ease-in-out;
+  color: #b3b3b3;
+}
+
+.shuffle-btn > .shuffle-it > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.shuffle-it > .PlayButton {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  color: transparent;
+  top: 16px;
+  left: 663px;
+  position: absolute;
+}
+
+.shuffle-it > .PlayButton > .btn-play__active:hover {
+  background-color: transparent;
+  color: transparent;
+}
+
+.shuffle-it > .PlayButton > .btn-play__active > svg:hover {
+  background-color: transparent;
+  color: transparent;
+}
+.shuffle-it > .PlayButton > .btn-pause__active:hover {
+  background-color: transparent;
+  color: transparent;
+}
+
+.shuffle-it > .PlayButton > .btn-pause__active > svg:hover {
+  background-color: transparent;
+  color: transparent;
 }
