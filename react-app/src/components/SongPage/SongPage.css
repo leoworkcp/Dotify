@@ -1,0 +1,12 @@
+.song_page {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.song-page__title {
+  color: blue;
+}
+.song-page__title > h1 {
+  color: blue;
+}
