@@ -5,8 +5,7 @@ import PlayButton from "../PlayButton/index";
 
 const ProfileSongInfo = ({
   song,
-  authenticated,
-  setAuthenticated,
+
   loggedInUser,
   playing,
   setIsPlaying,
@@ -21,8 +20,6 @@ const ProfileSongInfo = ({
       <div className="profile-songs-container">
         <div className="messageButtons">
           <MessageDropdown
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
             songsId={song.id}
             song={song}
             loggedInUser={loggedInUser}

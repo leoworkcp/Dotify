@@ -100,8 +100,6 @@ const CommentForm = ({ songsId }) => {
   }, [dispatch]);
   const allUsers = useSelector((state) => state?.users);
 
-  // const allUsers = useSelector((state) => state.session);
-
   const commentSubmit = async (e) => {
     e.preventDefault();
 

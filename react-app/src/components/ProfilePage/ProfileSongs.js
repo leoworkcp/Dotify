@@ -5,8 +5,6 @@ import { getUserSongs } from "../../store/songs";
 import ProfileSongInfo from "./ProfileSongInfo";
 
 const ProfileSongs = ({
-  authenticated,
-  setAuthenticated,
   userid,
   loggedInUser,
   playing,
@@ -40,8 +38,6 @@ const ProfileSongs = ({
               pauseSong={pauseSong}
               key={idx}
               song={song}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
               loggedInUser={loggedInUser}
             />
           </div>

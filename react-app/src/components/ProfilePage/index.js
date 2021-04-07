@@ -5,14 +5,7 @@ import ProfileSongs from "./ProfileSongs";
 // import { getArtist } from "../../store/users";
 import "./ProfilePage.css";
 
-const ProfilePage = ({
-  authenticated,
-  setAuthenticated,
-  loggedInUser,
-  playing,
-  setIsPlaying,
-  pauseSong,
-}) => {
+const ProfilePage = ({ loggedInUser, playing, setIsPlaying, pauseSong }) => {
   const { userid } = useParams();
   const dispatch = useDispatch();
 
@@ -34,8 +27,6 @@ const ProfilePage = ({
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
               userid={userid}
               loggedInUser={loggedInUser}
             />

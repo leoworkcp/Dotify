@@ -127,16 +127,9 @@ export default function App() {
               authenticated={authenticated}
             ></ProtectedRoute>
             <Route path={"/profile/:userid"} exact={true}>
-              <ProfileHeader
-                userid={userid}
-                loggedInUser={loggedInUser}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
-              />
+              <ProfileHeader userid={userid} loggedInUser={loggedInUser} />
               <ProfilePage
                 loggedInUser={loggedInUser}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
@@ -146,8 +139,6 @@ export default function App() {
               <SongPage
                 publicSongs={publicSongs}
                 loggedInUser={loggedInUser}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
