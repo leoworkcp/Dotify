@@ -247,9 +247,10 @@
   display: flex;
 }
 
+.full-screen,
 .queue-music {
-  width: min-content;
-  height: min-content;
+  width: 50px;
+  height: 50px;
 }
 
 .rhap_volume-indicator {
@@ -276,47 +277,59 @@
 }
 
 /* music shuffle */
-.shuffle-btn > .shuffle-it {
-  background-color: transparent;
+
+.shuffle-btn {
+  position: absolute;
+  right: 107px;
+  bottom: 70px;
+  height: 50px;
 }
 
-.shuffle-btn > .shuffle-it:hover {
-  cursor: pointer;
+.shuffle-btn > svg.MuiSvgIcon-root {
+  position: fixed;
+  bottom: 33px;
 }
-.shuffle-btn > .shuffle-it > svg {
-  transition: all 0.3s ease-in-out;
-  color: #b3b3b3;
-}
-
-.shuffle-btn > .shuffle-it > svg:hover {
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-.shuffle-it > .PlayButton {
+.shuffle-btn > .PlayButton {
   width: 50px;
   height: 50px;
   background-color: transparent;
   color: transparent;
-  top: 16px;
-  left: 663px;
-  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0px;
+  padding: 0px;
+  position: sticky;
+  margin-top: 47px;
 }
 
-.shuffle-it > .PlayButton > .btn-play__active:hover {
-  background-color: transparent;
-  color: transparent;
-}
-
-.shuffle-it > .PlayButton > .btn-play__active > svg:hover {
-  background-color: transparent;
-  color: transparent;
-}
-.shuffle-it > .PlayButton > .btn-pause__active:hover {
+/* hover play-btn-shuffle */
+.shuffle-btn > .PlayButton > .btn-pause__active:hover {
   background-color: transparent;
   color: transparent;
 }
 
-.shuffle-it > .PlayButton > .btn-pause__active > svg:hover {
+.shuffle-btn > .PlayButton > .btn-play__active:hover {
   background-color: transparent;
   color: transparent;
+}
+.shuffle-btn > .PlayButton > .btn-pause__active > svg:hover {
+  color: transparent;
+}
+
+.shuffle-btn > .PlayButton > .btn-play__active > svg:hover {
+  color: transparent;
+}
+
+.shuffle-btn > svg {
+  color: #b3b3b3;
+}
+
+.shuffle-btn > svg.MuiSvgIcon-root:hover {
+  color: rgb(214, 39, 39);
+}
+
+@media (max-width: 1180px) {
+  .shuffle-btn {
+    display: none;
+  }
 }

@@ -99,7 +99,7 @@ const CommentForm = ({ songsId }) => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
   }, [dispatch]);
   const allUsers = useSelector((state) => state?.users);
-  console.log(allUsers[1]);
+
   // const allUsers = useSelector((state) => state.session);
 
   const commentSubmit = async (e) => {

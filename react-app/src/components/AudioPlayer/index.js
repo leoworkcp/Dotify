@@ -53,7 +53,6 @@ const Player = ({
     audio_url.push(song.song);
   });
   let random_file = audio_url[Math.floor(Math.random() * audio_url.length)];
-  console.log(random_file);
   let test;
   let founded = publicSongs?.filter((ele) =>
     ele?.song.toLowerCase().includes(random_file)
@@ -87,10 +86,10 @@ const Player = ({
     return await document.querySelector(".btn-play__active").click();
   }
 
-  let next = console.log(document.querySelector(".btn-play__active"));
-  if (next) {
-    // console.log(next);
-  }
+  // let next = console.log(document.querySelector(".btn-play__active"));
+  // if (next) {
+
+  // }
   function onPrevious(e, cb) {
     e.preventDefault();
     return cb(document.querySelector(".control-arrow.control-prev").click());
@@ -172,23 +171,21 @@ const Player = ({
 
         <div className="controllers-queue_screen">
           <div className="shuffle-btn">
-            <div className="shuffle-it">
-              <PlayButton
-                foundedId={founded[0]?.id}
-                founded={founded[0]}
-                playing={playing}
-                setIsPlaying={setIsPlaying}
-                pauseSong={pauseSong}
-              />
-              <ShuffleIcon
-                style={{
-                  marginTop: "28px",
-                  fontSize: 28,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
-            </div>
+            <ShuffleIcon
+              style={{
+                marginTop: "28px",
+                fontSize: 28,
+                marginLeft: "10px",
+                marginRight: "10px",
+              }}
+            />
+            <PlayButton
+              foundedId={founded[0]?.id}
+              founded={founded[0]}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
+              pauseSong={pauseSong}
+            />
           </div>
           <div className="queue-music">
             <button>

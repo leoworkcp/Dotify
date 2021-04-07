@@ -115,3 +115,7 @@ textarea::-webkit-scrollbar {
   margin-left: 20px;
   margin-top: 9px;
 }
+
+.delete-comment__btn {
+  cursor: pointer;
+}

@@ -31,21 +31,6 @@ const ProfilePage = ({
       <div className="profile-username">
         <h1>{loggedInUser?.username}</h1>
       </div>
-      {/* <nav id="profile-nav">
-        <button
-          className="profile-nav-link no-outline"
-          onClick={displaySongs}
-        ></button>
-        <button
-          className="profile-nav-link no-outline"
-          onClick={displayPopular}
-        >
-          Popular
-        </button>
-      </nav>
-      <div id="profile-popular-div">
-        {popularClicked ? <h1>Popular</h1> : ""}
-      </div> */}
     </div>
   );
 };
