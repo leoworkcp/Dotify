@@ -1,12 +1,46 @@
 .song_page {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0);
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.song_page > img {
+  margin-left: 270px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1650px;
+  height: 363px;
+}
+
+@media (max-width: 770px) {
+  .song_page > img {
+    width: 800px;
+    margin-left: 0px;
+  }
+}
+
+.cover-div {
+  background-color: red;
+  height: 300px;
+}
+
+.cover-div > img {
 }
 
 .song-page__title {
-  color: blue;
+  display: inline-flex;
+  color: #fff;
+  flex-wrap: wrap;
 }
 .song-page__title > h1 {
-  color: blue;
+  height: fit-content;
+  margin: 0;
+}
+
+.song-page__title > h2 {
+  margin: 0;
+  margin-top: 10px;
+  height: fit-content;
+  padding-left: 150px;
 }
