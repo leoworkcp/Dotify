@@ -62,7 +62,14 @@
 }
 
 .album-cover {
+  max-width: 300px;
+  max-height: 300px;
   margin-top: 22px;
+}
+
+.album-cover > img {
+  max-width: 300px;
+  max-height: 300px;
 }
 
 /* play btn */
@@ -92,14 +99,12 @@
   margin-bottom: 5px;
 }
 .song-profile__container {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 300px;
 }
 
-.song-image__container {
-  margin-right: 70px;
-}
 .song-image__container > img {
   width: 94px;
   height: 94px;

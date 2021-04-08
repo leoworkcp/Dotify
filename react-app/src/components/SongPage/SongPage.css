@@ -22,10 +22,13 @@
 
 .cover-div {
   background-color: red;
-  height: 300px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .cover-div > img {
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .song-page__title {

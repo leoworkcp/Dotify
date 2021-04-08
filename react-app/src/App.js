@@ -35,27 +35,7 @@ export default function App() {
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
 
-  // draggable function
-  //   const [position, setPosition] = useState({ x: 0, y: 0 });
-  // const trackPos = (data) => {
-  //   setPosition({ x: data.x, y: data.y });
-  // };
-
   function draggable() {
-    // <Draggable onDrag={(e, data) => trackPos(data)}>
-    //   <div className="box">
-    //     <div>Here's my position...</div>
-    //     <div>
-    //       x: {position.x.toFixed(0)}, y: {position.y.toFixed(0)}
-    //     </div>
-    //   </div>
-    // </Draggable>
-    // <Draggable handle="#handle">
-    //   <div className="box">
-    //     <span id="handle">Drag here</span>
-    //     <div style={{ padding: "1em" }}>Cannot drag here</div>
-    //   </div>
-    // </Draggable>
     if (drag === true) {
       return (
         <Draggable>
@@ -127,7 +107,7 @@ export default function App() {
               authenticated={authenticated}
             ></ProtectedRoute>
             <Route path={"/profile/:userid"} exact={true}>
-              <ProfileHeader userid={userid} loggedInUser={loggedInUser} />
+              <ProfileHeader publicSongs={publicSongs} />
               <ProfilePage
                 loggedInUser={loggedInUser}
                 playing={playing}
@@ -138,7 +118,6 @@ export default function App() {
             <Route path={"/song/:songId"} exact={true}>
               <SongPage
                 publicSongs={publicSongs}
-                loggedInUser={loggedInUser}
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
