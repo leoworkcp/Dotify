@@ -4,14 +4,27 @@ import { useHistory } from "react-router-dom";
 
 import { logout } from "../../../store/session";
 import "./LogoutButton.css";
-
-const LogoutButton = ({ setAuthenticated, loggedInUser }) => {
+import { setCurrentSong } from "../../../store/playing";
+const LogoutButton = ({
+  setAuthenticated,
+  loggedInUser,
+  playing,
+  setIsPlaying,
+  pauseSong,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onLogout = async (e) => {
     await dispatch(logout());
-    setAuthenticated(false);
+    await dispatch(setCurrentSong(false));
+    setIsPlaying(false);
+    pauseSong(setAuthenticated(false));
+    document
+      .querySelector(
+        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
+      )
+      .click();
     history.push("/");
   };
 

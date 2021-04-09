@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+
 import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -11,10 +12,11 @@ const PlayButton = ({
   pauseSong,
   song,
   founded,
+  loggedInUser,
 }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
-  // const [isLoaded, setIsLoaded] = useState(false)
+  // const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
 

@@ -28,7 +28,12 @@
   padding-top: 104px;
   padding-left: 32px;
   font-style: oblique;
+  text-shadow: #b9bbbe23 -5px 5px;
   z-index: 2;
+}
+
+.profile-username > h1 {
+  text-shadow: #14458f23 -5px 5px;
 }
 @media (max-width: 1396px) {
   .profile-username {
