@@ -151,3 +151,14 @@ def delete_song(id):
     db.session.commit()
     # db.session.flush()
     return song.to_dict()
+
+
+@song_routes.route('/like/', methods=['PUT'])
+def add_like():
+    comment = request.json
+    print("XXXXXXXXXXXXXXXXXXXXXX")
+    print(comment)
+    matched_comment = Comment.query.get(comment['commentId'])
+    matched_comment.likes = matched_comment.likes + 1
+    db.session.commit()
+    return matched_comment.to_dict()

@@ -119,3 +119,9 @@ textarea::-webkit-scrollbar {
 .delete-comment__btn {
   cursor: pointer;
 }
+
+h5 {
+  color: #fff;
+  padding-bottom: 0px;
+  margin: 0px;
+}

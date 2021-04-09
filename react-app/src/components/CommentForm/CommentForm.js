@@ -12,7 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { withStyles } from "@material-ui/styles";
 //
-import { postUserComment, userLike } from "../../store/songs";
+import { postUserComment, addCommentLike } from "../../store/songs";
 import "./CommentForm.css";
 import { getSong } from "../../store/songs";
 
@@ -46,6 +46,7 @@ const CustomMenuItem = withStyles({
   },
 })(MenuItem);
 const CommentForm = ({ songsId }) => {
+  const history = useHistory();
   //
   const [showDeleteMessageModal, setShowDeleteMessageModal] = useState(false);
   const [showEditMessageModal, setShowEditMessageModal] = useState(false);
@@ -60,7 +61,6 @@ const CommentForm = ({ songsId }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
-  const history = useHistory();
 
   // new Stuff -------------------------->>>\
   // const likes = useSelector((state) => state.songs.likes);
@@ -112,13 +112,23 @@ const CommentForm = ({ songsId }) => {
     await dispatch(postUserComment(userComment, songsId));
   };
 
-  const likeSong = (e) => {
-    e.preventDefault();
-    dispatch(userLike(songsId, userid));
+  const handleIncrement = (commentId) => {
+    dispatch(addCommentLike(commentId));
+    // setLiked(true);
+    // setDeleted(true);
     return setTimeout(() => {
       setLiked(true);
+      // setDeleted(false);
     }, 100);
   };
+
+  // const likeSong = (e) => {
+  //   e.preventDefault();
+  //   dispatch(userLike(songsId, userid));
+  //   return setTimeout(() => {
+  //     setLiked(true);
+  //   }, 100);
+  // };
 
   const newCommentSubmit = () => {
     return setTimeout(() => {
@@ -142,10 +152,13 @@ const CommentForm = ({ songsId }) => {
 
   useEffect(async () => {
     dispatch(getSong(songsId)).then(() => setIsLoaded(true));
-    // dispatch(getAllLikes());
 
     return setNewComment(false);
-  }, [dispatch, newComment, deleted]);
+  }, [dispatch, newComment, deleted, liked]);
+
+  useEffect(async () => {
+    return setNewComment(false);
+  }, [dispatch, liked]);
 
   return (
     isLoaded && (
@@ -176,13 +189,22 @@ const CommentForm = ({ songsId }) => {
                   <div id={comment.id} className="comment-container">
                     <p id="old-comments">{comment?.description}</p>
                     <div id="like-comment__container">
+                      {console.log(comment.id)}
                       {liked ? (
-                        <button id="btn-likes" onClick={likeSong}>
+                        <button
+                          id="btn-likes"
+                          // onClick={() => handleIncrement(comment.id)}
+                        >
                           <FavoriteRoundedIcon id="like-btn" />
+                          <h5 id="liked-amount">{comment?.likes}</h5>
                         </button>
                       ) : (
-                        <button id="btn-likes" onClick={likeSong}>
+                        <button
+                          id="btn-likes"
+                          onClick={() => handleIncrement(comment.id)}
+                        >
                           <FavoriteBorderRoundedIcon id="liked-btn" />
+                          <h5>{comment?.likes}</h5>
                         </button>
                       )}
                       <Timestamp
