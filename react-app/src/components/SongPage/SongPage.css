@@ -39,6 +39,7 @@
 .song-page__title > h1 {
   height: fit-content;
   margin: 0;
+  margin-top: 1px;
 }
 
 .song-page__title > h2 {
@@ -46,4 +47,20 @@
   margin-top: 10px;
   height: fit-content;
   padding-left: 150px;
+}
+
+.songPage > a > h1 {
+  margin: 0px;
+  color: #fff;
+  text-shadow: #b9bbbe23 -5px 5px;
+  margin-left: 250px;
+  height: min-content;
+}
+
+@media (max-width: 770px) {
+  .songPage > a > h1 {
+    margin: 0px;
+    background-color: rgb(255, 185, 127);
+    margin-left: 0px;
+  }
 }
