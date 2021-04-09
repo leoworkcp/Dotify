@@ -26,7 +26,7 @@ const ProfileSongs = ({
   useEffect(() => {
     dispatch(getUserSongs(userid)).then((req) => setIsLoaded(true));
   }, [dispatch, userid]);
-  console.log(userSongsValues);
+
   return (
     isLoaded && (
       <div id="profile-user__page">

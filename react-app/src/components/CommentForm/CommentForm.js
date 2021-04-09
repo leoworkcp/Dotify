@@ -189,8 +189,25 @@ const CommentForm = ({ songsId }) => {
                   <div id={comment.id} className="comment-container">
                     <p id="old-comments">{comment?.description}</p>
                     <div id="like-comment__container">
-                      {console.log(comment.id)}
+                      {console.log(comment)}
                       {liked ? (
+                        <button
+                          id="btn-likes"
+                          // onClick={() => handleIncrement(comment.id)}
+                        >
+                          <FavoriteBorderRoundedIcon id="like-btn" />
+                          <h5 id="liked-amount">{comment?.likes}</h5>
+                        </button>
+                      ) : (
+                        <button
+                          id="btn-likes"
+                          onClick={() => handleIncrement(comment.id)}
+                        >
+                          <FavoriteBorderRoundedIcon id="liked-btn" />
+                          <h5>{comment?.likes}</h5>
+                        </button>
+                      )}
+                      {/* {liked ? (
                         <button
                           id="btn-likes"
                           // onClick={() => handleIncrement(comment.id)}
@@ -206,7 +223,7 @@ const CommentForm = ({ songsId }) => {
                           <FavoriteBorderRoundedIcon id="liked-btn" />
                           <h5>{comment?.likes}</h5>
                         </button>
-                      )}
+                      )} */}
                       <Timestamp
                         // relative
                         date={comment.created_at}
