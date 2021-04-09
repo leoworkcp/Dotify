@@ -14,8 +14,6 @@ const Player = ({
   drag,
   setDrag,
   loggedInUser,
-  authenticated,
-  setAuthenticated,
   playing,
   setIsPlaying,
   pauseSong,
@@ -94,7 +92,6 @@ const Player = ({
     e.preventDefault();
     return cb(document.querySelector(".control-arrow.control-prev").click());
   }
-  // console.log(playing);
 
   return (
     <nav className="player-navBar">
@@ -185,6 +182,7 @@ const Player = ({
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
+              loggedInUser={loggedInUser}
             />
           </div>
           <div className="queue-music">

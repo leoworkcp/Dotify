@@ -77,6 +77,9 @@ export default function App() {
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
           loggedInUser={loggedInUser}
+          playing={playing}
+          setIsPlaying={setIsPlaying}
+          pauseSong={pauseSong}
         />
         <div className="mainContent">
           <Sidebar
@@ -127,13 +130,12 @@ export default function App() {
         </div>
         {draggable()}
         <Player
+          loggedInUser={loggedInUser}
           publicSongs={publicSongs}
           currentSong={currentSong}
           drag={drag}
           setDrag={setDrag}
-          loggedInUser={loggedInUser}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
+          userid={userid}
           playing={playing}
           setIsPlaying={setIsPlaying}
           pauseSong={pauseSong}
