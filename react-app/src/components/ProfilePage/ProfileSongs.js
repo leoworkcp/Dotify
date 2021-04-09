@@ -16,7 +16,7 @@ const ProfileSongs = ({
   const userSongs = useSelector((state) => state.songs.user_songs);
   // const allSongs = useSelector((state) => state.songs);
 
-  // const userSongsObject = Object.values(userSongs)
+  // const userSongsObject = Object.values(userSongs);
 
   let userSongsValues;
   isLoaded
@@ -26,7 +26,7 @@ const ProfileSongs = ({
   useEffect(() => {
     dispatch(getUserSongs(userid)).then((req) => setIsLoaded(true));
   }, [dispatch, userid]);
-
+  console.log(userSongsValues);
   return (
     isLoaded && (
       <div id="profile-user__page">

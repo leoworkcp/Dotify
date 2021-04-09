@@ -4,8 +4,58 @@ const SONG = "/songs/song";
 const POST_COMMENT = "/songs/postComment";
 const DELETE_COMMENT = "/songs/deleteComment";
 const DELETE_SONG = "/songs/deleteSong";
-const LIKE = "/songs/like";
-const ALL_LIKES = "/songs/allLikes";
+
+// new stuff
+const SAVE_COMMENT = "comment/saveComment";
+// const EDIT_COMMENT = "message/editComment";
+const ADD_LIKE = "comment/addLike";
+
+const saveComment = (comment) => ({
+  type: SAVE_COMMENT,
+  comment,
+});
+
+// const editComment = (updatedComment) => ({
+//   type: EDIT_COMMENT,
+//   updatedComment,
+// });
+
+const addLike = (updatedComment) => ({
+  type: ADD_LIKE,
+  updatedComment,
+});
+
+// export const saveCommentToState = (comment) => (dispatch) => {
+//   // console.log(comment);
+//   dispatch(SAVE_COMMENT(comment));
+// };
+// export const updateExistingComment = (updatedComment) => async (dispatch) => {
+//   const response = await fetch("/api/songs/edit/", {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(updatedComment),
+//   });
+//   const data = await response.json();
+//   dispatch(editComment);
+//   return data;
+// };
+
+export const addCommentLike = (commentId) => async (dispatch) => {
+  const response = await fetch("/api/songs/like/", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId }),
+  });
+  const updatedComment = await response.json();
+  dispatch(addLike(updatedComment));
+  return updatedComment;
+};
+
+// new stuff ends
 
 const allSongs = (songs) => {
   return {
@@ -43,20 +93,6 @@ const deleteComment = () => {
 const deleteSong = () => {
   return {
     type: DELETE_SONG,
-  };
-};
-
-const like = (like) => {
-  return {
-    type: LIKE,
-    like: like,
-  };
-};
-
-const allLikes = (likes) => {
-  return {
-    type: ALL_LIKES,
-    likes: likes,
   };
 };
 
@@ -145,21 +181,6 @@ export const deleteUserSong = (songId) => async (dispatch) => {
   return data;
 };
 
-export const userLike = (songId, userid) => async (dispatch) => {
-  const res = await fetch(`/api/songs/likes/${songId}/${userid}`);
-  const data = await res.json();
-  // console.log(data)
-  dispatch(like(data));
-  return data;
-};
-
-export const getAllLikes = () => async (dispatch) => {
-  const res = await fetch("/api/songs/likes");
-  const data = await res.json();
-  dispatch(allLikes(data.likes));
-  return data;
-};
-
 const initialState = {};
 
 const songsReducer = (state = initialState, action) => {
@@ -202,19 +223,12 @@ const songsReducer = (state = initialState, action) => {
     case DELETE_COMMENT: {
       return state;
     }
-
-    case ALL_LIKES: {
-      newState = { ...state };
-      const likes = action.likes;
-      newState.likes = likes;
-      return newState;
-    }
-    case LIKE: {
-      newState = { ...state };
-      const like = action.like;
-      newState.likes = { ...state.likes, like };
-      return newState;
-    }
+    // case EDIT_COMMENT:
+    //   return action.updatedComment;
+    // case SAVE_COMMENT:
+    //   return action.comment;
+    case ADD_LIKE:
+      return state;
     default:
       return state;
   }

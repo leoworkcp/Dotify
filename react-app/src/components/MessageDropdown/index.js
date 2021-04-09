@@ -235,8 +235,6 @@ const MessageDropdown = ({
                     contentLabel="Example Modal"
                   >
                     <CommentForm
-                      authenticated={authenticated}
-                      setAuthenticated={setAuthenticated}
                       closeModalComments={closeModalComments}
                       songsId={songsId}
                     />
