@@ -13,22 +13,36 @@ const PlayButton = ({
   song,
   founded,
   loggedInUser,
+  selectedSong,
+  play,
 }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
-  // const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
 
+  let a = document.querySelector(".rhap_progress-section");
   // console.log(founded);
+  // console.log(selectedSong);
 
   const setSong = (e) => {
     e.preventDefault();
+    if (isReady) {
+      play.current.play();
+    }
     setIsPlaying(true);
+
     if (publicSong) dispatch(setCurrentSong(publicSong));
     if (song) dispatch(setCurrentSong(song));
     if (founded) dispatch(setCurrentSong(founded));
+    if (selectedSong && !isReady) {
+      play.current.play();
+      setIsReady(true);
 
+      // a.innerHTML = "";
+      return dispatch(setCurrentSong(selectedSong));
+    }
     document
       .querySelector(
         ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
@@ -38,12 +52,16 @@ const PlayButton = ({
 
   const pausesSong = (e) => {
     e.preventDefault();
-    setIsPlaying(false);
+
+    // setIsPlaying(false);
     document
       .querySelector(
         ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
       )
       .click();
+    if (selectedSong) {
+      play.current.pause();
+    }
   };
 
   return (

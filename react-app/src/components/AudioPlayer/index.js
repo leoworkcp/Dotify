@@ -77,7 +77,6 @@ const Player = ({
   //   volume={0.8}
   //   // actions ends
 
-  // console.log(document.querySelector(".btn-pause__active"));
   async function onNext() {
     setIsPlaying(false);
     document.querySelector(".control-arrow.control-next").click();
@@ -153,6 +152,7 @@ const Player = ({
           </div>
         </div>
         <AudioPlayer
+          // listenTracker={0}
           autoPlay={true}
           showJumpControls={false}
           showSkipControls={true}
@@ -162,6 +162,9 @@ const Player = ({
           onPause={(e) => pauseSong(e)}
           onClickNext={(e) => onNext(e)}
           onClickPrevious={(e) => onPrevious(e, pauseSong)}
+          // onVolumeChange={onVolumeChange}
+          // onSeeking={(e) => playSong(e)}
+
           // volume={0.8}
           // other props here
         />
