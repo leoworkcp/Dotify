@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
 import "./SongPage.css";
-
+import PlayButton from "../PlayButton/index";
 const formWaveSurferOptions = (ref) => ({
   container: ref,
   waveColor: "#15883e",
@@ -33,14 +33,15 @@ const formWaveSurferOptions = (ref) => ({
   ],
 });
 
-function SongPage({ publicSongs }) {
+function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
   const { songId } = useParams();
   const dispatch = useDispatch();
 
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
-  const [playing, setPlay] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [playings, setPlays] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [time, setTime] = useState(0.5);
 
   const selectedSong = Object.values(publicSongs).find(
     (song) => song?.id == parseInt(songId)
@@ -49,7 +50,7 @@ function SongPage({ publicSongs }) {
   // On component mount and when url changes
 
   useEffect(() => {
-    setPlay(false);
+    setPlays(false);
 
     // const options = formWaveSurferOptions(waveformRef.current);
     // wavesurfer.current = WaveSurfer.create(options);
@@ -62,6 +63,7 @@ function SongPage({ publicSongs }) {
       barWidth: 1.5,
       barRadius: 1,
 
+      mediaControls: true,
       maxCanvasWidth: 100,
       // If true, normalize by the maximum peak instead of 1.0.
       normalize: true,
@@ -69,19 +71,21 @@ function SongPage({ publicSongs }) {
       partialRender: true,
       pixelRatio: 1,
 
-      progressColor: "#15883e",
+      progressColor: "#15883dbb",
     });
     wavesurfer.current.load(`${selectedSong?.song}`);
 
     wavesurfer.current.on("ready", function () {
       // https://wavesurfer-js.org/docs/methods.html
-      wavesurfer.current.play();
-      setPlay(true);
+      // wavesurfer.current.play();
+      setPlays(true);
 
       // make sure object still available when file loaded
       if (wavesurfer.current) {
         wavesurfer.current.setVolume(volume);
         setVolume(volume);
+        wavesurfer.current.audioRate(time);
+        setTime(time);
       }
     });
 
@@ -91,7 +95,7 @@ function SongPage({ publicSongs }) {
   }, [`${selectedSong?.song}`]);
 
   const handlePlayPause = () => {
-    setPlay(!playing);
+    setPlays(!playings);
     wavesurfer.current.playPause();
   };
 
@@ -101,6 +105,28 @@ function SongPage({ publicSongs }) {
     if (newVolume) {
       setVolume(newVolume);
       wavesurfer.current.setVolume(newVolume || 1);
+    }
+  };
+  const onVolumeMute = (e) => {
+    const { target } = e;
+    const newVolume = 0;
+    const newVolume1 = volume;
+
+    setVolume(newVolume);
+    wavesurfer.current.setVolume(newVolume);
+    if (volume === 0) {
+      setVolume(newVolume1);
+      wavesurfer.current.setVolume(newVolume1 || 1);
+    }
+    console.log(volume);
+  };
+  console.log(volume);
+  const onTimeChange = (e) => {
+    const { target } = e;
+    const newTime = +target.value;
+    if (newTime) {
+      setVolume(newTime);
+      wavesurfer.current.setTime(newTime || 1);
     }
   };
   console.log(wavesurfer);
@@ -117,23 +143,31 @@ function SongPage({ publicSongs }) {
         {/* <div id="container">
                 <div id="waveform" ref={waveformRef} />
               </div> */}
-        {/* <div id="wave-minimap" />
-              <div className="volume">
-                <input
-                  type="range"
-                  id="volume"
-                  name="volume"
-                  // waveSurfer recognize value of `0` same as `1`
-                  //  so we need to set some zero-ish value for silence
-                  min="0.01"
-                  max="1"
-                  step=".025"
-                  onChange={onVolumeChange}
-                  defaultValue={volume}
-                />
-                🔊
-              </div> */}
+        <div id="wave-minimap" />
+        <div className="volume">
+          <input
+            type="range"
+            id="volume"
+            name="volume"
+            // waveSurfer recognize value of `0` same as `1`
+            //  so we need to set some zero-ish value for silence
+            min="0.01"
+            max="1"
+            step=".025"
+            onChange={onVolumeChange}
+            defaultValue={volume}
+          />
+          <button onClick={(e) => onVolumeMute(e)}>🔊</button>
+        </div>
+
         <div className="full-song__container">
+          <PlayButton
+            play={wavesurfer}
+            selectedSong={selectedSong}
+            pauseSong={pauseSong}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+          />
           <div className="cover-div">
             <img src={selectedSong.image_url} alt="song-cover" />
           </div>

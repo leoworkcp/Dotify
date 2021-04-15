@@ -31,7 +31,8 @@
 }
 
 .fullX-song__container {
-  margin-left: 30px;
+  margin-left: 130px;
+  margin-bottom: 100px;
   /* display: flex; */
   flex-wrap: wrap;
   /* width: 1250px; */
@@ -73,16 +74,96 @@
   padding-left: 150px;
 }
 
+.full-song__container > .PlayButton {
+  position: relative;
+
+  height: 50px;
+}
+.full-song__container > .PlayButton > .btn-play__active {
+  position: absolute;
+
+  /* background-color: rgba(0, 255, 255, 0.664); */
+}
+.full-song__container > .PlayButton > .btn-pause__active {
+  position: absolute;
+
+  /* background-color: rgba(0, 255, 255, 0.664); */
+}
+
+/* @media queries */
+@media (max-width: 870px) {
+  .fullX-song__container {
+    margin-left: 0px;
+  }
+}
 @media (max-width: 770px) {
   .song_page > img {
     width: 800px;
     margin-left: 0px;
   }
-}
-@media (max-width: 770px) {
   .songPage > a > h1 {
     margin: 0px;
-    /* background-color: rgb(255, 185, 127); */
+
     margin-left: 0px;
   }
+  .full-song__container {
+    padding-left: 0px;
+
+    justify-content: center;
+  }
+  .song-page__title > h2 {
+    padding-left: 10px;
+  }
+  .song-page__title {
+    margin-left: 200px;
+    display: flex;
+
+    justify-content: center;
+  }
+  #waveform {
+    margin-left: 200px;
+  }
+  .cover-div {
+    margin-left: 200px;
+  }
+  .full-song__container > .PlayButton > .btn-play__active {
+    left: 200px;
+  }
+  .full-song__container > .PlayButton > .btn-pause__active {
+    left: 200px;
+  }
+}
+
+@media (max-width: 730px) {
+  #waveform {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .cover-div {
+    margin-left: 0px;
+  }
+  .full-song__container > .PlayButton > .btn-play__active {
+    left: -150px;
+    top: 50px;
+  }
+  .full-song__container > .PlayButton > .btn-pause__active {
+    left: -150px;
+    top: 50px;
+  }
+  .fullX-song__container {
+    margin-left: 0px;
+  }
+  .full-song__container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .song-page__title {
+    margin-left: 0px;
+  }
+}
+
+.volume > button {
+  background-color: transparent;
 }
