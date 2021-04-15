@@ -53,6 +53,10 @@ const SongForm = ({ closeModalSongForm }) => {
   function extra(e) {
     const item = e.target.value;
     setIsLoaded((isLoaded) => [...isLoaded, item]);
+    // setNewSong(false);
+    // return setTimeout(() => {
+    //   setNewSong(true);
+    // }, 10);
   }
   const { userid } = useParams();
   const [userSongsLoaded, setUserSongsLoaded] = useState(false);
@@ -76,12 +80,6 @@ const SongForm = ({ closeModalSongForm }) => {
   const updateImage = (e) => {
     const file = e.target.files[0];
     setImage(file);
-  };
-
-  const newSongSubmit = () => {
-    return setTimeout(() => {
-      setNewSong(true);
-    }, 10);
   };
 
   return (

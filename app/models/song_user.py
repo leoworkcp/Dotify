@@ -20,13 +20,26 @@ followers_users = db.Table(
     'followers_users',
     db.Column(
         "followings_id", db.Integer, db.ForeignKey('users.id'),
-        nullable=True
+        nullable=True, primary_key=True
     ),
     db.Column(
         'followers_id', db.Integer, db.ForeignKey('users.id'),
-        nullable=True
+        nullable=True, primary_key=True
     )
 )
+# follows join Table
+follows = db.Table(
+    'follows',
+    db.Column(
+        "following_userId", db.Integer, db.ForeignKey('users.id'),
+        nullable=False, primary_key=True
+    ),
+    db.Column(
+        'followers_userId', db.Integer, db.ForeignKey('users.id'),
+        nullable=False, primary_key=True
+    )
+)
+
 
 # comments_likes join Table
 comments_likes = db.Table(
@@ -99,7 +112,14 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
-
+    # -----------------------------------------------------------
+    # follow join Table
+    followers = db.relationship(
+        'User', secondary=follows, primaryjoin=(follows.c.following_userId == id),
+        secondaryjoin=(follows.c.followers_userId == id))
+    followed = db.relationship(
+        'User', secondary=follows, secondaryjoin=(follows.c.following_userId == id),
+        primaryjoin=(follows.c.followers_userId == id))
     # -----------------------------------------------------------
     song_admin = db.relationship(
         'Song', back_populates='artists',)

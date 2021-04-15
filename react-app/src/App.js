@@ -29,8 +29,8 @@ export default function App() {
 
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
+  useEffect(async () => {
+    await dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
   }, [dispatch]);
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
@@ -71,76 +71,78 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <NavBar
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-          loggedInUser={loggedInUser}
-          playing={playing}
-          setIsPlaying={setIsPlaying}
-          pauseSong={pauseSong}
-        />
-        <div className="mainContent">
-          <Sidebar
-            userid={userid}
+    isLoaded && (
+      <ThemeProvider>
+        <BrowserRouter>
+          <NavBar
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
+            loggedInUser={loggedInUser}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
           />
-          <Route path="/" exact={true}>
-            <HomePage
-              setIsLoaded={setIsLoaded}
-              isLoaded={isLoaded}
-              publicSongs={publicSongs}
-              playing={playing}
-              setIsPlaying={setIsPlaying}
-              pauseSong={pauseSong}
+          <div className="mainContent">
+            <Sidebar
+              userid={userid}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
-          </Route>
-
-          <Switch>
-            <ProtectedRoute
-              path="/users"
-              exact={true}
-              authenticated={authenticated}
-            ></ProtectedRoute>
-            <ProtectedRoute
-              path="/users/:userid"
-              exact={true}
-              authenticated={authenticated}
-            ></ProtectedRoute>
-            <Route path={"/profile/:userid"} exact={true}>
-              <ProfileHeader publicSongs={publicSongs} />
-              <ProfilePage
-                loggedInUser={loggedInUser}
-                playing={playing}
-                setIsPlaying={setIsPlaying}
-                pauseSong={pauseSong}
-              />
-            </Route>
-            <Route path={"/song/:songId"} exact={true}>
-              <SongPage
+            <Route path="/" exact={true}>
+              <HomePage
+                setIsLoaded={setIsLoaded}
+                isLoaded={isLoaded}
                 publicSongs={publicSongs}
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
               />
             </Route>
-          </Switch>
-        </div>
-        {draggable()}
-        <Player
-          loggedInUser={loggedInUser}
-          publicSongs={publicSongs}
-          currentSong={currentSong}
-          drag={drag}
-          setDrag={setDrag}
-          userid={userid}
-          playing={playing}
-          setIsPlaying={setIsPlaying}
-          pauseSong={pauseSong}
-        />
-      </BrowserRouter>
-    </ThemeProvider>
+            <Switch>
+              <ProtectedRoute
+                path="/users"
+                exact={true}
+                authenticated={authenticated}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/users/:userid"
+                exact={true}
+                authenticated={authenticated}
+              ></ProtectedRoute>
+              <Route path={"/profile/:userid"} exact={true}>
+                <ProfileHeader publicSongs={publicSongs} />
+                <ProfilePage
+                  loggedInUser={loggedInUser}
+                  playing={playing}
+                  setIsPlaying={setIsPlaying}
+                  pauseSong={pauseSong}
+                />
+              </Route>
+              <Route path={"/song/:songId"} exact={true}>
+                <SongPage
+                  publicSongs={publicSongs}
+                  loaded={loaded}
+                  playing={playing}
+                  setIsPlaying={setIsPlaying}
+                  pauseSong={pauseSong}
+                />
+              </Route>
+            </Switch>
+          </div>
+          {draggable()}
+          <Player
+            loggedInUser={loggedInUser}
+            publicSongs={publicSongs}
+            currentSong={currentSong}
+            drag={drag}
+            setDrag={setDrag}
+            userid={userid}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
+          />
+        </BrowserRouter>
+      </ThemeProvider>
+    )
   );
 }
