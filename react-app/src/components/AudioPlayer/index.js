@@ -164,8 +164,9 @@ const Player = ({
           onClickPrevious={(e) => onPrevious(e, pauseSong)}
           // onVolumeChange={onVolumeChange}
           // onSeeking={(e) => playSong(e)}
-
-          // volume={0.8}
+          // customVolumeControls={[]}
+          // volume={0}
+          volume={0.8}
           // other props here
         />
 

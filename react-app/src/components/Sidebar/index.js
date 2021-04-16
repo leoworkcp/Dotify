@@ -67,7 +67,7 @@ function Sidebar({ userid }) {
           >
             <HomeIcon />
             <div>
-              <td>Home</td>
+              <p className="p-sidebar">Home</p>
             </div>
           </IconButton>
         </div>
@@ -79,7 +79,7 @@ function Sidebar({ userid }) {
           >
             <SearchIcon />
             <div>
-              <td>Search</td>
+              <p className="p-sidebar">Search</p>
             </div>
           </IconButton>
         </div>
@@ -91,7 +91,7 @@ function Sidebar({ userid }) {
           >
             <LibraryMusicIcon />
             <div>
-              <td>Your Library</td>
+              <p className="p-sidebar">Your Library</p>
             </div>
           </IconButton>
         </div>
@@ -103,7 +103,7 @@ function Sidebar({ userid }) {
           >
             <AddBoxIcon className="playlist-icon" />
             <div>
-              <td>Create Playlist</td>
+              <p className="p-sidebar">Create Playlist</p>
             </div>
           </IconButton>
         </div>
@@ -119,7 +119,7 @@ function Sidebar({ userid }) {
               </div>
             </div>
             <div>
-              <td>Liked Songs</td>
+              <p className="p-sidebar">Liked Songs</p>
             </div>
           </IconButton>
         </div>
