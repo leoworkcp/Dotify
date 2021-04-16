@@ -40,7 +40,7 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playings, setPlays] = useState(false);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(0);
   const [time, setTime] = useState(0.5);
 
   const selectedSong = Object.values(publicSongs).find(
@@ -93,10 +93,17 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
     // when component unmount
     return () => wavesurfer.current.destroy();
   }, [`${selectedSong?.song}`]);
-
+  console.log(playing);
   const handlePlayPause = () => {
-    setPlays(!playings);
-    wavesurfer.current.playPause();
+    if (playings && !playing) {
+      wavesurfer.current.pause();
+    }
+  };
+
+  const handlePlay = () => {
+    if (playings && playing) {
+      wavesurfer.current.play();
+    }
   };
 
   const onVolumeChange = (e) => {
@@ -129,8 +136,9 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
       wavesurfer.current.setTime(newTime || 1);
     }
   };
-  console.log(wavesurfer);
-  console.log(selectedSong);
+  // console.log(wavesurfer);
+  // console.log(selectedSong);
+
   return (
     <div>
       <div className="song_page" key={selectedSong?.id}>
@@ -143,7 +151,7 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
         {/* <div id="container">
                 <div id="waveform" ref={waveformRef} />
               </div> */}
-        <div id="wave-minimap" />
+        {/* <div id="wave-minimap" />
         <div className="volume">
           <input
             type="range"
@@ -158,7 +166,7 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
             defaultValue={volume}
           />
           <button onClick={(e) => onVolumeMute(e)}>🔊</button>
-        </div>
+        </div> */}
 
         <div className="full-song__container">
           <PlayButton
@@ -176,6 +184,9 @@ function SongPage({ publicSongs, loaded, playing, setIsPlaying, pauseSong }) {
               <h1>{selectedSong.name}</h1>
               <h2>{selectedSong.category}</h2>
             </div>
+            {!playing && handlePlayPause()}
+            {playing && handlePlay()}
+
             <div id="waveform" />
           </div>
         </div>

@@ -139,6 +139,11 @@
     display: none;
   }
 }
+@media (max-height: 800px) {
+  .cover-div {
+    margin-bottom: 100px;
+  }
+}
 @media (max-width: 640px) {
   .cover-div {
     margin-left: 0px;

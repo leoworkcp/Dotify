@@ -53,7 +53,7 @@ const PlayButton = ({
   const pausesSong = (e) => {
     e.preventDefault();
 
-    // setIsPlaying(false);
+    setIsPlaying(false);
     document
       .querySelector(
         ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
