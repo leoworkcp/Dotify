@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-import AudioPlayer from "react-h5-audio-player";
+import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+
 import "react-h5-audio-player/lib/styles.css";
 import "./AudioPlayer.css";
+import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
@@ -19,10 +21,14 @@ const Player = ({
   pauseSong,
   currentSong,
   publicSongs,
+  setMute,
+  mute,
+  seek,
+  setSeek,
+  wavesurfer,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
 
-  // console.log(publicSongs);
   // function ideas to mute sound of glitch
   function muteMe(elem) {
     elem.muted = true;
@@ -56,6 +62,23 @@ const Player = ({
     ele?.song.toLowerCase().includes(random_file)
   );
 
+  const task = (e) => {
+    e.preventDefault();
+    if (mute && playing) {
+      document.querySelector(".rhap_button-clear.rhap_volume-button").click();
+    }
+  };
+
+  const HandleSeek = (e) => {
+    const { target } = e;
+    const newSeek = +target.value;
+    if (newSeek) {
+      setSeek(newSeek);
+      wavesurfer.current.seekTo(newSeek || 1);
+    }
+  };
+
+  // console.log(volumeMute);
   // // actions
   // onAbort={action('onAbort')}
   //  onCanPlay={action('onCanPlay')}
@@ -92,6 +115,12 @@ const Player = ({
     return cb(document.querySelector(".control-arrow.control-prev").click());
   }
 
+  let duration = 0;
+  function onDuration(e) {
+    e.preventDefault();
+    duration = wavesurfer.current.getDuration();
+  }
+  console.log(duration);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
@@ -151,6 +180,14 @@ const Player = ({
             </div>
           </div>
         </div>
+        {/* {mute && task()} */}
+        {/* <div className="wave-minimap_dome"> */}
+        {/* <div className="wave-minimap__container">
+            <div id="wave-minimap" />
+          </div> */}
+        {/* </div> */}
+        {console.log(wavesurfer.current)}
+
         <AudioPlayer
           // listenTracker={0}
           autoPlay={true}
@@ -163,10 +200,30 @@ const Player = ({
           onClickNext={(e) => onNext(e)}
           onClickPrevious={(e) => onPrevious(e, pauseSong)}
           // onVolumeChange={onVolumeChange}
-          // onSeeking={(e) => playSong(e)}
+          // onSeeking={(e) => onDuration(e)}
           // customVolumeControls={[]}
           // volume={0}
-          volume={0.8}
+          // onSeeked={HandleSeek}
+          //  customVolumeControls={[RHAP_UI.VOLUME,]}
+          customProgressBarSection={[
+            RHAP_UI.CURRENT_TIME,
+            RHAP_UI.PROGRESS_BAR,
+            RHAP_UI.DURATION,
+            // <input
+            //   type="range"
+            //   id="seek"
+            //   name="seek"
+            //   // waveSurfer recognize value of `0` same as `1`
+            //   //  so we need to set some zero-ish value for silence
+            //   min="0.01"
+            //   max="1"
+            //   step=".025"
+            //   onChange={HandleSeek}
+            //   defaultValue={seek}
+            // />,
+          ]}
+          volume={1}
+
           // other props here
         />
 

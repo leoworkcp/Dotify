@@ -38,6 +38,7 @@ const PlayButton = ({
     if (founded) dispatch(setCurrentSong(founded));
     if (selectedSong && !isReady) {
       play.current.play();
+
       setIsReady(true);
 
       // a.innerHTML = "";
@@ -59,6 +60,7 @@ const PlayButton = ({
         ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
       )
       .click();
+
     if (selectedSong) {
       play.current.pause();
     }

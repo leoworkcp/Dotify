@@ -231,6 +231,9 @@
     margin-top: 10px;
     z-index: 20;
   }
+  .sideBar-button__home > .sideBar:focus {
+    background-color: transparent;
+  }
 }
 
 @media (max-width: 920px) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
@@ -7,9 +7,6 @@ import Draggable from "react-draggable";
 // import { authenticate } from "./store/auth";
 import ProtectedRoute from "./components/auth/ProtectedRoute/index";
 import * as sessionActions from "./store/session";
-
-// wavesurfer
-// import WaveSurfer from "wavesurfer.js";
 
 // components
 import NavBar from "./components/NavBar/index";
@@ -23,13 +20,16 @@ import { findPublicSongs } from "./store/publicSongs";
 export default function App() {
   const dispatch = useDispatch();
 
+  const [seek, setSeek] = useState(0.0);
+  const wavesurfer = useRef(null);
   const [drag, setDrag] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [playing, setIsPlaying] = useState(false);
+  const [mute, setMute] = useState(false);
 
   const currentSong = useSelector((state) => state.playing);
-
+  console.log(currentSong);
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(async () => {
@@ -78,6 +78,9 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+
+  console.log(playing);
+  console.log(mute);
 
   return (
     isLoaded && (
@@ -134,12 +137,23 @@ export default function App() {
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
+                mute={mute}
+                setMute={setMute}
+                seek={seek}
+                setSeek={setSeek}
+                wavesurfer={wavesurfer}
+                currentSong={currentSong}
               />
             </Route>
           </Switch>
         </div>
         {draggable()}
+
         <Player
+          seek={seek}
+          setSeek={setSeek}
+          mute={mute}
+          setMute={setMute}
           loggedInUser={loggedInUser}
           publicSongs={publicSongs}
           currentSong={currentSong}
@@ -149,6 +163,7 @@ export default function App() {
           playing={playing}
           setIsPlaying={setIsPlaying}
           pauseSong={pauseSong}
+          wavesurfer={wavesurfer}
         />
       </BrowserRouter>
       // </ThemeProvider>
