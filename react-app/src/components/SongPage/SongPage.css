@@ -1,5 +1,7 @@
 .song_page {
   background-color: rgba(255, 255, 255, 0);
+  /* background-color: rgba(255, 255, 255, 0.527); */
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -31,6 +33,7 @@
 }
 
 .fullX-song__container {
+  position: relative;
   margin-left: 130px;
   margin-bottom: 100px;
   /* display: flex; */
@@ -170,5 +173,15 @@
 }
 
 .volume > button {
-  background-color: transparent;
+  background-color: rgb(241, 23, 23);
 }
+
+/* #wave-minimap {
+  width: 550px;
+  position: absolute;
+  top: 48px;
+  left: 240px;
+  z-index: 11;
+  background-color: #181818;
+  display: inline-block;
+} */
