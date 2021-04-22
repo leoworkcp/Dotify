@@ -38,10 +38,6 @@ export default function App() {
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
 
-  // importing wavesurfer
-
-  // importing wavesurfer ends
-
   // custom drag for audi0player
   function draggable() {
     if (drag === true) {
@@ -79,13 +75,14 @@ export default function App() {
     return null;
   }
 
-  console.log(playing);
-  console.log(mute);
+  // console.log(playing);
+  // console.log(mute);
 
   return (
     isLoaded && (
       // <ThemeProvider>
       <BrowserRouter>
+        {/* <div id="waveform" /> */}
         <NavBar
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
@@ -148,24 +145,26 @@ export default function App() {
           </Switch>
         </div>
         {draggable()}
-
-        <Player
-          seek={seek}
-          setSeek={setSeek}
-          mute={mute}
-          setMute={setMute}
-          loggedInUser={loggedInUser}
-          publicSongs={publicSongs}
-          currentSong={currentSong}
-          drag={drag}
-          setDrag={setDrag}
-          userid={userid}
-          playing={playing}
-          setIsPlaying={setIsPlaying}
-          pauseSong={pauseSong}
-          wavesurfer={wavesurfer}
-        />
+        <Route path={["/song/:songId", "/profile/:userid", "/"]}>
+          <Player
+            seek={seek}
+            setSeek={setSeek}
+            mute={mute}
+            setMute={setMute}
+            loggedInUser={loggedInUser}
+            publicSongs={publicSongs}
+            currentSong={currentSong}
+            drag={drag}
+            setDrag={setDrag}
+            userid={userid}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
+            wavesurfer={wavesurfer}
+          />
+        </Route>
       </BrowserRouter>
+
       // </ThemeProvider>
     )
   );

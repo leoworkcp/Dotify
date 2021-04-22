@@ -26,14 +26,14 @@ const formWaveSurferOptions = (ref) => ({
   // Use the PeakCache to improve rendering speed of large waveforms.
   partialRender: true,
   pixelRatio: 1,
-  plugins: [
-    Minimap.create({
-      container: "#wave-minimap",
-      waveColor: "#eee",
-      progressColor: "OrangeRed",
-      height: 50,
-    }),
-  ],
+  // plugins: [
+  //   Minimap.create({
+  //     container: "#wave-minimap",
+  //     waveColor: "#eee",
+  //     progressColor: "OrangeRed",
+  //     height: 50,
+  //   }),
+  // ],
 });
 
 function SongPage({
@@ -56,7 +56,7 @@ function SongPage({
   // const wavesurfer = useRef(null);
 
   const [playings, setPlays] = useState(false);
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(1);
   const [time, setTime] = useState(0.5);
 
   const selectedSong = Object.values(publicSongs).find(
@@ -65,118 +65,103 @@ function SongPage({
   // create new WaveSurfer instance
   // On component mount and when url changes
 
-  useEffect(() => {
-    setPlays(false);
+  // useEffect(() => {
+  //   setPlays(false);
 
-    // const options = formWaveSurferOptions(waveformRef.current);
-    // wavesurfer.current = WaveSurfer.create(options);
+  //   // const options = formWaveSurferOptions(waveformRef.current);
+  //   // wavesurfer.current = WaveSurfer.create(options);
 
-    // creating instance of  WaveSurfer waveForm
-    wavesurfer.current = WaveSurfer.create({
-      container: "#waveform",
+  //   // creating instance of  WaveSurfer waveForm
+  //   wavesurfer.current = WaveSurfer.create({
+  //     container: "#waveform",
 
-      waveColor: "#fff",
-      cursorColor: "#15883e",
-      barWidth: 1.5,
-      // barRadius: 1,
+  //     waveColor: "#fff",
+  //     cursorColor: "#15883e",
+  //     barWidth: 1.5,
+  //     // barRadius: 1,
 
-      // barWidth: 3,
-      barRadius: 3,
-      cursorWidth: 1,
-      height: 100,
-      barGap: 3,
-      // mediaControls: true,
-      maxCanvasWidth: 100,
-      // If true, normalize by the maximum peak instead of 1.0.
-      normalize: true,
-      // Use the PeakCache to improve rendering speed of large waveforms.
-      partialRender: true,
-      pixelRatio: 1,
+  //     // barWidth: 3,
+  //     barRadius: 3,
+  //     cursorWidth: 1,
+  //     height: 100,
+  //     barGap: 3,
+  //     // mediaControls: true,
+  //     maxCanvasWidth: 100,
+  //     // If true, normalize by the maximum peak instead of 1.0.
+  //     normalize: true,
+  //     // Use the PeakCache to improve rendering speed of large waveforms.
+  //     partialRender: true,
+  //     pixelRatio: 1,
 
-      progressColor: "#15883dbb",
-      plugins: [
-        // Minimap.create({
-        //   container: "#wave-minimap",
-        //   waveColor: "#b9bbbee3",
-        //   progressColor: "#15883dbb",
-        //   height: 45,
-        //   barWidth: 550,
-        //   cursorWidth: 20,
-        //   // barMinHeight: 10,
-        //   cursorColor: "transparent",
-        //   barGap: 1,
-        //   customShowTimeStyle: {
-        //     "background-color": "#df0000",
-        //     // color: "#fff",
-        //     // height: "50px",
-        //     // width: "50px",
-        //     // padding: "2px",
-        //     "font-size": "10px",
-        //     "border-radius": "10px",
-        //   },
-        // }),
-        // Timeline.create({
-        //   container: "#wave-timeline",
-        //   // ... other timeline options
-        //   zIndex: 14,
-        //   // opacity: 1,
-        // }),
-        // CursorPlugin.create({
-        //   cursorColor: "#fff",
-        //   showTime: true,
-        //   zIndex: 14,
-        //   // opacity: 1,
-        //   customShowTimeStyle: {
-        //     "background-color": "#df0000",
-        //     color: "#fff",
-        //     height: "30px",
-        //     // padding: "2px",
-        //     "font-size": "10px",
-        //   },
-        // }),
-      ],
-    });
+  //     progressColor: "#15883dbb",
+  //     // plugins: [
+  //     //   Minimap.create({
+  //     //     container: "#wave-minimap",
+  //     //     waveColor: "#b9bbbee3",
+  //     //     progressColor: "#15883dbb",
+  //     //     height: 45,
+  //     //     // barWidth: 50,
+  //     //     cursorWidth: 20,
+  //     //     // barMinHeight: 10,
+  //     //     cursorColor: "transparent",
+  //     //     barGap: 1,
+  //     //     customShowTimeStyle: {
+  //     //       "background-color": "#df0000",
+  //     //       // color: "#fff",
+  //     //       // height: "50px",
+  //     //       // width: "50px",
+  //     //       // padding: "2px",
+  //     //       "font-size": "10px",
+  //     //       "border-radius": "10px",
+  //     //     },
+  //     //   }),
+  //     //   // Timeline.create({
+  //     //   //   container: "#wave-timeline",
+  //     //   //   // ... other timeline options
+  //     //   //   zIndex: 14,
+  //     //   //   // opacity: 1,
+  //     //   // }),
+  //     //   // CursorPlugin.create({
+  //     //   //   cursorColor: "#fff",
+  //     //   //   showTime: true,
+  //     //   //   zIndex: 14,
+  //     //   //   // opacity: 1,
+  //     //   //   customShowTimeStyle: {
+  //     //   //     "background-color": "#df0000",
+  //     //   //     color: "#fff",
+  //     //   //     height: "30px",
+  //     //   //     // padding: "2px",
+  //     //   //     "font-size": "10px",
+  //     //   //   },
+  //     //   // }),
+  //     // ],
+  //   });
 
-    // load waveForm and ProgressBar
-    wavesurfer.current.load(`${selectedSong.song}`);
+  //   // load waveForm and ProgressBar
+  //   wavesurfer.current.load(`${selectedSong.song}`);
 
-    wavesurfer.current.on("ready", function () {
-      // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      setPlays(true);
+  //   wavesurfer.current.on("ready", function () {
+  //     // https://wavesurfer-js.org/docs/methods.html
+  //     // wavesurfer.current.play();
+  //     setPlays(true);
 
-      // make sure object still available when file loaded
-      if (wavesurfer.current) {
-        wavesurfer.current.setVolume(volume);
-        setVolume(volume);
-        wavesurfer.current.audioRate(time);
-        setTime(time);
-      }
-    });
+  //     // make sure object still available when file loaded
+  //     if (wavesurfer.current) {
+  //       wavesurfer.current.setVolume(volume);
+  //       setVolume(volume);
+  //       wavesurfer.current.audioRate(time);
+  //       setTime(time);
+  //     }
+  //   });
 
-    // Removes events, elements and disconnects Web Audio nodes.
-    // when component unmount
-    return () => {
-      wavesurfer.current.destroy();
-    };
-  }, [`${selectedSong.song}`]);
+  //   // Removes events, elements and disconnects Web Audio nodes.
+  //   // when component unmount
+  //   return () => {
+  //     wavesurfer.current.destroy();
+  //   };
+  // }, [`${selectedSong.song}`]);
 
   // console.log(playing);
-  const handlePlayPause = () => {
-    if (playings && !playing) {
-      wavesurfer.current.pause();
-
-      setMute(false);
-    }
-  };
-
-  const handlePlay = () => {
-    if (playings && playing) {
-      wavesurfer.current.play();
-
-      setMute(true);
-    }
-  };
 
   const onVolumeChange = (e) => {
     const { target } = e;
@@ -249,8 +234,8 @@ function SongPage({
           />
           <button onClick={(e) => onVolumeMute(e)}>🔊</button>
         </div> */}
-        <div className="seek">
-          {/* <input
+        {/* <div className="seek">
+          <input
             type="range"
             id="seek"
             name="seek"
@@ -261,16 +246,9 @@ function SongPage({
             step=".025"
             onChange={HandleSeek}
             defaultValue={seek}
-          /> */}
-          {/* <button
-            aria-label="Play"
-            className="rhap_button-clear rhap_main-controls-button rhap_play-pause-button"
-          ></button>
-          <button
-            aria-label="pause"
-            className="rhap_button-clear rhap_main-controls-button rhap_play-pause-button"
-          ></button> */}
-        </div>
+          />
+        
+        </div> */}
         <div className="full-song__container">
           <PlayButton
             play={wavesurfer}
@@ -287,8 +265,7 @@ function SongPage({
               <h1>{selectedSong.name}</h1>
               <h2>{selectedSong.category}</h2>
             </div>
-            {!playing && handlePlayPause()}
-            {playing && handlePlay()}
+
             <div id="waveform" />
           </div>
         </div>

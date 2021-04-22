@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 
 import "react-h5-audio-player/lib/styles.css";
 import "./AudioPlayer.css";
-import { useParams } from "react-router";
+
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
@@ -12,6 +12,9 @@ import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import PlayButton from "../PlayButton/index";
+import WaveSurfer from "wavesurfer.js";
+import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
+import { useParams } from "react-router";
 const Player = ({
   drag,
   setDrag,
@@ -28,12 +31,15 @@ const Player = ({
   wavesurfer,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
-
+  const [volume, setVolume] = useState(1);
   // function ideas to mute sound of glitch
+  const { songId } = useParams();
+
   function muteMe(elem) {
     elem.muted = true;
     elem.pause();
   }
+
   function mutePage() {
     var elems = document.querySelectorAll("video, audio");
 
@@ -120,11 +126,157 @@ const Player = ({
     e.preventDefault();
     duration = wavesurfer.current.getDuration();
   }
-  console.log(duration);
+
+  // new stuff
+  console.log(currentSong);
+  const selectedSong = Object.values(publicSongs).find(
+    (song) => song?.id == parseInt(songId)
+  );
+
+  console.log(selectedSong);
+  const [playings, setPlays] = useState(false);
+  useEffect(() => {
+    // setPlays(false);
+
+    // const options = formWaveSurferOptions(waveformRef.current);
+    // wavesurfer.current = WaveSurfer.create(options);
+
+    // creating instance of  WaveSurfer waveForm
+
+    // load waveForm and ProgressBar
+    console.log(songId);
+
+    if (songId) {
+      wavesurfer.current = WaveSurfer.create({
+        container: "#wave-minimap",
+
+        waveColor: "#b9bbbee3",
+        cursorColor: "transparent",
+        barWidth: 1.5,
+        barRadius: 3,
+        cursorWidth: 1,
+        height: 45,
+        barGap: 1,
+        maxCanvasWidth: 100,
+        normalize: true,
+        partialRender: true,
+        pixelRatio: 1,
+
+        progressColor: "#15883dbb",
+        plugins: [
+          Minimap.create({
+            container: "#waveform",
+            waveColor: "#fff",
+            progressColor: "#15883dbb",
+            height: 100,
+            // barWidth: 50,
+            cursorWidth: 1,
+            // barMinHeight: 10,
+            cursorColor: "transparent",
+            barGap: 3,
+          }),
+        ],
+      });
+
+      wavesurfer.current.load(`${selectedSong.song}`);
+    } else {
+      setPlays(false);
+
+      // setSongIsLoaded(true);
+      wavesurfer.current = WaveSurfer.create({
+        container: "#wave-minimap",
+        waveColor: "#b9bbbee3",
+        cursorColor: "transparent",
+        barWidth: 1.5,
+        barRadius: 3,
+        cursorWidth: 1,
+        height: 45,
+        barGap: 1,
+        maxCanvasWidth: 100,
+        normalize: true,
+        partialRender: true,
+        pixelRatio: 1,
+        progressColor: "#15883dbb",
+      });
+
+      wavesurfer.current.load(`${currentSong.song}`);
+    }
+    if (currentSong.song) {
+      wavesurfer.current.on("ready", async function () {
+        // https://wavesurfer-js.org/docs/methods.html
+
+        await wavesurfer.current.play();
+        setPlays(true);
+        setSongIsLoaded(true);
+        setIsPlaying(true);
+        // make sure object still available when file loaded
+        if (wavesurfer.current) {
+          wavesurfer.current.setVolume(volume);
+          setVolume(volume);
+          // wavesurfer.current.audioRate(time);
+          // setTime(time);
+        }
+      });
+    }
+
+    // Removes events, elements and disconnects Web Audio nodes.
+    // when component unmount
+
+    return () => {
+      wavesurfer.current.destroy();
+    };
+  }, [`${currentSong.song}`, `${selectedSong?.song}`]);
+  // ends new stuff
+
+  const onVolumeChange = (e) => {
+    if (currentSong.song) {
+      const { target } = e;
+      const newVolume = +target.value;
+      if (newVolume) {
+        setVolume(newVolume);
+        wavesurfer.current.setVolume(newVolume || 1);
+      }
+    }
+  };
+  const onVolumeMute = (e) => {
+    if (currentSong.song) {
+      const { target } = e;
+      const newVolume = 0;
+      const newVolume1 = volume;
+
+      setVolume(newVolume);
+      wavesurfer.current.setVolume(newVolume);
+      if (volume === 0) {
+        setVolume(newVolume1);
+        wavesurfer.current.setVolume(newVolume1 || 1);
+      }
+    }
+
+    // console.log(volume);
+  };
+
+  const handlePlayPause = () => {
+    if (playings && !playing) {
+      wavesurfer.current.pause();
+
+      setMute(false);
+    }
+  };
+
+  const handlePlay = () => {
+    if (playings && playing) {
+      wavesurfer.current.play();
+
+      setMute(true);
+    }
+  };
+
+  // console.log(duration);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
         <div className="container-playing">
+          {console.log(songIsLoaded)}
           {songIsLoaded && (
             <div className="song-playing">
               <img src={currentSong?.image_url} alt="song-cover" />
@@ -180,53 +332,35 @@ const Player = ({
             </div>
           </div>
         </div>
-        {/* {mute && task()} */}
-        {/* <div className="wave-minimap_dome"> */}
-        {/* <div className="wave-minimap__container">
-            <div id="wave-minimap" />
-          </div> */}
-        {/* </div> */}
-        {console.log(wavesurfer.current)}
 
-        <AudioPlayer
-          // listenTracker={0}
-          autoPlay={true}
-          showJumpControls={false}
-          showSkipControls={true}
-          layout="stacked-reverse"
-          src={currentSong?.song}
-          onPlay={(e) => playSong(e)}
-          onPause={(e) => pauseSong(e)}
-          onClickNext={(e) => onNext(e)}
-          onClickPrevious={(e) => onPrevious(e, pauseSong)}
-          // onVolumeChange={onVolumeChange}
-          // onSeeking={(e) => onDuration(e)}
-          // customVolumeControls={[]}
-          // volume={0}
-          // onSeeked={HandleSeek}
-          //  customVolumeControls={[RHAP_UI.VOLUME,]}
-          customProgressBarSection={[
-            RHAP_UI.CURRENT_TIME,
-            RHAP_UI.PROGRESS_BAR,
-            RHAP_UI.DURATION,
-            // <input
-            //   type="range"
-            //   id="seek"
-            //   name="seek"
-            //   // waveSurfer recognize value of `0` same as `1`
-            //   //  so we need to set some zero-ish value for silence
-            //   min="0.01"
-            //   max="1"
-            //   step=".025"
-            //   onChange={HandleSeek}
-            //   defaultValue={seek}
-            // />,
-          ]}
-          volume={1}
-
-          // other props here
-        />
-
+        <div className="audio_player__container">
+          <PlayButton
+            play={wavesurfer}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
+            loggedInUser={loggedInUser}
+            songId={songId}
+          />
+          {!playing && handlePlayPause()}
+          {playing && handlePlay()}
+          <div id="wave-minimap"></div>
+          <div className="volume">
+            <button onClick={(e) => onVolumeMute(e)}>🔊</button>
+            <input
+              type="range"
+              id="volume"
+              name="volume"
+              // waveSurfer recognize value of `0` same as `1`
+              //  so we need to set some zero-ish value for silence
+              min="0.01"
+              max="1"
+              step=".025"
+              onChange={onVolumeChange}
+              defaultValue={volume}
+            />
+          </div>
+        </div>
         <div className="controllers-queue_screen">
           <div className="shuffle-btn">
             <ShuffleIcon

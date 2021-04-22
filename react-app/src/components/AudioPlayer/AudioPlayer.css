@@ -185,6 +185,13 @@
   margin-left: 25px;
   margin-right: 25px;
 }
+
+.controllers-queue_screen {
+  /* display: flex;
+  justify-content: end; */
+  /* background-color: aqua; */
+}
+
 @media (max-width: 776px) {
   .player-navbar__container {
     padding: 0px;
@@ -327,12 +334,183 @@
   color: #b3b3b3;
 }
 
-.shuffle-btn > svg.MuiSvgIcon-root:hover {
-  color: rgb(214, 39, 39);
-}
+/* .shuffle-btn > svg.MuiSvgIcon-root:hover {
+  background-color: rgb(214, 39, 39);
+} */
 
 @media (max-width: 1180px) {
   .shuffle-btn {
     display: none;
   }
 }
+.audio_player__container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  min-width: 500px;
+
+  /* background-color: aqua; */
+}
+
+.audio_player__container > .PlayButton {
+  height: 40px;
+  top: 0px;
+  left: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+  align-content: center;
+  align-self: center;
+  width: 50px;
+  /* background-color: purple; */
+}
+
+.audio_player__container > .PlayButton > button {
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: center; */
+  background-color: black;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.audio_player__container > .PlayButton > button > svg {
+  color: #b3b3b3;
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: center;
+  height: 32px;
+  width: 34px;
+  margin-right: 0;
+  /* background-color: #868686; */
+}
+.audio_player__container > .PlayButton > button > svg:hover {
+  color: #fff;
+}
+
+#wave-minimap {
+  display: flex;
+  flex-direction: column;
+  /* background-color: aqua; */
+  min-width: 500px;
+  margin-top: 4px;
+  max-height: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.volume {
+  /* background-color: aqua; */
+  margin-bottom: 20px;
+  margin-right: 20px;
+  display: flex;
+  max-width: 162px;
+  position: relative;
+  right: 150px;
+}
+.volume > input {
+  max-width: 110px;
+  margin-top: 6px;
+  margin-left: 0px;
+}
+.volume > button {
+  background-color: transparent;
+}
+/* input[type="range"] {
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 250px;
+  height: 10px;
+}
+
+input[type="range"] {
+  background-color: #b9bbbee3;
+} */
+
+/* input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 2px;
+  background-color: #434b52;
+  transition: all 0.2s ease;
+} */
+
+/* input[type="range"]::-webkit-progress-value {
+  background-color: #ff0000;
+}
+
+input[type="range"]::-webkit-progress-bar {
+  background-color: #00ff00;
+} */
+
+/* input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: solid 2px transparent;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 0px;
+} */
+
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
+    overflow: hidden;
+
+    -webkit-appearance: none;
+    /* width: 250px; */
+    height: 10px;
+    background-color: #b9bbbee3;
+    border-radius: 10px;
+  }
+
+  /* input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: #15883e;
+    margin-top: -1px;
+  } */
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* box-sizing: border-box; */
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    border: solid 4px #fff;
+    background-color: #fff;
+
+    cursor: pointer;
+
+    box-shadow: -80px 0px 0 77px #15883e;
+    margin-left: 1.5px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    border: solid 4px #fff;
+    background-color: #fff;
+  }
+}
+/** FF*/
+/* input[type="range"]::-moz-range-progress {
+  background-color: #43e5f7;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #9a905d;
+} */
+
+/* IE*/
+/* input[type="range"]::-ms-fill-lower {
+  background-color: #43e5f7;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #9a905d;
+} */

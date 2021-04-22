@@ -5,6 +5,8 @@ import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import WaveSurfer from "wavesurfer.js";
+import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
 const PlayButton = ({
   publicSong,
   playing,
@@ -15,6 +17,7 @@ const PlayButton = ({
   loggedInUser,
   selectedSong,
   play,
+  songId,
 }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
@@ -22,47 +25,40 @@ const PlayButton = ({
 
   const dispatch = useDispatch();
 
-  let a = document.querySelector(".rhap_progress-section");
   // console.log(founded);
   // console.log(selectedSong);
-
+  // console.log(songId);
+  useEffect(() => {
+    if (selectedSong) dispatch(setCurrentSong(selectedSong));
+  }, [selectedSong]);
+  console.log(play);
   const setSong = (e) => {
     e.preventDefault();
-    if (isReady) {
-      play.current.play();
-    }
-    setIsPlaying(true);
 
+    setIsPlaying(true);
+    // setPlays(true);
     if (publicSong) dispatch(setCurrentSong(publicSong));
     if (song) dispatch(setCurrentSong(song));
     if (founded) dispatch(setCurrentSong(founded));
-    if (selectedSong && !isReady) {
-      play.current.play();
 
-      setIsReady(true);
-
-      // a.innerHTML = "";
-      return dispatch(setCurrentSong(selectedSong));
-    }
-    document
-      .querySelector(
-        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-      )
-      .click();
+    // document
+    //   .querySelector(
+    //     ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
+    //   )
+    //   .click();
   };
 
   const pausesSong = (e) => {
     e.preventDefault();
 
-    setIsPlaying(false);
-    document
-      .querySelector(
-        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-      )
-      .click();
+    // document
+    //   .querySelector(
+    //     ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
+    //   )
+    //   .click();
 
-    if (selectedSong) {
-      play.current.pause();
+    if (playing) {
+      setIsPlaying(false);
     }
   };
 
