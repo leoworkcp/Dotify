@@ -31,7 +31,7 @@ const PlayButton = ({
   useEffect(() => {
     if (selectedSong) dispatch(setCurrentSong(selectedSong));
   }, [selectedSong]);
-  console.log(play);
+  // console.log(play);
   const setSong = (e) => {
     e.preventDefault();
 

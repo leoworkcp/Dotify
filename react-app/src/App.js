@@ -29,7 +29,7 @@ export default function App() {
   const [mute, setMute] = useState(false);
 
   const currentSong = useSelector((state) => state.playing);
-  console.log(currentSong);
+  // console.log(currentSong);
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(async () => {

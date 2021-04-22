@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+// import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 
-import "react-h5-audio-player/lib/styles.css";
+// import "react-h5-audio-player/lib/styles.css";
 import "./AudioPlayer.css";
 
 import { NavLink } from "react-router-dom";
@@ -11,6 +11,11 @@ import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+
 import PlayButton from "../PlayButton/index";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
@@ -85,26 +90,6 @@ const Player = ({
   };
 
   // console.log(volumeMute);
-  // // actions
-  // onAbort={action('onAbort')}
-  //  onCanPlay={action('onCanPlay')}
-  //  onCanPlayThrough={action('onCanPlayThrough')}
-  //   onEnded={action('onEnded')}
-  //   onPlaying={action('onPlaying')}
-  //   onSeeking={action('onSeeking')}
-  //   onSeeked={action('onSeeked')}
-  //   onLoadStart={action('onLoadStart')}
-  //   onLoadedMetaData={action('onLoadedMetaData')}
-  //   onLoadedData={action('onLoadedData')}
-  //   onError={action('onError')}
-  //   onListen={action('onListen')}
-  //   onVolumeChange={action('onVolumeChange')}
-  //   onPause={action('onPause')}
-  //   onPlay={action('onPlay')}
-  //   onClickPrevious={action('onClickPrevious')}
-  //   onClickNext={action('onClickNext')}
-  //   volume={0.8}
-  //   // actions ends
 
   async function onNext() {
     setIsPlaying(false);
@@ -128,12 +113,12 @@ const Player = ({
   }
 
   // new stuff
-  console.log(currentSong);
+  // console.log(currentSong);
   const selectedSong = Object.values(publicSongs).find(
     (song) => song?.id == parseInt(songId)
   );
 
-  console.log(selectedSong);
+  // console.log(selectedSong);
   const [playings, setPlays] = useState(false);
   useEffect(() => {
     // setPlays(false);
@@ -144,7 +129,7 @@ const Player = ({
     // creating instance of  WaveSurfer waveForm
 
     // load waveForm and ProgressBar
-    console.log(songId);
+    // console.log(songId);
 
     if (songId) {
       wavesurfer.current = WaveSurfer.create({
@@ -208,7 +193,8 @@ const Player = ({
         await wavesurfer.current.play();
         setPlays(true);
         setSongIsLoaded(true);
-        setIsPlaying(true);
+        // setIsPlaying(true);
+
         // make sure object still available when file loaded
         if (wavesurfer.current) {
           wavesurfer.current.setVolume(volume);
@@ -238,22 +224,40 @@ const Player = ({
       }
     }
   };
-  const onVolumeMute = (e) => {
-    if (currentSong.song) {
-      const { target } = e;
+  const newVolume2 = volume;
+  const onVolumeMute = async (e) => {
+    e.preventDefault();
+    if (wavesurfer.current) {
+      // const { target } = e;
       const newVolume = 0;
       const newVolume1 = volume;
 
       setVolume(newVolume);
-      wavesurfer.current.setVolume(newVolume);
+      await wavesurfer.current.setVolume(newVolume);
       if (volume === 0) {
         setVolume(newVolume1);
-        wavesurfer.current.setVolume(newVolume1 || 1);
+        await wavesurfer.current.setVolume(newVolume1 || 1);
       }
     }
-
-    // console.log(volume);
   };
+  const onVolumeBack = async (e) => {
+    e.preventDefault();
+    if (wavesurfer.current) {
+      // const { target } = e;
+      // const newVolume = 1;
+      const newVolume1 = 1;
+
+      // setVolume(newVolume);
+      // await wavesurfer.current.setVolume(newVolume);
+      if (volume === 0 || volume === 0.01) {
+        setVolume(newVolume1);
+        await wavesurfer.current.setVolume(newVolume1 || 1);
+      }
+    }
+  };
+
+  console.log(volume);
+  console.log(newVolume2);
 
   const handlePlayPause = () => {
     if (playings && !playing) {
@@ -267,16 +271,21 @@ const Player = ({
     if (playings && playing) {
       wavesurfer.current.play();
 
-      setMute(true);
+      // setMute(true);
     }
   };
+  useEffect(() => {
+    if (volume === 0 || volume === 0.01) {
+      setMute(true);
+    } else {
+      setMute(false);
+    }
+  });
 
-  // console.log(duration);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
         <div className="container-playing">
-          {console.log(songIsLoaded)}
           {songIsLoaded && (
             <div className="song-playing">
               <img src={currentSong?.image_url} alt="song-cover" />
@@ -334,32 +343,63 @@ const Player = ({
         </div>
 
         <div className="audio_player__container">
-          <PlayButton
-            play={wavesurfer}
-            playing={playing}
-            setIsPlaying={setIsPlaying}
-            pauseSong={pauseSong}
-            loggedInUser={loggedInUser}
-            songId={songId}
-          />
+          <div className="inline-container">
+            <button id="SkipPreviousIcon">
+              <SkipPreviousIcon
+                style={{
+                  width: "35px",
+                  height: "35px",
+                }}
+              />
+            </button>
+            <PlayButton
+              play={wavesurfer}
+              playing={playing}
+              setIsPlaying={setIsPlaying}
+              pauseSong={pauseSong}
+              loggedInUser={loggedInUser}
+              songId={songId}
+            />
+
+            <button id="SkipNextIcon">
+              <SkipNextIcon
+                style={{
+                  width: "35px",
+                  height: "35px",
+                }}
+              />
+            </button>
+
+            <div className="volume">
+              {!mute && (
+                <button onClick={(e) => onVolumeMute(e)}>
+                  <VolumeUpIcon />
+                </button>
+              )}
+              {mute && (
+                <button onClick={(e) => onVolumeBack(e)}>
+                  <VolumeOffIcon />
+                </button>
+              )}
+
+              <input
+                type="range"
+                id="volume"
+                name="volume"
+                // waveSurfer recognize value of `0` same as `1`
+                //  so we need to set some zero-ish value for silence
+                min="0.01"
+                max="1"
+                step=".025"
+                onChange={onVolumeChange}
+                defaultValue={volume}
+                value={volume}
+              />
+            </div>
+          </div>
           {!playing && handlePlayPause()}
           {playing && handlePlay()}
           <div id="wave-minimap"></div>
-          <div className="volume">
-            <button onClick={(e) => onVolumeMute(e)}>🔊</button>
-            <input
-              type="range"
-              id="volume"
-              name="volume"
-              // waveSurfer recognize value of `0` same as `1`
-              //  so we need to set some zero-ish value for silence
-              min="0.01"
-              max="1"
-              step=".025"
-              onChange={onVolumeChange}
-              defaultValue={volume}
-            />
-          </div>
         </div>
         <div className="controllers-queue_screen">
           <div className="shuffle-btn">
