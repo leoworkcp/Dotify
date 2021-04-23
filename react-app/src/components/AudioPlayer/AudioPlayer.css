@@ -300,7 +300,10 @@
   color: #b3b3b3;
   background-color: transparent;
   margin-left: 150px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
+
 #SkipNextIcon {
   width: 40px;
   height: 40px;
@@ -310,8 +313,14 @@
   justify-content: center;
   color: #b3b3b3;
   background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
+#SkipPreviousIcon:hover,
+#SkipNextIcon:hover {
+  color: #fff;
+}
 @media (max-width: 960px) {
   #SkipPreviousIcon {
     margin-left: 50px;
@@ -361,7 +370,7 @@
 #wave-minimap {
   display: flex;
   flex-direction: column;
-
+  cursor: pointer;
   min-width: 500px;
   margin-top: 4px;
   max-height: 20px;
@@ -371,14 +380,13 @@
 
 .volume {
   padding-left: 70px;
-
   display: flex;
   max-width: 162px;
-
   align-content: center;
   align-self: center;
 }
 .volume > input {
+  cursor: pointer;
   max-width: 110px;
   margin-top: 8px;
   margin-left: -12px;
@@ -449,7 +457,7 @@ input[type="range"]::-webkit-progress-bar {
 
     -webkit-appearance: none;
     /* width: 250px; */
-    height: 10px;
+    height: 9px;
     background-color: #b9bbbee3;
     border-radius: 10px;
   }
@@ -464,7 +472,7 @@ input[type="range"]::-webkit-progress-bar {
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     /* box-sizing: border-box; */
-    height: 10px;
+    height: 9px;
     width: 10px;
     border-radius: 10px;
     border: solid 4px #fff;

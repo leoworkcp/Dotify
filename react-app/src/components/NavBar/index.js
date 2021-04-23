@@ -77,9 +77,14 @@ const NavBar = ({
       <div className="navbarContainer">
         <div className="developers__link--container">
           <div>
-            <NavLink className="developers__link" to="/developers">
+            <a
+              className="developers__link"
+              href="https://leoworkcp.github.io"
+              add
+              target="_blank"
+            >
               Developer
-            </NavLink>
+            </a>
           </div>
         </div>
         <NavLink className="mainLogoLink" to="/">

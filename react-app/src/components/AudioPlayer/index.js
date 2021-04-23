@@ -36,7 +36,7 @@ const Player = ({
   wavesurfer,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
   const { songId } = useParams();
 
@@ -255,9 +255,6 @@ const Player = ({
       }
     }
   };
-
-  console.log(volume);
-  console.log(newVolume2);
 
   const handlePlayPause = () => {
     if (playings && !playing) {

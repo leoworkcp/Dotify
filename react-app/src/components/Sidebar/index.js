@@ -11,18 +11,65 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 // ---------------------------------
+// import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ArrowLeftSharpIcon from "@material-ui/icons/ArrowLeftSharp";
+// ---------------------------------
 
+import Popper from "@material-ui/core/Popper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Paper from "@material-ui/core/Paper";
 import "./SideBar.css";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& > svg": {},
+    typography: {
+      padding: theme.spacing(2),
+    },
   },
 }));
-
-function Sidebar({ userid }) {
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     width: 500,
+//     "& > svg": {},
+//   },
+//   typography: {
+//     padding: theme.spacing(2),
+//   },
+// }));
+function Sidebar({ userid, authenticated }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  // const [arrowEl, setArrowEl] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState();
   const classes = useStyles();
 
+  const handleClick = (newPlacement) => (event) => {
+    if (authenticated) {
+      history.push(`/profile/${userid}`);
+    } else {
+      setAnchorEl(event.currentTarget);
+
+      setOpen((prev) => placement !== newPlacement || !prev);
+      setPlacement(newPlacement);
+    }
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // const handleArrowRef = (arrow) => {
+  //   setArrowEl(arrow);
+  // };
+
+  // const classes = useStyles();
+  console.log(userid);
+  console.log(authenticated);
   const history = useHistory();
 
   function homeButton() {
@@ -32,16 +79,47 @@ function Sidebar({ userid }) {
     history.push("/search");
   }
 
-  function libraryButton() {
-    history.push(`/profile/${userid}`);
-  }
+  // function libraryButton() {
+  //   if (authenticated) {
+  //     history.push(`/profile/${userid}`);
+  //   }
+  //   //to build dropdown
+  //   //to signup/login modal
+  //   else {
+  //     return setTimeout(() => alert("Please Login"), 100);
+  //   }
+  // }
 
   function createPlaylist() {
-    history.push("/create/playlist");
+    return setTimeout(
+      () => alert("Sorry, this Page is under construction."),
+      100
+    );
+
+    // if (authenticated) {
+    //   history.push("/create/playlist");
+    // } else {
+    //   return setTimeout(
+    //     () => alert("Sorry, this Page is under construction."),
+    //     100
+    //   );
+    // }
   }
 
   function likeSongs() {
-    history.push("/collection/tracks");
+    return setTimeout(
+      () => alert("Sorry, this Page is under construction."),
+      100
+    );
+
+    // if (authenticated) {
+    //   history.push("/collection/tracks");
+    // } else {
+    //   return setTimeout(
+    //     () => alert("Sorry, this Page is under construction."),
+    //     100
+    //   );
+    // }
   }
 
   function enterButton() {
@@ -86,13 +164,54 @@ function Sidebar({ userid }) {
         <div className="sideBar-button__library">
           <IconButton
             className="home-icon sideBar"
-            onClick={libraryButton}
+            onClick={handleClick("left")}
             fontSize="small"
           >
             <LibraryMusicIcon />
             <div>
               <p className="p-sidebar">Your Library</p>
             </div>
+
+            <Popper
+              className={classes.popper}
+              open={open}
+              anchorEl={anchorEl}
+              placement={placement}
+              transition
+            >
+              {({ TransitionProps }) => (
+                <Fade {...TransitionProps} timeout={150}>
+                  <Paper>
+                    <ArrowLeftSharpIcon> </ArrowLeftSharpIcon>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <Typography className={classes.typography}>
+                        Enjoy Your Library
+                      </Typography>
+                      <Typography className={classes.typography}>
+                        Log in to see saved songs, artists and playlists in Your
+                        Library.
+                      </Typography>
+                      {/* <MenuItem onClick={handleClose}>Demo user</MenuItem> */}
+                      <div id="menuItem">
+                        <MenuItem onClick={handleClose}>NOT NOW</MenuItem>
+                        <MenuItem onClick={handleClose}>SIGN UP</MenuItem>
+                        <MenuItem onClick={handleClose}>LOG IN</MenuItem>
+                      </div>
+                    </Menu>
+                  </Paper>
+                </Fade>
+              )}
+            </Popper>
+            {/* <Grid container justify="center"></Grid>
+            <Grid item>
+              <Button onClick={handleClick("left")}></Button>
+            </Grid> */}
           </IconButton>
         </div>
         <div className="sideBar-button__playlist">
