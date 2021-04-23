@@ -149,6 +149,7 @@
     margin-bottom: 100px;
   }
 }
+/* check */
 @media (max-width: 640px) {
   .cover-div {
     margin-left: 0px;
@@ -165,7 +166,8 @@
     margin-left: 0px;
   }
   .full-song__container {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
 

@@ -53,6 +53,7 @@ const PlayButton = ({
   songId,
   authenticated,
   setAuthenticated,
+  shuffleSongId,
 }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);

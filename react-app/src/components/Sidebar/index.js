@@ -74,6 +74,8 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 function Sidebar({ userid, authenticated, setAuthenticated }) {
+  const history = useHistory();
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [open, setOpen] = useState(false);
@@ -170,7 +172,6 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
 
   console.log(userid);
   console.log(authenticated);
-  const history = useHistory();
 
   function homeButton() {
     history.push("/");

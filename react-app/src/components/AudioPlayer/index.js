@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import { useHistory } from "react-router-dom";
 // import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 
 // import "react-h5-audio-player/lib/styles.css";
@@ -70,6 +70,8 @@ const Player = ({
   authenticated,
   setAuthenticated,
 }) => {
+  const history = useHistory();
+
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
@@ -196,10 +198,10 @@ const Player = ({
     if (songId) {
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
-
+        hideScrollbar: true,
         waveColor: "#b9bbbee3",
         cursorColor: "transparent",
-        barWidth: 1.5,
+        barWidth: 1,
         barRadius: 3,
         cursorWidth: 1,
         height: 45,
@@ -232,9 +234,10 @@ const Player = ({
       // setSongIsLoaded(true);
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
+        hideScrollbar: true,
         waveColor: "#b9bbbee3",
         cursorColor: "transparent",
-        barWidth: 1.5,
+        barWidth: 1,
         barRadius: 3,
         cursorWidth: 1,
         height: 45,
@@ -350,6 +353,13 @@ const Player = ({
     // if (!wavesurfer.current) setDrag(false);
   });
   console.log(wavesurfer.current);
+
+  const shuffleSongId = () => {
+    if (songId) {
+      history.push(`/song/${songId}`);
+    }
+  };
+
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
@@ -551,13 +561,18 @@ const Player = ({
                 marginRight: "10px",
               }}
             />
+
             <PlayButton
+              shuffleSongId={shuffleSongId}
+              songId={songId}
               foundedId={founded[0]?.id}
               founded={founded[0]}
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
               loggedInUser={loggedInUser}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
           <div className="queue-music">
