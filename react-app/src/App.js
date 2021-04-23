@@ -16,6 +16,7 @@ import HomePage from "./components/HomePage";
 import Player from "./components/AudioPlayer";
 import ProfileHeader from "./components/ProfilePage/ProfileHeader";
 import SongPage from "./components/SongPage/index";
+import SearchBar from "./components/SearchBar/index";
 import { findPublicSongs } from "./store/publicSongs";
 export default function App() {
   const dispatch = useDispatch();
@@ -142,10 +143,14 @@ export default function App() {
                 currentSong={currentSong}
               />
             </Route>
+
+            <Route path={"/search"} exact={true}>
+              <SearchBar />
+            </Route>
           </Switch>
         </div>
         {draggable()}
-        <Route path={["/song/:songId", "/profile/:userid", "/"]}>
+        <Route path={["/song/:songId", "/profile/:userid", "/", "/search"]}>
           <Player
             seek={seek}
             setSeek={setSeek}
