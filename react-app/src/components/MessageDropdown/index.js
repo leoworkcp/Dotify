@@ -47,10 +47,11 @@ Modal.setAppElement("#root");
 
 const CustomMenuList = withStyles({
   root: {
-    width: "150px",
-    boxShadow: "3px 3px 3px #28292E",
+    // width: "150px",
+    height: "50px",
+    // boxShadow: "3px 3px 3px #28292E",
     backgroundColor: "#18191C",
-    borderRadius: "5px",
+    borderRadius: "10px",
     position: "relative",
     zIndex: 2,
   },

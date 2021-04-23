@@ -159,10 +159,11 @@
   /* justify-content: center; */
   border-radius: 10px;
   /* background-color: #450af5; */
-  width: 332px;
-  height: 149px;
+  min-width: 135px;
+  min-height: 105px;
   /* background-color: #2e77d0; */
 }
+
 .MuiPaper-root > svg {
   /* background-color: red; */
   position: absolute;
