@@ -128,10 +128,14 @@ export default function App() {
                 playing={playing}
                 setIsPlaying={setIsPlaying}
                 pauseSong={pauseSong}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
               />
             </Route>
             <Route path={"/song/:songId"} exact={true}>
               <SongPage
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
                 publicSongs={publicSongs}
                 loaded={loaded}
                 playing={playing}
@@ -147,7 +151,10 @@ export default function App() {
             </Route>
 
             <Route path={"/search"} exact={true}>
-              <SearchBar />
+              <SearchBar
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              />
             </Route>
           </Switch>
         </div>

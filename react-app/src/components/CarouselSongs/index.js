@@ -38,9 +38,14 @@ const CarouselSongs = ({
                     playing={playing}
                     setIsPlaying={setIsPlaying}
                   />
-                  <NavLink to={`song/${publicSong?.id}`}>
+                  {authenticated && (
+                    <NavLink to={`song/${publicSong?.id}`}>
+                      <p className="legend">{publicSong?.name}</p>
+                    </NavLink>
+                  )}
+                  {!authenticated && (
                     <p className="legend">{publicSong?.name}</p>
-                  </NavLink>
+                  )}
                   <img src={publicSong?.image_url}></img>
                 </div>
               );

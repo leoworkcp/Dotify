@@ -15,16 +15,11 @@ const LogoutButton = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onLogout = async (e) => {
-    await dispatch(logout());
-    await dispatch(setCurrentSong(false));
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(setCurrentSong(false));
     setIsPlaying(false);
-    pauseSong(setAuthenticated(false));
-    // document
-    //   .querySelector(
-    //     ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-    //   )
-    //   .click();
+    setAuthenticated(false);
     history.push("/");
   };
 

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import "./SearchBar.css";
 
-const SearchBar = ({}) => {
+const SearchBar = ({ authenticated, setAuthenticated }) => {
   const [use, setUse] = useState([]);
   const songs = useSelector((state) => state?.publicSong);
 
@@ -40,22 +40,42 @@ const SearchBar = ({}) => {
               <>
                 {
                   <div className="dropdown__search-bar" id="serverSearch">
-                    <li id="searchText">
-                      <NavLink
-                        id="searchText-anchor"
-                        className="popUp-search__anchor"
-                        to={`/songs/${filter.id}`}
-                      >
-                        {filter.name}
-                      </NavLink>
-                      <NavLink
-                        id="searchText-anchor"
-                        className="popUp-search__anchor"
-                        to={`/profile/${filter.artist_id}`}
-                      >
-                        {filter.artist.username}
-                      </NavLink>
-                    </li>
+                    {authenticated && (
+                      <li id="searchText">
+                        <NavLink
+                          id="searchText-anchor"
+                          className="popUp-search__anchor"
+                          to={`/song/${filter.id}`}
+                        >
+                          {filter.name}
+                        </NavLink>
+                        <NavLink
+                          id="searchText-anchor"
+                          className="popUp-search__anchor"
+                          to={`/profile/${filter.artist_id}`}
+                        >
+                          {filter.artist.username}
+                        </NavLink>
+                      </li>
+                    )}
+                    {!authenticated && (
+                      <li id="searchText">
+                        <NavLink
+                          id="searchText-anchor"
+                          className="popUp-search__anchor"
+                          to={`/`}
+                        >
+                          {filter.name}
+                        </NavLink>
+                        <NavLink
+                          id="searchText-anchor"
+                          className="popUp-search__anchor"
+                          to={`/`}
+                        >
+                          {filter.artist.username}
+                        </NavLink>
+                      </li>
+                    )}
                   </div>
                 }
               </>

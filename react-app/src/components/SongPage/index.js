@@ -48,6 +48,8 @@ function SongPage({
   setSeek,
   wavesurfer,
   currentSong,
+  authenticated,
+  setAuthenticated,
 }) {
   const { songId } = useParams();
   const dispatch = useDispatch();
@@ -256,6 +258,8 @@ function SongPage({
             pauseSong={pauseSong}
             playing={playing}
             setIsPlaying={setIsPlaying}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
           />
           <div className="cover-div">
             <img src={selectedSong.image_url} alt="song-cover" />
@@ -265,7 +269,6 @@ function SongPage({
               <h1>{selectedSong.name}</h1>
               <h2>{selectedSong.category}</h2>
             </div>
-
             <div id="waveform" />
           </div>
         </div>

@@ -10,6 +10,8 @@ const ProfileSongs = ({
   playing,
   setIsPlaying,
   pauseSong,
+  authenticated,
+  setAuthenticated,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -39,6 +41,8 @@ const ProfileSongs = ({
               key={idx}
               song={song}
               loggedInUser={loggedInUser}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         ))}

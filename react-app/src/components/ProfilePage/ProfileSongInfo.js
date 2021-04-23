@@ -10,6 +10,8 @@ const ProfileSongInfo = ({
   playing,
   setIsPlaying,
   pauseSong,
+  authenticated,
+  setAuthenticated,
 }) => {
   // song is already the user songs NOTE
   // console.log(song);
@@ -33,6 +35,8 @@ const ProfileSongInfo = ({
             playing={playing}
             setIsPlaying={setIsPlaying}
             pauseSong={pauseSong}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
           />
         </div>
         <div className="album-cover">
