@@ -106,6 +106,8 @@ export default function App() {
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </Route>
           <Switch>
@@ -152,6 +154,8 @@ export default function App() {
         {draggable()}
         <Route path={["/song/:songId", "/profile/:userid", "/", "/search"]}>
           <Player
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
             seek={seek}
             setSeek={setSeek}
             mute={mute}

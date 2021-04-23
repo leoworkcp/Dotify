@@ -12,6 +12,8 @@ const CarouselSongs = ({
   playing,
   setIsPlaying,
   pauseSong,
+  authenticated,
+  setAuthenticated,
 }) => {
   // console.log(publicSongs);
   return (
@@ -29,6 +31,8 @@ const CarouselSongs = ({
               return (
                 <div key={idx} className="img-controller">
                   <PlayButton
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
                     pauseSong={pauseSong}
                     publicSong={publicSong}
                     playing={playing}

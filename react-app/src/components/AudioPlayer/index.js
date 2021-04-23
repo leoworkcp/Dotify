@@ -20,6 +20,39 @@ import PlayButton from "../PlayButton/index";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
 import { useParams } from "react-router";
+
+// modal
+import Modal from "react-modal";
+import LogoutButton from "../auth/LogoutButton/index";
+import LoginForm from "../auth/LoginForm/index";
+import SignUpForm from "../auth/SignUpForm/index";
+
+const customStyles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    zIndex: 5,
+  },
+  content: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "10px",
+    padding: "20px",
+    backgroundColor: "#181818",
+    border: "none",
+  },
+};
+
+Modal.setAppElement("#root");
 const Player = ({
   drag,
   setDrag,
@@ -34,11 +67,40 @@ const Player = ({
   seek,
   setSeek,
   wavesurfer,
+  authenticated,
+  setAuthenticated,
 }) => {
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
   const { songId } = useParams();
+
+  // modal
+  const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
+  const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
+
+  function openModalLogin() {
+    setIsOpenLogin(true);
+  }
+
+  function openModalSignUp() {
+    setIsOpenSignUp(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModalLogin() {
+    setIsOpenLogin(false);
+  }
+
+  function closeModalSignUp() {
+    setIsOpenSignUp(false);
+  }
+
+  // modal ends
 
   function muteMe(elem) {
     elem.muted = true;
@@ -277,13 +339,22 @@ const Player = ({
     } else {
       setMute(false);
     }
-  });
+    if (!authenticated) {
+      setDrag(false);
+      setSongIsLoaded(false);
+      return () => {
+        wavesurfer.current.destroy();
+      };
+    }
 
+    // if (!wavesurfer.current) setDrag(false);
+  });
+  console.log(wavesurfer.current);
   return (
     <nav className="player-navBar">
       <div className="player-navbar__container">
         <div className="container-playing">
-          {songIsLoaded && (
+          {songIsLoaded && authenticated && currentSong && (
             <div className="song-playing">
               <img src={currentSong?.image_url} alt="song-cover" />
             </div>
@@ -301,18 +372,53 @@ const Player = ({
               </NavLink>
             </div>
             <div className="like-artist__cover">
-              <button>
-                <FavoriteBorderIcon
-                  style={{
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                    paddingBottom: "5px",
-                  }}
-                />
-              </button>
+              {!authenticated && (
+                <button onClick={() => openModalLogin()}>
+                  <FavoriteBorderIcon
+                    style={{
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && (
+                <button onClick={() => alert("feature in progress")}>
+                  <FavoriteBorderIcon
+                    style={{
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
             </div>
             <div className="see-artist__cover">
-              {!drag && (
+              {!authenticated && (
+                <button onClick={() => openModalLogin()}>
+                  <PictureInPictureAltIcon
+                    style={{
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && !songIsLoaded && (
+                <button onClick={() => setDrag(false)}>
+                  <PictureInPictureAltIcon
+                    style={{
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                      paddingBottom: "5px",
+                    }}
+                  />
+                </button>
+              )}
+              {!drag && authenticated && songIsLoaded && (
                 <button onClick={() => setDrag(true)}>
                   <PictureInPictureAltIcon
                     style={{
@@ -323,7 +429,7 @@ const Player = ({
                   />
                 </button>
               )}
-              {drag && (
+              {drag && authenticated && songIsLoaded && (
                 <button onClick={() => setDrag(false)}>
                   <PictureInPictureAltIcon
                     style={{
@@ -341,14 +447,28 @@ const Player = ({
 
         <div className="audio_player__container">
           <div className="inline-container">
-            <button id="SkipPreviousIcon">
-              <SkipPreviousIcon
-                style={{
-                  width: "35px",
-                  height: "35px",
-                }}
-              />
-            </button>
+            {authenticated && (
+              <button id="SkipPreviousIcon">
+                <SkipPreviousIcon
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                  }}
+                />
+              </button>
+            )}
+
+            {!authenticated && (
+              <button id="SkipPreviousIcon" onClick={() => openModalLogin()}>
+                <SkipPreviousIcon
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                  }}
+                />
+              </button>
+            )}
+
             <PlayButton
               play={wavesurfer}
               playing={playing}
@@ -356,24 +476,47 @@ const Player = ({
               pauseSong={pauseSong}
               loggedInUser={loggedInUser}
               songId={songId}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
-
-            <button id="SkipNextIcon">
-              <SkipNextIcon
-                style={{
-                  width: "35px",
-                  height: "35px",
-                }}
-              />
-            </button>
+            {authenticated && (
+              <button id="SkipNextIcon">
+                <SkipNextIcon
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                  }}
+                />
+              </button>
+            )}
+            {!authenticated && (
+              <button id="SkipNextIcon" onClick={() => openModalLogin()}>
+                <SkipNextIcon
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                  }}
+                />
+              </button>
+            )}
 
             <div className="volume">
-              {!mute && (
+              {!authenticated && (
+                <button onClick={() => openModalLogin()}>
+                  <VolumeUpIcon />
+                </button>
+              )}
+              {authenticated && !songIsLoaded && (
+                <button>
+                  <VolumeUpIcon />
+                </button>
+              )}
+              {!mute && authenticated && songIsLoaded && (
                 <button onClick={(e) => onVolumeMute(e)}>
                   <VolumeUpIcon />
                 </button>
               )}
-              {mute && (
+              {mute && authenticated && songIsLoaded && (
                 <button onClick={(e) => onVolumeBack(e)}>
                   <VolumeOffIcon />
                 </button>
@@ -418,19 +561,33 @@ const Player = ({
             />
           </div>
           <div className="queue-music">
-            <button>
-              <QueueMusicIcon
-                style={{
-                  marginTop: "28px",
-                  fontSize: 30,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
-            </button>
+            {!authenticated && (
+              <button onClick={() => openModalLogin()}>
+                <QueueMusicIcon
+                  style={{
+                    marginTop: "28px",
+                    fontSize: 30,
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                />
+              </button>
+            )}
+            {authenticated && (
+              <button onClick={() => alert("feature in progress")}>
+                <QueueMusicIcon
+                  style={{
+                    marginTop: "28px",
+                    fontSize: 30,
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                />
+              </button>
+            )}
           </div>
           <div className="full-screen">
-            <button>
+            <button onClick={() => alert("feature in progress")}>
               <FullscreenIcon
                 style={{
                   marginTop: "28px",
@@ -442,6 +599,35 @@ const Player = ({
             </button>
           </div>
         </div>
+        <Modal
+          isOpen={modalIsOpenLogin}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalLogin}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <LoginForm
+            setIsOpenLogin={setIsOpenLogin}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            openModalSignUp={openModalSignUp}
+            closeModalLogin={closeModalLogin}
+          />
+        </Modal>
+        <Modal
+          isOpen={authenticated === true ? false : modalIsOpenSignUp}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalSignUp}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <SignUpForm
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            closeModalSignUp={closeModalSignUp}
+            openModalLogin={openModalLogin}
+          />
+        </Modal>
       </div>
     </nav>
   );
