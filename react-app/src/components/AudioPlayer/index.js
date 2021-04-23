@@ -19,6 +19,8 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayButton from "../PlayButton/index";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
+import Regions from "wavesurfer.js/dist/plugin/wavesurfer.regions.js";
+
 import { useParams } from "react-router";
 
 // modal
@@ -210,19 +212,44 @@ const Player = ({
         normalize: true,
         partialRender: true,
         pixelRatio: 1,
-
+        // loopSelection: true,
         progressColor: "#15883dbb",
+        // plugins: [
+        //   Minimap.create({
+        //     container: "#waveform",
+        //     waveColor: "#fff",
+        //     progressColor: "#15883dbb",
+        //     // loopSelection: true,
+        //     height: 100,
+        //     // barWidth: 50,
+        //     cursorWidth: 1,
+        //     // barMinHeight: 10,
+        //     cursorColor: "transparent",
+        //     barGap: 3,
+        //   }),
+        // ],
         plugins: [
-          Minimap.create({
-            container: "#waveform",
-            waveColor: "#fff",
-            progressColor: "#15883dbb",
-            height: 100,
-            // barWidth: 50,
-            cursorWidth: 1,
-            // barMinHeight: 10,
-            cursorColor: "transparent",
-            barGap: 3,
+          Regions.create({
+            container: "#wave-minimap",
+            regionsMinLength: 2,
+            regions: [
+              {
+                start: 1,
+                end: 3,
+                loop: false,
+                color: "hsla(400, 100%, 30%, 0.5)",
+              },
+              {
+                start: 5,
+                end: 7,
+                loop: false,
+                color: "hsla(200, 50%, 70%, 0.4)",
+                minLength: 1,
+              },
+            ],
+            dragSelection: {
+              slop: 5,
+            },
           }),
         ],
       });
@@ -247,6 +274,7 @@ const Player = ({
         partialRender: true,
         pixelRatio: 1,
         progressColor: "#15883dbb",
+        // loopSelection: true,
       });
 
       wavesurfer.current.load(`${currentSong.song}`);
