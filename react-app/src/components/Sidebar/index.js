@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 // ---------------------------------
@@ -23,6 +23,11 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
+// modal
+import Modal from "react-modal";
+import LogoutButton from "../auth/LogoutButton/index";
+import LoginForm from "../auth/LoginForm/index";
+import SignUpForm from "../auth/SignUpForm/index";
 import "./SideBar.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,12 +47,70 @@ const useStyles = makeStyles((theme) => ({
 //     padding: theme.spacing(2),
 //   },
 // }));
-function Sidebar({ userid, authenticated }) {
+const customStyles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    zIndex: 5,
+  },
+  content: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "10px",
+    padding: "20px",
+    backgroundColor: "#181818",
+    border: "none",
+  },
+};
+
+Modal.setAppElement("#root");
+function Sidebar({ userid, authenticated, setAuthenticated }) {
   const [anchorEl, setAnchorEl] = useState(null);
   // const [arrowEl, setArrowEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState();
   const classes = useStyles();
+  // modal
+  const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
+  const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
+  // const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
+
+  function openModalLogin() {
+    setIsOpenLogin(true);
+  }
+
+  function openModalSignUp() {
+    setIsOpenSignUp(true);
+  }
+
+  // function openModalSongForm() {
+  //   setIsOpenSongForm(true);
+  // }
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModalLogin() {
+    setIsOpenLogin(false);
+  }
+
+  function closeModalSignUp() {
+    setIsOpenSignUp(false);
+  }
+  // function closeModalSongForm() {
+  //   setIsOpenSongForm(false);
+  // }
+  // modal ends
 
   const handleClick = (newPlacement) => (event) => {
     if (authenticated) {
@@ -62,7 +125,11 @@ function Sidebar({ userid, authenticated }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  useEffect(() => {
+    if (modalIsOpenLogin || modalIsOpenSignUp) {
+      return setAnchorEl(null);
+    }
+  }, [modalIsOpenLogin, modalIsOpenSignUp]);
   // const handleArrowRef = (arrow) => {
   //   setArrowEl(arrow);
   // };
@@ -180,7 +247,7 @@ function Sidebar({ userid, authenticated }) {
               transition
             >
               {({ TransitionProps }) => (
-                <Fade {...TransitionProps} timeout={150}>
+                <Fade {...TransitionProps} timeout={50}>
                   <Paper>
                     <ArrowLeftSharpIcon> </ArrowLeftSharpIcon>
                     <Menu
@@ -200,24 +267,21 @@ function Sidebar({ userid, authenticated }) {
                       {/* <MenuItem onClick={handleClose}>Demo user</MenuItem> */}
                       <div id="menuItem">
                         <MenuItem onClick={handleClose}>NOT NOW</MenuItem>
-                        <MenuItem onClick={handleClose}>SIGN UP</MenuItem>
-                        <MenuItem onClick={handleClose}>LOG IN</MenuItem>
+
+                        <MenuItem onClick={openModalSignUp}>SIGN UP</MenuItem>
+                        <MenuItem onClick={openModalLogin}>LOG IN</MenuItem>
                       </div>
                     </Menu>
                   </Paper>
                 </Fade>
               )}
             </Popper>
-            {/* <Grid container justify="center"></Grid>
-            <Grid item>
-              <Button onClick={handleClick("left")}></Button>
-            </Grid> */}
           </IconButton>
         </div>
         <div className="sideBar-button__playlist">
           <IconButton
             className="home-icon sideBar"
-            onClick={createPlaylist}
+            onClick={handleClick("left")}
             fontSize="small"
           >
             <AddBoxIcon className="playlist-icon" />
@@ -229,7 +293,7 @@ function Sidebar({ userid, authenticated }) {
         <div className="sideBar-button__liked">
           <IconButton
             className="home-icon sideBar"
-            onClick={likeSongs}
+            onClick={handleClick("left")}
             fontSize="small"
           >
             <div className={classes.root}>
@@ -242,6 +306,35 @@ function Sidebar({ userid, authenticated }) {
             </div>
           </IconButton>
         </div>
+        <Modal
+          isOpen={modalIsOpenLogin}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalLogin}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <LoginForm
+            setIsOpenLogin={setIsOpenLogin}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            openModalSignUp={openModalSignUp}
+            closeModalLogin={closeModalLogin}
+          />
+        </Modal>
+        <Modal
+          isOpen={authenticated === true ? false : modalIsOpenSignUp}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalSignUp}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <SignUpForm
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            closeModalSignUp={closeModalSignUp}
+            openModalLogin={openModalLogin}
+          />
+        </Modal>
         <div className="divider-container">
           <Divider light className="dividers" />
         </div>
