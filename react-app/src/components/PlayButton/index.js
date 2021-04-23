@@ -5,6 +5,41 @@ import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+// import WaveSurfer from "wavesurfer.js";
+// import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
+
+// modal
+import Modal from "react-modal";
+import LogoutButton from "../auth/LogoutButton/index";
+import LoginForm from "../auth/LoginForm/index";
+import SignUpForm from "../auth/SignUpForm/index";
+
+const customStyles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    zIndex: 5,
+  },
+  content: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "10px",
+    padding: "20px",
+    backgroundColor: "#181818",
+    border: "none",
+  },
+};
+
+Modal.setAppElement("#root");
 const PlayButton = ({
   publicSong,
   playing,
@@ -15,6 +50,9 @@ const PlayButton = ({
   loggedInUser,
   selectedSong,
   play,
+  songId,
+  authenticated,
+  setAuthenticated,
 }) => {
   // const [audio, setAudio] = useState(null);
   // const [playing, setIsPlaying] = useState(false);
@@ -22,50 +60,61 @@ const PlayButton = ({
 
   const dispatch = useDispatch();
 
-  let a = document.querySelector(".rhap_progress-section");
+  // modal
+  const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
+  const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
+
+  function openModalLogin() {
+    setIsOpenLogin(true);
+  }
+
+  function openModalSignUp() {
+    setIsOpenSignUp(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModalLogin() {
+    setIsOpenLogin(false);
+  }
+
+  function closeModalSignUp() {
+    setIsOpenSignUp(false);
+  }
+
+  // modal ends
   // console.log(founded);
   // console.log(selectedSong);
+  // console.log(songId);
+  useEffect(() => {
+    if (selectedSong) dispatch(setCurrentSong(selectedSong));
+  }, [selectedSong]);
 
   const setSong = (e) => {
     e.preventDefault();
-    if (isReady) {
-      play.current.play();
+
+    if (!authenticated) {
+      return openModalLogin();
     }
     setIsPlaying(true);
-
+    // setPlays(true);
     if (publicSong) dispatch(setCurrentSong(publicSong));
     if (song) dispatch(setCurrentSong(song));
     if (founded) dispatch(setCurrentSong(founded));
-    if (selectedSong && !isReady) {
-      play.current.play();
-
-      setIsReady(true);
-
-      // a.innerHTML = "";
-      return dispatch(setCurrentSong(selectedSong));
-    }
-    document
-      .querySelector(
-        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-      )
-      .click();
   };
 
   const pausesSong = (e) => {
     e.preventDefault();
 
-    setIsPlaying(false);
-    document
-      .querySelector(
-        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-      )
-      .click();
-
-    if (selectedSong) {
-      play.current.pause();
+    if (playing) {
+      setIsPlaying(false);
     }
   };
-
+  console.log(authenticated);
+  console.log(playing);
   return (
     <>
       <div className="PlayButton">
@@ -87,6 +136,35 @@ const PlayButton = ({
             />
           </button>
         )}
+        <Modal
+          isOpen={modalIsOpenLogin}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalLogin}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <LoginForm
+            setIsOpenLogin={setIsOpenLogin}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            openModalSignUp={openModalSignUp}
+            closeModalLogin={closeModalLogin}
+          />
+        </Modal>
+        <Modal
+          isOpen={authenticated === true ? false : modalIsOpenSignUp}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalSignUp}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <SignUpForm
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            closeModalSignUp={closeModalSignUp}
+            openModalLogin={openModalLogin}
+          />
+        </Modal>
       </div>
     </>
   );

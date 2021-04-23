@@ -15,3 +15,14 @@
   letter-spacing: 0.01938em;
   padding-right: 10px;
 }
+
+.edit-dropdown__container > svg {
+  /* background-color: aqua; */
+}
+
+.MuiPaper-root {
+  min-width: 135px;
+}
+.MuiPaper-root > ul > li {
+  width: 147px;
+}

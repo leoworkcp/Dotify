@@ -12,6 +12,8 @@ const HomePage = ({
   publicSongs,
   isLoaded,
   setIsLoaded,
+  authenticated,
+  setAuthenticated,
 }) => {
   // const dispatch = useDispatch();
 
@@ -51,6 +53,8 @@ const HomePage = ({
             isLoaded={isLoaded}
             title={"Public Songs"}
             header={"The latest and hottest"}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
           />
         </div>
         {rock.length && (
@@ -64,6 +68,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"Rock"}
               header={"All the classics"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -78,6 +84,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"Hip Hop"}
               header={"Main stream vibes"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -92,6 +100,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"Pop"}
               header={"The latest and hottest pop"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -106,6 +116,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"Jazz"}
               header={"The latest and hottest jazz"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -120,6 +132,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"R&B"}
               header={"The latest and hottest R&B"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -134,6 +148,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"EDM"}
               header={"The latest and hottest EDM"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}
@@ -148,6 +164,8 @@ const HomePage = ({
               isLoaded={isLoaded}
               title={"Rap"}
               header={"The latest and hottest rap"}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </div>
         )}

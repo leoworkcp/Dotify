@@ -16,6 +16,7 @@ import HomePage from "./components/HomePage";
 import Player from "./components/AudioPlayer";
 import ProfileHeader from "./components/ProfilePage/ProfileHeader";
 import SongPage from "./components/SongPage/index";
+import SearchBar from "./components/SearchBar/index";
 import { findPublicSongs } from "./store/publicSongs";
 export default function App() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function App() {
   const [mute, setMute] = useState(false);
 
   const currentSong = useSelector((state) => state.playing);
-  console.log(currentSong);
+  // console.log(currentSong);
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(async () => {
@@ -37,10 +38,6 @@ export default function App() {
   }, [dispatch]);
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
-
-  // importing wavesurfer
-
-  // importing wavesurfer ends
 
   // custom drag for audi0player
   function draggable() {
@@ -79,13 +76,14 @@ export default function App() {
     return null;
   }
 
-  console.log(playing);
-  console.log(mute);
+  // console.log(playing);
+  // console.log(mute);
 
   return (
     isLoaded && (
       // <ThemeProvider>
       <BrowserRouter>
+        {/* <div id="waveform" /> */}
         <NavBar
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
@@ -108,6 +106,8 @@ export default function App() {
               playing={playing}
               setIsPlaying={setIsPlaying}
               pauseSong={pauseSong}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
             />
           </Route>
           <Switch>
@@ -145,27 +145,35 @@ export default function App() {
                 currentSong={currentSong}
               />
             </Route>
+
+            <Route path={"/search"} exact={true}>
+              <SearchBar />
+            </Route>
           </Switch>
         </div>
         {draggable()}
-
-        <Player
-          seek={seek}
-          setSeek={setSeek}
-          mute={mute}
-          setMute={setMute}
-          loggedInUser={loggedInUser}
-          publicSongs={publicSongs}
-          currentSong={currentSong}
-          drag={drag}
-          setDrag={setDrag}
-          userid={userid}
-          playing={playing}
-          setIsPlaying={setIsPlaying}
-          pauseSong={pauseSong}
-          wavesurfer={wavesurfer}
-        />
+        <Route path={["/song/:songId", "/profile/:userid", "/", "/search"]}>
+          <Player
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            seek={seek}
+            setSeek={setSeek}
+            mute={mute}
+            setMute={setMute}
+            loggedInUser={loggedInUser}
+            publicSongs={publicSongs}
+            currentSong={currentSong}
+            drag={drag}
+            setDrag={setDrag}
+            userid={userid}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
+            wavesurfer={wavesurfer}
+          />
+        </Route>
       </BrowserRouter>
+
       // </ThemeProvider>
     )
   );

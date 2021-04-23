@@ -27,6 +27,7 @@
   width: 1650px;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 50px;
 
   /* min-width: fit-content; */
   justify-content: center;
@@ -120,7 +121,8 @@
   .song-page__title {
     margin-left: 200px;
     display: flex;
-
+    text-align: center;
+    flex-direction: column;
     justify-content: center;
   }
   #waveform {
@@ -172,16 +174,6 @@
   }
 }
 
-.volume > button {
+/* .volume > button {
   background-color: rgb(241, 23, 23);
-}
-
-/* #wave-minimap {
-  width: 550px;
-  position: absolute;
-  top: 48px;
-  left: 240px;
-  z-index: 11;
-  background-color: #181818;
-  display: inline-block;
 } */

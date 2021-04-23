@@ -20,11 +20,11 @@ const LogoutButton = ({
     await dispatch(setCurrentSong(false));
     setIsPlaying(false);
     pauseSong(setAuthenticated(false));
-    document
-      .querySelector(
-        ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
-      )
-      .click();
+    // document
+    //   .querySelector(
+    //     ".rhap_button-clear.rhap_main-controls-button.rhap_play-pause-button"
+    //   )
+    //   .click();
     history.push("/");
   };
 

@@ -13,7 +13,6 @@
 
 .player-navbar__container {
   display: flex;
-
   padding: 10px;
   height: 91px;
   justify-content: space-between;
@@ -23,22 +22,6 @@
   display: flex;
 }
 
-.rhap_container {
-  display: flex;
-  background-color: transparent;
-  max-width: 700px;
-  /* min-width: 294px; */
-  margin-left: 15px;
-}
-
-.rhap_time {
-  color: #fff;
-  margin-right: 8px;
-}
-
-.rhap_total-time {
-  margin: 0;
-}
 .song-playing {
   width: 55px;
   height: 55px;
@@ -172,22 +155,10 @@
   margin-top: 7px;
 }
 
-.rhap_progress-indicator {
-  background-color: #fff;
-  width: 12px;
-  height: 12px;
-  top: -4px;
-  /* opacity: 0; */
-}
-
-.rhap_play-pause-button {
-  color: rgba(255, 255, 255, 0.774);
-  margin-left: 25px;
-  margin-right: 25px;
-}
 @media (max-width: 776px) {
   .player-navbar__container {
     padding: 0px;
+    justify-content: center;
   }
   .profile-header__container,
   .full-screen,
@@ -236,47 +207,14 @@
   }
 }
 
-@media (max-width: 920px) {
-  .rhap_play-pause-button {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-}
-
-.rhap_button-clear:hover {
-  color: #fff;
-}
 .controllers-queue_screen {
-  display: flex;
+  display: inline-flex;
 }
 
 .full-screen,
 .queue-music {
   width: 50px;
   height: 50px;
-}
-
-.rhap_volume-indicator {
-  background-color: #fff;
-}
-
-.rhap_progress-filled {
-  background-color: #fff;
-}
-
-.rhap_download-progress {
-  background-color: #868686;
-}
-
-.rhap_volume-bar {
-  background-color: #868686;
-  border: none;
-}
-
-.rhap_current-time,
-.rhap_time {
-  color: #868686;
-  font-size: 11px;
 }
 
 /* music shuffle */
@@ -327,12 +265,242 @@
   color: #b3b3b3;
 }
 
-.shuffle-btn > svg.MuiSvgIcon-root:hover {
-  color: rgb(214, 39, 39);
-}
+/* .shuffle-btn > svg.MuiSvgIcon-root:hover {
+  background-color: rgb(214, 39, 39);
+} */
 
 @media (max-width: 1180px) {
   .shuffle-btn {
     display: none;
   }
 }
+.audio_player__container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  min-width: 500px;
+  /* background-color: aqua; */
+}
+
+.inline-container {
+  display: inline-flex;
+  justify-content: center;
+
+  /* background-color: aqua; */
+  max-height: 50px;
+}
+#SkipPreviousIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  color: #b3b3b3;
+  background-color: transparent;
+  margin-left: 150px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#SkipNextIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  color: #b3b3b3;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#SkipPreviousIcon:hover,
+#SkipNextIcon:hover {
+  color: #fff;
+}
+@media (max-width: 960px) {
+  #SkipPreviousIcon {
+    margin-left: 50px;
+  }
+}
+.inline-container > .PlayButton {
+  height: 40px;
+  top: 0px;
+  left: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+  align-content: center;
+  align-self: center;
+  width: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  /* background-color: purple; */
+}
+
+.inline-container > .PlayButton > button {
+  margin-top: 1px;
+  background-color: rgba(255, 255, 255, 0.897);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  transition: all 0.01s;
+}
+.inline-container > .PlayButton > button:hover {
+  width: 40px;
+  height: 40px;
+}
+.inline-container > .PlayButton > button > svg {
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  height: 33px;
+  width: 33px;
+  margin-top: 1px;
+}
+
+#wave-minimap {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  min-width: 500px;
+  margin-top: 4px;
+  max-height: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.volume {
+  padding-left: 70px;
+  display: flex;
+  max-width: 162px;
+  align-content: center;
+  align-self: center;
+}
+.volume > input {
+  cursor: pointer;
+  max-width: 110px;
+  margin-top: 8px;
+  margin-left: -12px;
+}
+
+@media (max-width: 1000px) {
+  .volume {
+    padding-left: 20px;
+    margin: 0px;
+  }
+}
+
+.volume > button {
+  background-color: transparent;
+  z-index: 2;
+}
+.volume > button > svg {
+  color: #b3b3b3;
+}
+.volume > button > svg:hover {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+/* input[type="range"] {
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 250px;
+  height: 10px;
+}
+
+input[type="range"] {
+  background-color: #b9bbbee3;
+} */
+
+/* input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 2px;
+  background-color: #434b52;
+  transition: all 0.2s ease;
+} */
+
+/* input[type="range"]::-webkit-progress-value {
+  background-color: #ff0000;
+}
+
+input[type="range"]::-webkit-progress-bar {
+  background-color: #00ff00;
+} */
+
+/* input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: solid 2px transparent;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 0px;
+} */
+
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
+    overflow: hidden;
+
+    -webkit-appearance: none;
+    /* width: 250px; */
+    height: 9px;
+    background-color: #b9bbbee3;
+    border-radius: 10px;
+  }
+
+  /* input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: #15883e;
+    margin-top: -1px;
+  } */
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* box-sizing: border-box; */
+    height: 9px;
+    width: 10px;
+    border-radius: 10px;
+    border: solid 4px #fff;
+    background-color: #fff;
+
+    cursor: pointer;
+
+    box-shadow: -80px 0px 0 77px #15883e;
+    margin-left: 1.5px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    border: solid 4px #fff;
+    background-color: #fff;
+  }
+}
+/** FF*/
+/* input[type="range"]::-moz-range-progress {
+  background-color: #43e5f7;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #9a905d;
+} */
+
+/* IE*/
+/* input[type="range"]::-ms-fill-lower {
+  background-color: #43e5f7;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #9a905d;
+} */
