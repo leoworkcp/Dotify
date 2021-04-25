@@ -291,6 +291,25 @@
   /* background-color: aqua; */
   max-height: 50px;
 }
+
+/* loop controller */
+.loop-controller__container {
+  width: 38px;
+  height: 31px;
+  /* background-color: red; */
+  margin-left: 30px;
+  margin-top: 10px;
+}
+#LoopIcon {
+  background-color: transparent;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#LoopIcon:hover {
+  color: #fff;
+}
+
 #SkipPreviousIcon {
   width: 40px;
   height: 40px;
@@ -347,25 +366,30 @@
 .inline-container > .PlayButton > button {
   margin-top: 1px;
   background-color: rgba(255, 255, 255, 0.897);
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   transition: all 0.01s;
 }
 .inline-container > .PlayButton > button:hover {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
+  background-color: rgb(255, 255, 255);
 }
+
 .inline-container > .PlayButton > button > svg {
   color: black;
-
+  /* margin-left: 1px; */
   display: flex;
   justify-content: center;
-  height: 33px;
-  width: 33px;
-  margin-top: 1px;
+  height: 30px;
+  width: 30px;
+  margin-top: 2px;
+}
+
+.inline-container > .PlayButton > button > svg:hover {
 }
 /* inline-container */
 #wave-minimap {
@@ -382,7 +406,7 @@
 }
 
 .volume {
-  padding-left: 90px;
+  padding-left: 30px;
   display: flex;
   max-width: 162px;
   align-content: center;
@@ -517,3 +541,12 @@ input[type="range"]::-moz-range-track {
 input[type="range"]::-ms-fill-upper {
   background-color: #9a905d;
 } */
+
+.wavesurfer-region {
+  cursor: none;
+}
+
+.wavesurfer-region > .wavesurfer-handle.wavesurfer-handle-start {
+  color: #fff;
+  background-color: rgb(255, 255, 255);
+}

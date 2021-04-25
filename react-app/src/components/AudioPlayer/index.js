@@ -16,6 +16,11 @@ import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 
+// new stuff
+import RepeatIcon from "@material-ui/icons/Repeat";
+import RepeatOneIcon from "@material-ui/icons/RepeatOne";
+import LoopIcon from "@material-ui/icons/Loop";
+
 import PlayButton from "../PlayButton/index";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
@@ -74,6 +79,7 @@ const Player = ({
 }) => {
   const history = useHistory();
 
+  const [loopActive, setLoopActive] = useState(false);
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
@@ -214,43 +220,36 @@ const Player = ({
         pixelRatio: 1,
         // loopSelection: true,
         progressColor: "#15883dbb",
-        // plugins: [
-        //   Minimap.create({
-        //     container: "#waveform",
-        //     waveColor: "#fff",
-        //     progressColor: "#15883dbb",
-        //     // loopSelection: true,
-        //     height: 100,
-        //     // barWidth: 50,
-        //     cursorWidth: 1,
-        //     // barMinHeight: 10,
-        //     cursorColor: "transparent",
-        //     barGap: 3,
-        //   }),
-        // ],
         plugins: [
-          Regions.create({
-            container: "#wave-minimap",
-            regionsMinLength: 2,
-            regions: [
-              {
-                start: 1,
-                end: 3,
-                loop: false,
-                color: "hsla(400, 100%, 30%, 0.5)",
-              },
-              {
-                start: 5,
-                end: 7,
-                loop: false,
-                color: "hsla(200, 50%, 70%, 0.4)",
-                minLength: 1,
-              },
-            ],
-            dragSelection: {
-              slop: 5,
-            },
+          Minimap.create({
+            container: "#waveform",
+            waveColor: "#fff",
+            progressColor: "#15883dbb",
+            // loopSelection: true,
+            height: 100,
+            // barWidth: 50,
+            cursorWidth: 1,
+            // barMinHeight: 10,
+            cursorColor: "transparent",
+            barGap: 3,
           }),
+          // Regions.create({
+          //   // container: "#waveform",
+          //   regionsMinLength: 2,
+          //   regions: [
+          //     {
+          //       start: 0,
+          //       end: 600,
+          //       loop: true,
+          //       // color: "hsla(400, 100%, 30%, 0.5)",
+          //       color: "#15883d5d",
+          //       // color: "transparent",
+          //     },
+          //   ],
+          //   dragSelection: {
+          //     slop: 5,
+          //   },
+          // }),
         ],
       });
 
@@ -306,6 +305,37 @@ const Player = ({
     };
   }, [`${currentSong.song}`, `${selectedSong?.song}`]);
   // ends new stuff
+
+  const loopSelect = () => {
+    setLoopActive(true);
+    // adding and initializing a plugin after initialization
+    wavesurfer.current
+      .addPlugin(
+        Regions.create({
+          // container: "#wave-timeline",
+          regionsMinLength: 2,
+          regions: [
+            {
+              start: 0,
+              end: 600,
+              loop: true,
+              // color: "hsla(400, 100%, 30%, 0.5)",
+              color: "#15883d5d",
+              // color: "transparent",
+            },
+          ],
+          dragSelection: {
+            slop: 5,
+          },
+        })
+      )
+      .initPlugin("regions");
+  };
+
+  const loopDeselect = () => {
+    setLoopActive(false);
+    wavesurfer.current.destroyPlugin("regions");
+  };
 
   const onVolumeChange = (e) => {
     if (currentSong.song) {
@@ -380,7 +410,7 @@ const Player = ({
 
     // if (!wavesurfer.current) setDrag(false);
   });
-  console.log(wavesurfer.current);
+  // console.log(wavesurfer.current);
 
   const shuffleSongId = () => {
     if (songId) {
@@ -537,7 +567,51 @@ const Player = ({
                 />
               </button>
             )}
-
+            {/* loop */}
+            <div className="loop-controller__container">
+              {authenticated && songIsLoaded && loopActive && (
+                <button id="LoopIcon" onClick={() => loopDeselect()}>
+                  <LoopIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                      color: "#15883e",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && songIsLoaded && !loopActive && (
+                <button id="LoopIcon" onClick={() => loopSelect()}>
+                  <LoopIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && !songIsLoaded && !loopActive && (
+                <button id="LoopIcon">
+                  <LoopIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+              {!authenticated && (
+                <button id="LoopIcon" onClick={() => openModalLogin()}>
+                  <LoopIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+            </div>
+            {/* loop ends */}
             <div className="volume">
               {!authenticated && (
                 <button onClick={() => openModalLogin()}>
