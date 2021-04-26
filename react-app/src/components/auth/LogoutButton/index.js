@@ -8,9 +8,8 @@ import { setCurrentSong } from "../../../store/playing";
 const LogoutButton = ({
   setAuthenticated,
   loggedInUser,
-  playing,
+
   setIsPlaying,
-  pauseSong,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
