@@ -170,8 +170,8 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
     // setPlacement();
   };
 
-  console.log(userid);
-  console.log(authenticated);
+  // console.log(userid);
+  // console.log(authenticated);
 
   function homeButton() {
     history.push("/");

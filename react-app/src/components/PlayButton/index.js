@@ -5,8 +5,6 @@ import { setCurrentSong } from "../../store/playing";
 import "./PlayButton.css";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
-// import WaveSurfer from "wavesurfer.js";
-// import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
 
 // modal
 import Modal from "react-modal";
@@ -55,8 +53,6 @@ const PlayButton = ({
   setAuthenticated,
   shuffleSongId,
 }) => {
-  // const [audio, setAudio] = useState(null);
-  // const [playing, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
@@ -114,8 +110,8 @@ const PlayButton = ({
       setIsPlaying(false);
     }
   };
-  console.log(authenticated);
-  console.log(playing);
+  // console.log(authenticated);
+  // console.log(playing);
   return (
     <>
       <div className="PlayButton">
