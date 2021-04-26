@@ -400,8 +400,6 @@
   margin-top: 2px;
 }
 
-.inline-container > .PlayButton > button > svg:hover {
-}
 /* inline-container */
 #wave-minimap {
   scroll-behavior: none;
@@ -560,4 +558,70 @@ input[type="range"]::-ms-fill-upper {
 .wavesurfer-region > .wavesurfer-handle.wavesurfer-handle-start {
   color: #fff;
   background-color: rgb(255, 255, 255);
+}
+
+/* no auth navBar */
+.nav-noAuth__container {
+  display: inline-flex;
+  background-color: #15883e;
+  padding-bottom: 23px;
+  width: 100%;
+  justify-content: space-between;
+  background-image: linear-gradient(90deg, #af2896, #509bf5);
+}
+
+.info-nav-noAuth {
+  color: #fff;
+  min-height: 100px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+#prev-noAuth {
+  margin: 15px 0px 0px 10px;
+  /* margin-top: 15px; */
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+#signUp-noAuth {
+  margin: 5px 0px 17px 10px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 23px;
+  text-transform: none;
+}
+.signup-btn__navNoAuth {
+  align-self: center;
+  /* background-color: #af2896; */
+}
+.signup-btn__navNoAuth > button {
+  height: 38px;
+  color: #2e77d0;
+  font-size: 14px;
+  margin: 5px 17px 12px 17px;
+  padding: 7px 47px;
+  white-space: nowrap;
+  background-color: #fff;
+  border: 2px solid transparent;
+  border-radius: 500px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 1.76px;
+  line-height: 18px;
+  /* transition: all 33ms cubic-bezier(0.3, 0, 0, 1); */
+  /* align-self: center; */
+}
+.signup-btn__navNoAuth > button:hover {
+  width: 225px;
+  height: 40px;
+}
+@media (max-width: 672px) {
+  .signup-btn__navNoAuth > button {
+    /* transition: all 1.5s ease-in; */
+    display: none;
+  }
 }

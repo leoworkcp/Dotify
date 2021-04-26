@@ -27,6 +27,7 @@ const LoginForm = ({
 
   const onLogin = async (e) => {
     e.preventDefault();
+
     const user = await dispatch(sessionActions.login({ email, password }));
 
     if (!user.payload.errors) {

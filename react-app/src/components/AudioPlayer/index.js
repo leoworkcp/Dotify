@@ -33,6 +33,7 @@ import Modal from "react-modal";
 import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
+import { authenticate } from "../../store/auth";
 
 const customStyles = {
   overlay: {
@@ -238,7 +239,7 @@ const Player = ({
       });
 
       wavesurfer.current.load(`${selectedSong.song}`);
-    } else {
+    } else if (!songId && authenticated) {
       setPlays(false);
 
       // setSongIsLoaded(true);
@@ -283,10 +284,11 @@ const Player = ({
 
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
-
-    return () => {
-      wavesurfer.current.destroy();
-    };
+    if (wavesurfer.current) {
+      return () => {
+        wavesurfer.current.destroy();
+      };
+    }
   }, [`${currentSong.song}`, `${selectedSong?.song}`]);
 
   // const currentTime = wavesurfer.current.getCurrentTime();
@@ -420,20 +422,61 @@ const Player = ({
   };
 
   const handlePlayPause = () => {
-    if (playings && !playing) {
+    if (playings && !playing && songIsLoaded) {
       wavesurfer.current.pause();
 
-      setMute(false);
+      // setMute(false);
     }
   };
-
+  console.log(songIsLoaded);
   const handlePlay = () => {
-    if (playings && playing) {
+    if (playings && playing && songIsLoaded) {
       wavesurfer.current.play();
 
       // setMute(true);
     }
   };
+
+  const shuffleSongId = () => {
+    if (songId) {
+      history.push(`/song/${songId}`);
+    }
+  };
+
+  // next song
+  const nextSong = () => {
+    console.log("2");
+    if (songIsLoaded) {
+      let next = document.getElementsByClassName("control-arrow control-next");
+      console.log(next);
+      for (let i = 0; i < next.length; i++) {
+        // let s = next[i].className;
+        // console.log(s);
+        // console.log(next[i]);
+        // let dom = !s.includes("disable");
+        if (!next[i].className.includes("disable")) {
+          console.log("1");
+          return next[i].click();
+        }
+      }
+    }
+  };
+
+  // next song ends
+  // prev song
+  const prevSong = () => {
+    if (songIsLoaded) {
+      let prev = document.getElementsByClassName("control-arrow control-prev");
+
+      for (let i = 0; i < prev.length; i++) {
+        if (!prev[i].className.includes("disable")) {
+          console.log("1");
+          return prev[i].click();
+        }
+      }
+    }
+  };
+  // prev song ends
   useEffect(() => {
     if (volume === 0 || volume === 0.01) {
       setMute(true);
@@ -443,341 +486,349 @@ const Player = ({
     if (!authenticated) {
       setDrag(false);
       setSongIsLoaded(false);
+    }
+    if (!authenticated && songIsLoaded) {
       return () => {
         wavesurfer.current.destroy();
       };
     }
-
     // if (!wavesurfer.current) setDrag(false);
   });
   // console.log(wavesurfer.current);
-
-  const shuffleSongId = () => {
-    if (songId) {
-      history.push(`/song/${songId}`);
-    }
-  };
-
   return (
     <nav className="player-navBar">
-      <div className="player-navbar__container">
-        <div className="container-playing">
-          {songIsLoaded && authenticated && currentSong && (
-            <div className="song-playing">
-              <img src={currentSong?.image_url} alt="song-cover" />
+      {authenticated && (
+        <div className="player-navbar__container">
+          <div className="container-playing">
+            {songIsLoaded && authenticated && currentSong && (
+              <div className="song-playing">
+                <img src={currentSong?.image_url} alt="song-cover" />
+              </div>
+            )}
+            <div className="song-title__playing">
+              <div className="name-artist">
+                <NavLink className="song_id" to={`/song/${currentSong?.id}`}>
+                  {currentSong?.name}
+                </NavLink>
+                <NavLink
+                  className="artist_id"
+                  to={`/profile/${currentSong?.artist_id}`}
+                >
+                  {currentSong?.artist?.username}
+                </NavLink>
+              </div>
+              <div className="like-artist__cover">
+                {!authenticated && (
+                  <button onClick={() => openModalLogin()}>
+                    <FavoriteBorderIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && (
+                  <button onClick={() => alert("feature in progress")}>
+                    <FavoriteBorderIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+              </div>
+              <div className="see-artist__cover">
+                {!authenticated && (
+                  <button onClick={() => openModalLogin()}>
+                    <PictureInPictureAltIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && !songIsLoaded && (
+                  <button onClick={() => setDrag(false)}>
+                    <PictureInPictureAltIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {!drag && authenticated && songIsLoaded && (
+                  <button onClick={() => setDrag(true)}>
+                    <PictureInPictureAltIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {drag && authenticated && songIsLoaded && (
+                  <button onClick={() => setDrag(false)}>
+                    <PictureInPictureAltIcon
+                      style={{
+                        color: "#15883e",
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+              </div>
             </div>
-          )}
-          <div className="song-title__playing">
-            <div className="name-artist">
-              <NavLink className="song_id" to={`/song/${currentSong?.id}`}>
-                {currentSong?.name}
-              </NavLink>
-              <NavLink
-                className="artist_id"
-                to={`/profile/${currentSong?.artist_id}`}
-              >
-                {currentSong?.artist?.username}
-              </NavLink>
+          </div>
+
+          <div className="audio_player__container">
+            <div className="inline-container">
+              {/* loop */}
+              <div className="loop-controller__container">
+                {authenticated && songIsLoaded && repeatOnce && (
+                  <button id="RepeatIcon" onClick={() => loopDeselect()}>
+                    <RepeatOneIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                        color: "#15883e",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && songIsLoaded && !repeatOnce && (
+                  <button id="RepeatIcon" onClick={() => RepeatOnce()}>
+                    <RepeatIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && !songIsLoaded && !repeatOnce && (
+                  <button id="RepeatIcon">
+                    <RepeatIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+                {!authenticated && (
+                  <button id="RepeatIcon" onClick={() => openModalLogin()}>
+                    <RepeatIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+              </div>
+
+              {authenticated && (
+                <button id="SkipPreviousIcon" onClick={() => prevSong()}>
+                  <SkipPreviousIcon
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                    }}
+                  />
+                </button>
+              )}
+
+              {!authenticated && (
+                <button id="SkipPreviousIcon" onClick={() => openModalLogin()}>
+                  <SkipPreviousIcon
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                    }}
+                  />
+                </button>
+              )}
+
+              <PlayButton
+                play={wavesurfer}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
+                loggedInUser={loggedInUser}
+                songId={songId}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              />
+              {authenticated && (
+                <button id="SkipNextIcon" onClick={() => nextSong()}>
+                  <SkipNextIcon
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                    }}
+                  />
+                </button>
+              )}
+              {!authenticated && (
+                <button id="SkipNextIcon" onClick={() => openModalLogin()}>
+                  <SkipNextIcon
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                    }}
+                  />
+                </button>
+              )}
+              {/* loop */}
+              <div className="loop-controller__container">
+                {authenticated && songIsLoaded && loopActive && (
+                  <button id="LoopIcon" onClick={() => loopDeselect()}>
+                    <LoopIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                        color: "#15883e",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && songIsLoaded && !loopActive && (
+                  <button id="LoopIcon" onClick={() => loopSelect()}>
+                    <LoopIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && !songIsLoaded && !loopActive && (
+                  <button id="LoopIcon">
+                    <LoopIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+                {!authenticated && (
+                  <button id="LoopIcon" onClick={() => openModalLogin()}>
+                    <LoopIcon
+                      style={{
+                        width: "26px",
+                        height: "26px",
+                      }}
+                    />
+                  </button>
+                )}
+              </div>
+              {/* loop ends */}
+              <div className="volume">
+                {!authenticated && (
+                  <button onClick={() => openModalLogin()}>
+                    <VolumeUpIcon />
+                  </button>
+                )}
+                {authenticated && !songIsLoaded && (
+                  <button>
+                    <VolumeUpIcon />
+                  </button>
+                )}
+                {!mute && authenticated && songIsLoaded && (
+                  <button onClick={(e) => onVolumeMute(e)}>
+                    <VolumeUpIcon />
+                  </button>
+                )}
+                {mute && authenticated && songIsLoaded && (
+                  <button onClick={(e) => onVolumeBack(e)}>
+                    <VolumeOffIcon />
+                  </button>
+                )}
+
+                <input
+                  type="range"
+                  id="volume"
+                  name="volume"
+                  // waveSurfer recognize value of `0` same as `1`
+                  //  so we need to set some zero-ish value for silence
+                  min="0.01"
+                  max="1"
+                  step=".025"
+                  onChange={onVolumeChange}
+                  // defaultValue={volume}
+                  value={volume}
+                />
+              </div>
             </div>
-            <div className="like-artist__cover">
+            {!playing && handlePlayPause()}
+            {playing && handlePlay()}
+            <div id="wave-minimap"></div>
+          </div>
+          <div className="controllers-queue_screen">
+            <div className="shuffle-btn">
+              <ShuffleIcon
+                style={{
+                  marginTop: "28px",
+                  fontSize: 28,
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
+
+              <PlayButton
+                shuffleSongId={shuffleSongId}
+                songId={songId}
+                foundedId={founded[0]?.id}
+                founded={founded[0]}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
+                loggedInUser={loggedInUser}
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              />
+            </div>
+            <div className="queue-music">
               {!authenticated && (
                 <button onClick={() => openModalLogin()}>
-                  <FavoriteBorderIcon
+                  <QueueMusicIcon
                     style={{
+                      marginTop: "28px",
+                      fontSize: 30,
                       marginLeft: "10px",
                       marginRight: "10px",
-                      paddingBottom: "5px",
                     }}
                   />
                 </button>
               )}
               {authenticated && (
                 <button onClick={() => alert("feature in progress")}>
-                  <FavoriteBorderIcon
+                  <QueueMusicIcon
                     style={{
+                      marginTop: "28px",
+                      fontSize: 30,
                       marginLeft: "10px",
                       marginRight: "10px",
-                      paddingBottom: "5px",
                     }}
                   />
                 </button>
               )}
             </div>
-            <div className="see-artist__cover">
-              {!authenticated && (
-                <button onClick={() => openModalLogin()}>
-                  <PictureInPictureAltIcon
-                    style={{
-                      marginLeft: "10px",
-                      marginRight: "10px",
-                      paddingBottom: "5px",
-                    }}
-                  />
-                </button>
-              )}
-              {authenticated && !songIsLoaded && (
-                <button onClick={() => setDrag(false)}>
-                  <PictureInPictureAltIcon
-                    style={{
-                      marginLeft: "10px",
-                      marginRight: "10px",
-                      paddingBottom: "5px",
-                    }}
-                  />
-                </button>
-              )}
-              {!drag && authenticated && songIsLoaded && (
-                <button onClick={() => setDrag(true)}>
-                  <PictureInPictureAltIcon
-                    style={{
-                      marginLeft: "10px",
-                      marginRight: "10px",
-                      paddingBottom: "5px",
-                    }}
-                  />
-                </button>
-              )}
-              {drag && authenticated && songIsLoaded && (
-                <button onClick={() => setDrag(false)}>
-                  <PictureInPictureAltIcon
-                    style={{
-                      color: "#15883e",
-                      marginLeft: "10px",
-                      marginRight: "10px",
-                      paddingBottom: "5px",
-                    }}
-                  />
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="audio_player__container">
-          <div className="inline-container">
-            {/* loop */}
-            <div className="loop-controller__container">
-              {authenticated && songIsLoaded && repeatOnce && (
-                <button id="RepeatIcon" onClick={() => loopDeselect()}>
-                  <RepeatOneIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                      color: "#15883e",
-                    }}
-                  />
-                </button>
-              )}
-              {authenticated && songIsLoaded && !repeatOnce && (
-                <button id="RepeatIcon" onClick={() => RepeatOnce()}>
-                  <RepeatIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-              {authenticated && !songIsLoaded && !repeatOnce && (
-                <button id="RepeatIcon">
-                  <RepeatIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-              {!authenticated && (
-                <button id="RepeatIcon" onClick={() => openModalLogin()}>
-                  <RepeatIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-            </div>
-
-            {authenticated && (
-              <button id="SkipPreviousIcon">
-                <SkipPreviousIcon
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                  }}
-                />
-              </button>
-            )}
-
-            {!authenticated && (
-              <button id="SkipPreviousIcon" onClick={() => openModalLogin()}>
-                <SkipPreviousIcon
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                  }}
-                />
-              </button>
-            )}
-
-            <PlayButton
-              play={wavesurfer}
-              playing={playing}
-              setIsPlaying={setIsPlaying}
-              pauseSong={pauseSong}
-              loggedInUser={loggedInUser}
-              songId={songId}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-            />
-            {authenticated && (
-              <button id="SkipNextIcon">
-                <SkipNextIcon
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                  }}
-                />
-              </button>
-            )}
-            {!authenticated && (
-              <button id="SkipNextIcon" onClick={() => openModalLogin()}>
-                <SkipNextIcon
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                  }}
-                />
-              </button>
-            )}
-            {/* loop */}
-            <div className="loop-controller__container">
-              {authenticated && songIsLoaded && loopActive && (
-                <button id="LoopIcon" onClick={() => loopDeselect()}>
-                  <LoopIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                      color: "#15883e",
-                    }}
-                  />
-                </button>
-              )}
-              {authenticated && songIsLoaded && !loopActive && (
-                <button id="LoopIcon" onClick={() => loopSelect()}>
-                  <LoopIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-              {authenticated && !songIsLoaded && !loopActive && (
-                <button id="LoopIcon">
-                  <LoopIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-              {!authenticated && (
-                <button id="LoopIcon" onClick={() => openModalLogin()}>
-                  <LoopIcon
-                    style={{
-                      width: "26px",
-                      height: "26px",
-                    }}
-                  />
-                </button>
-              )}
-            </div>
-            {/* loop ends */}
-            <div className="volume">
-              {!authenticated && (
-                <button onClick={() => openModalLogin()}>
-                  <VolumeUpIcon />
-                </button>
-              )}
-              {authenticated && !songIsLoaded && (
-                <button>
-                  <VolumeUpIcon />
-                </button>
-              )}
-              {!mute && authenticated && songIsLoaded && (
-                <button onClick={(e) => onVolumeMute(e)}>
-                  <VolumeUpIcon />
-                </button>
-              )}
-              {mute && authenticated && songIsLoaded && (
-                <button onClick={(e) => onVolumeBack(e)}>
-                  <VolumeOffIcon />
-                </button>
-              )}
-
-              <input
-                type="range"
-                id="volume"
-                name="volume"
-                // waveSurfer recognize value of `0` same as `1`
-                //  so we need to set some zero-ish value for silence
-                min="0.01"
-                max="1"
-                step=".025"
-                onChange={onVolumeChange}
-                // defaultValue={volume}
-                value={volume}
-              />
-            </div>
-          </div>
-          {!playing && handlePlayPause()}
-          {playing && handlePlay()}
-          <div id="wave-minimap"></div>
-        </div>
-        <div className="controllers-queue_screen">
-          <div className="shuffle-btn">
-            <ShuffleIcon
-              style={{
-                marginTop: "28px",
-                fontSize: 28,
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            />
-
-            <PlayButton
-              shuffleSongId={shuffleSongId}
-              songId={songId}
-              foundedId={founded[0]?.id}
-              founded={founded[0]}
-              playing={playing}
-              setIsPlaying={setIsPlaying}
-              pauseSong={pauseSong}
-              loggedInUser={loggedInUser}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-            />
-          </div>
-          <div className="queue-music">
-            {!authenticated && (
-              <button onClick={() => openModalLogin()}>
-                <QueueMusicIcon
-                  style={{
-                    marginTop: "28px",
-                    fontSize: 30,
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                />
-              </button>
-            )}
-            {authenticated && (
+            <div className="full-screen">
               <button onClick={() => alert("feature in progress")}>
-                <QueueMusicIcon
+                <FullscreenIcon
                   style={{
                     marginTop: "28px",
                     fontSize: 30,
@@ -786,51 +837,53 @@ const Player = ({
                   }}
                 />
               </button>
-            )}
+            </div>
           </div>
-          <div className="full-screen">
-            <button onClick={() => alert("feature in progress")}>
-              <FullscreenIcon
-                style={{
-                  marginTop: "28px",
-                  fontSize: 30,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
-            </button>
+          <Modal
+            isOpen={modalIsOpenLogin}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModalLogin}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <LoginForm
+              setIsOpenLogin={setIsOpenLogin}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+              openModalSignUp={openModalSignUp}
+              closeModalLogin={closeModalLogin}
+            />
+          </Modal>
+          <Modal
+            isOpen={authenticated === true ? false : modalIsOpenSignUp}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModalSignUp}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <SignUpForm
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+              closeModalSignUp={closeModalSignUp}
+              openModalLogin={openModalLogin}
+            />
+          </Modal>
+        </div>
+      )}
+      {!authenticated && (
+        <div className="nav-noAuth__container">
+          <div className="info-nav-noAuth">
+            <p id="prev-noAuth">PREVIEW OF DOTIFY</p>
+            <p id="signUp-noAuth">
+              Sign up to get unlimited songs, discover new artists and upload
+              your content. No credit card needed.
+            </p>
+          </div>
+          <div className="signup-btn__navNoAuth">
+            <button>SIGN UP FREE</button>
           </div>
         </div>
-        <Modal
-          isOpen={modalIsOpenLogin}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModalLogin}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <LoginForm
-            setIsOpenLogin={setIsOpenLogin}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            openModalSignUp={openModalSignUp}
-            closeModalLogin={closeModalLogin}
-          />
-        </Modal>
-        <Modal
-          isOpen={authenticated === true ? false : modalIsOpenSignUp}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModalSignUp}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <SignUpForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            closeModalSignUp={closeModalSignUp}
-            openModalLogin={openModalLogin}
-          />
-        </Modal>
-      </div>
+      )}
     </nav>
   );
 };
