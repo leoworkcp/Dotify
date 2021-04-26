@@ -302,7 +302,7 @@ const Player = ({
     setLoopActive(true);
     // adding and initializing a plugin after initialization
     const getDuration = wavesurfer.current.getDuration();
-    console.log(Math.round(getDuration));
+    // console.log(Math.round(getDuration));
     wavesurfer.current
       .addPlugin(
         Regions.create({
@@ -326,10 +326,12 @@ const Player = ({
       .initPlugin("regions");
     document.getElementsByClassName("wavesurfer-region")[0].style.cssText =
       "position: absolute; z-index: 2; height: 100%; top: 0px; left: 0px; width: 540px; background-color: #15883d5d; cursor: pointer;";
-    console.log(
-      (document.getElementsByClassName("wavesurfer-region")[0].innerHTML =
-        "<handle class='wavesurfer-handle wavesurfer-handle-start' style='left: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle><handle class='wavesurfer-handle wavesurfer-handle-end' style='right: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle>")
-    );
+    // console.log(
+    //   (document.getElementsByClassName("wavesurfer-region")[0].innerHTML =
+    //     "<handle class='wavesurfer-handle wavesurfer-handle-start' style='left: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle><handle class='wavesurfer-handle wavesurfer-handle-end' style='right: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle>")
+    // );
+    document.getElementsByClassName("wavesurfer-region")[0].innerHTML =
+      "<handle class='wavesurfer-handle wavesurfer-handle-start' style='left: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle><handle class='wavesurfer-handle wavesurfer-handle-end' style='right: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle>";
   };
   const RepeatOnce = () => {
     setRepeatOnce(true);
