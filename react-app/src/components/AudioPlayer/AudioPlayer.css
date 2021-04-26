@@ -310,6 +310,17 @@
   color: #fff;
 }
 
+/* repeat once controller */
+#RepeatIcon {
+  background-color: transparent;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#RepeatIcon:hover {
+  color: #fff;
+}
+
 #SkipPreviousIcon {
   width: 40px;
   height: 40px;
@@ -319,7 +330,7 @@
   justify-content: center;
   color: #b3b3b3;
   background-color: transparent;
-  margin-left: 150px;
+  margin-left: 50px;
   cursor: pointer;
   transition: all 0.3s;
 }

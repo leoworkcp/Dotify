@@ -80,6 +80,7 @@ const Player = ({
   const history = useHistory();
 
   const [loopActive, setLoopActive] = useState(false);
+  const [repeatOnce, setRepeatOnce] = useState(false);
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
@@ -233,23 +234,6 @@ const Player = ({
             cursorColor: "transparent",
             barGap: 3,
           }),
-          // Regions.create({
-          //   // container: "#waveform",
-          //   regionsMinLength: 2,
-          //   regions: [
-          //     {
-          //       start: 0,
-          //       end: 600,
-          //       loop: true,
-          //       // color: "hsla(400, 100%, 30%, 0.5)",
-          //       color: "#15883d5d",
-          //       // color: "transparent",
-          //     },
-          //   ],
-          //   dragSelection: {
-          //     slop: 5,
-          //   },
-          // }),
         ],
       });
 
@@ -304,38 +288,93 @@ const Player = ({
       wavesurfer.current.destroy();
     };
   }, [`${currentSong.song}`, `${selectedSong?.song}`]);
-  // ends new stuff
+
+  // const currentTime = wavesurfer.current.getCurrentTime();
+  // const setTime = wavesurfer.current.setCurrentTime(seconds);
+  // const getDuration = wavesurfer.current.getDuration();
+  // const lastVolume = wavesurfer.current.getVolume();
+  // console.log(lastVolume);
+  // console.log(currentTime);
+  // console.log(duration);
+  // loop selection
 
   const loopSelect = () => {
     setLoopActive(true);
     // adding and initializing a plugin after initialization
+    const getDuration = wavesurfer.current.getDuration();
+    console.log(Math.round(getDuration));
     wavesurfer.current
       .addPlugin(
         Regions.create({
-          // container: "#wave-timeline",
           regionsMinLength: 2,
           regions: [
             {
               start: 0,
-              end: 600,
+              end: getDuration,
               loop: true,
               // color: "hsla(400, 100%, 30%, 0.5)",
               color: "#15883d5d",
               // color: "transparent",
             },
           ],
-          dragSelection: {
-            slop: 5,
-          },
+
+          // dragSelection: {
+          //   slop: 5,
+          // },
         })
       )
       .initPlugin("regions");
+    document.getElementsByClassName("wavesurfer-region")[0].style.cssText =
+      "position: absolute; z-index: 2; height: 100%; top: 0px; left: 0px; width: 540px; background-color: #15883d5d; cursor: pointer;";
+    console.log(
+      (document.getElementsByClassName("wavesurfer-region")[0].innerHTML =
+        "<handle class='wavesurfer-handle wavesurfer-handle-start' style='left: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle><handle class='wavesurfer-handle wavesurfer-handle-end' style='right: 0px; cursor: col-resize; position: absolute; top: 0px; width: 2px; height: 100%; background-color: rgb(255, 255, 255);'></handle>")
+    );
+  };
+  const RepeatOnce = () => {
+    setRepeatOnce(true);
+
+    const getDuration = wavesurfer.current.getDuration();
+
+    // adding and initializing a plugin after initialization
+    wavesurfer.current
+      .addPlugin(
+        Regions.create({
+          regionsMinLength: 2,
+          regions: [
+            {
+              start: 0,
+              end: getDuration,
+              loop: true,
+
+              color: "transparent",
+            },
+          ],
+        })
+      )
+      .initPlugin("regions");
+
+    // console.log(
+    //   document.getElementsByClassName(
+    //     "wavesurfer-handle.wavesurfer-handle-start"
+    //   )
+    // );
+    // console.log(
+    //   document.getElementsByClassName("wavesurfer-region")[0].style.cssText
+    // );
+
+    document.getElementsByClassName("wavesurfer-region")[0].style.cssText =
+      "position: absolute; z-index: 2; height: 100%; top: 0px; left: 0px; width: 540px; background-color: transparent; cursor: pointer;";
+
+    document.getElementsByClassName("wavesurfer-region")[0].innerHTML = "";
   };
 
   const loopDeselect = () => {
     setLoopActive(false);
+    setRepeatOnce(false);
     wavesurfer.current.destroyPlugin("regions");
   };
+  // loop selection ends
 
   const onVolumeChange = (e) => {
     if (currentSong.song) {
@@ -350,17 +389,17 @@ const Player = ({
   const newVolume2 = volume;
   const onVolumeMute = async (e) => {
     e.preventDefault();
-    if (wavesurfer.current) {
+    if (wavesurfer.current && volume > 0.01) {
       // const { target } = e;
       const newVolume = 0;
       const newVolume1 = volume;
 
       setVolume(newVolume);
       await wavesurfer.current.setVolume(newVolume);
-      if (volume === 0) {
-        setVolume(newVolume1);
-        await wavesurfer.current.setVolume(newVolume1 || 1);
-      }
+      // if (volume === 0) {
+      //   setVolume(newVolume1);
+      //   await wavesurfer.current.setVolume(newVolume1 || 1);
+      // }
     }
   };
   const onVolumeBack = async (e) => {
@@ -369,7 +408,6 @@ const Player = ({
       // const { target } = e;
       // const newVolume = 1;
       const newVolume1 = 1;
-
       // setVolume(newVolume);
       // await wavesurfer.current.setVolume(newVolume);
       if (volume === 0 || volume === 0.01) {
@@ -515,6 +553,51 @@ const Player = ({
 
         <div className="audio_player__container">
           <div className="inline-container">
+            {/* loop */}
+            <div className="loop-controller__container">
+              {authenticated && songIsLoaded && repeatOnce && (
+                <button id="RepeatIcon" onClick={() => loopDeselect()}>
+                  <RepeatOneIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                      color: "#15883e",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && songIsLoaded && !repeatOnce && (
+                <button id="RepeatIcon" onClick={() => RepeatOnce()}>
+                  <RepeatIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+              {authenticated && !songIsLoaded && !repeatOnce && (
+                <button id="RepeatIcon">
+                  <RepeatIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+              {!authenticated && (
+                <button id="RepeatIcon" onClick={() => openModalLogin()}>
+                  <RepeatIcon
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                    }}
+                  />
+                </button>
+              )}
+            </div>
+
             {authenticated && (
               <button id="SkipPreviousIcon">
                 <SkipPreviousIcon
@@ -644,7 +727,7 @@ const Player = ({
                 max="1"
                 step=".025"
                 onChange={onVolumeChange}
-                defaultValue={volume}
+                // defaultValue={volume}
                 value={volume}
               />
             </div>
