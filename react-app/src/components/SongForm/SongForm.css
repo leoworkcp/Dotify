@@ -16,3 +16,25 @@
 .no-outline:focus {
   outline: none;
 }
+
+button {
+  cursor: pointer;
+}
+.LoginSongForm > div > button {
+  font-weight: 700;
+  letter-spacing: 1.76px;
+  line-height: 18px;
+  border-radius: 500px;
+  border: 2px solid transparent;
+  color: #292b2f;
+  transition: all 0.1s ease-in-out;
+}
+.LoginSongForm > div > button:hover {
+  /* background-color: aliceblue; */
+  height: 32px;
+  width: 82px;
+
+  font-size: 14px;
+
+  white-space: nowrap;
+}

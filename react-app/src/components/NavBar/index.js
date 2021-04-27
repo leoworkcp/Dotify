@@ -6,6 +6,7 @@ import SignUpForm from "../auth/SignUpForm/index";
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import SongForm from "../SongForm/index";
+import Tooltip from "@material-ui/core/Tooltip";
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -77,14 +78,16 @@ const NavBar = ({
       <div className="navbarContainer">
         <div className="developers__link--container">
           <div>
-            <a
-              className="developers__link"
-              href="https://leoworkcp.github.io"
-              add
-              target="_blank"
-            >
-              Developer
-            </a>
+            <Tooltip title="Portfolio" arrow>
+              <a
+                className="developers__link"
+                href="https://leoworkcp.github.io"
+                add
+                target="_blank"
+              >
+                Developer
+              </a>
+            </Tooltip>
           </div>
         </div>
         <NavLink className="mainLogoLink" to="/">
@@ -166,12 +169,14 @@ const NavBar = ({
             {authenticated === false ? (
               ""
             ) : (
-              <button
-                className="SongFormModalSubmit"
-                onClick={openModalSongForm}
-              >
-                Upload
-              </button>
+              <Tooltip title="Upload Your new Song" arrow>
+                <button
+                  className="SongFormModalSubmit"
+                  onClick={openModalSongForm}
+                >
+                  Upload
+                </button>
+              </Tooltip>
             )}
           </div>
 

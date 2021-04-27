@@ -21,7 +21,7 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 import LoopIcon from "@material-ui/icons/Loop";
-
+import Tooltip from "@material-ui/core/Tooltip";
 import PlayButton from "../PlayButton/index";
 import WaveSurfer from "wavesurfer.js";
 import Minimap from "wavesurfer.js/dist/plugin/wavesurfer.minimap.js";
@@ -552,21 +552,8 @@ const Player = ({
               </div>
               <div className="like-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <button>
-                    <FavoriteBorderIcon
-                      style={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                      }}
-                    />
-                  </button>
-                )}
-                {authenticated &&
-                  songIsLoaded &&
-                  !hadLiked &&
-                  !playingOwnLiked && (
-                    <button onClick={(e) => handleAddLike(e, currentSong?.id)}>
+                  <Tooltip title="Add to Your Library" arrow>
+                    <button>
                       <FavoriteBorderIcon
                         style={{
                           marginLeft: "10px",
@@ -575,54 +562,83 @@ const Player = ({
                         }}
                       />
                     </button>
+                  </Tooltip>
+                )}
+                {authenticated &&
+                  songIsLoaded &&
+                  !hadLiked &&
+                  !playingOwnLiked && (
+                    <Tooltip title="Save to Your Library" arrow>
+                      <button
+                        onClick={(e) => handleAddLike(e, currentSong?.id)}
+                      >
+                        <FavoriteBorderIcon
+                          style={{
+                            marginLeft: "10px",
+                            marginRight: "10px",
+                            paddingBottom: "5px",
+                          }}
+                        />
+                      </button>
+                    </Tooltip>
                   )}
                 {authenticated && songIsLoaded && hadLiked && !playingOwnLiked && (
-                  <button onClick={(e) => handleRemoveLike(e, currentSong?.id)}>
-                    <FavoriteIcon
-                      style={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                        color: "#15883e",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Remove from Your Library" arrow>
+                    <button
+                      onClick={(e) => handleRemoveLike(e, currentSong?.id)}
+                    >
+                      <FavoriteIcon
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "10px",
+                          paddingBottom: "5px",
+                          color: "#15883e",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
               </div>
               <div className="see-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <button onClick={() => setDrag(false)}>
-                    <PictureInPictureAltIcon
-                      style={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Song Cover" arrow>
+                    <button onClick={() => setDrag(false)}>
+                      <PictureInPictureAltIcon
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "10px",
+                          paddingBottom: "5px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {!drag && authenticated && songIsLoaded && (
-                  <button onClick={() => setDrag(true)}>
-                    <PictureInPictureAltIcon
-                      style={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Show Cover" arrow>
+                    <button onClick={() => setDrag(true)}>
+                      <PictureInPictureAltIcon
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "10px",
+                          paddingBottom: "5px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {drag && authenticated && songIsLoaded && (
-                  <button onClick={() => setDrag(false)}>
-                    <PictureInPictureAltIcon
-                      style={{
-                        color: "#15883e",
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Hide Cover" arrow>
+                    <button onClick={() => setDrag(false)}>
+                      <PictureInPictureAltIcon
+                        style={{
+                          color: "#15883e",
+                          marginLeft: "10px",
+                          marginRight: "10px",
+                          paddingBottom: "5px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
               </div>
             </div>
@@ -633,47 +649,55 @@ const Player = ({
               {/* loop */}
               <div className="loop-controller__container">
                 {authenticated && songIsLoaded && repeatOnce && (
-                  <button id="RepeatIcon" onClick={() => loopDeselect()}>
-                    <RepeatOneIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                        color: "#15883e",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Disable Repeat" arrow>
+                    <button id="RepeatIcon" onClick={() => loopDeselect()}>
+                      <RepeatOneIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                          color: "#15883e",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {authenticated && songIsLoaded && !repeatOnce && (
-                  <button id="RepeatIcon" onClick={() => RepeatOnce()}>
-                    <RepeatIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Enable Repeat One" arrow>
+                    <button id="RepeatIcon" onClick={() => RepeatOnce()}>
+                      <RepeatIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {authenticated && !songIsLoaded && !repeatOnce && (
-                  <button id="RepeatIcon">
-                    <RepeatIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Enable Repeat" arrow>
+                    <button id="RepeatIcon">
+                      <RepeatIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
               </div>
 
               {authenticated && (
-                <button id="SkipPreviousIcon" onClick={() => prevSong()}>
-                  <SkipPreviousIcon
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                    }}
-                  />
-                </button>
+                <Tooltip title="Previous" arrow>
+                  <button id="SkipPreviousIcon" onClick={() => prevSong()}>
+                    <SkipPreviousIcon
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                      }}
+                    />
+                  </button>
+                </Tooltip>
               )}
 
               <PlayButton
@@ -687,66 +711,80 @@ const Player = ({
                 setAuthenticated={setAuthenticated}
               />
               {authenticated && (
-                <button id="SkipNextIcon" onClick={() => nextSong()}>
-                  <SkipNextIcon
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                    }}
-                  />
-                </button>
+                <Tooltip title="Next" arrow>
+                  <button id="SkipNextIcon" onClick={() => nextSong()}>
+                    <SkipNextIcon
+                      style={{
+                        width: "35px",
+                        height: "35px",
+                      }}
+                    />
+                  </button>
+                </Tooltip>
               )}
 
               {/* loop */}
               <div className="loop-controller__container">
                 {authenticated && songIsLoaded && loopActive && (
-                  <button id="LoopIcon" onClick={() => loopDeselect()}>
-                    <LoopIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                        color: "#15883e",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Disable Loop Selector" arrow>
+                    <button id="LoopIcon" onClick={() => loopDeselect()}>
+                      <LoopIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                          color: "#15883e",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {authenticated && songIsLoaded && !loopActive && (
-                  <button id="LoopIcon" onClick={() => loopSelect()}>
-                    <LoopIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Enable Loop Selector" arrow>
+                    <button id="LoopIcon" onClick={() => loopSelect()}>
+                      <LoopIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
                 {authenticated && !songIsLoaded && !loopActive && (
-                  <button id="LoopIcon">
-                    <LoopIcon
-                      style={{
-                        width: "26px",
-                        height: "26px",
-                      }}
-                    />
-                  </button>
+                  <Tooltip title="Loop Selector" arrow>
+                    <button id="LoopIcon">
+                      <LoopIcon
+                        style={{
+                          width: "26px",
+                          height: "26px",
+                        }}
+                      />
+                    </button>
+                  </Tooltip>
                 )}
               </div>
               {/* loop ends */}
               <div className="volume">
                 {authenticated && !songIsLoaded && (
-                  <button>
-                    <VolumeUpIcon />
-                  </button>
+                  <Tooltip title="Volume" arrow>
+                    <button>
+                      <VolumeUpIcon />
+                    </button>
+                  </Tooltip>
                 )}
                 {!mute && authenticated && songIsLoaded && (
-                  <button onClick={(e) => onVolumeMute(e)}>
-                    <VolumeUpIcon />
-                  </button>
+                  <Tooltip title="Mute" arrow>
+                    <button onClick={(e) => onVolumeMute(e)}>
+                      <VolumeUpIcon />
+                    </button>
+                  </Tooltip>
                 )}
                 {mute && authenticated && songIsLoaded && (
-                  <button onClick={(e) => onVolumeBack(e)}>
-                    <VolumeOffIcon />
-                  </button>
+                  <Tooltip title="Unmute" arrow>
+                    <button onClick={(e) => onVolumeBack(e)}>
+                      <VolumeOffIcon />
+                    </button>
+                  </Tooltip>
                 )}
 
                 <input
@@ -769,33 +807,51 @@ const Player = ({
             <div id="wave-minimap"></div>
           </div>
           <div className="controllers-queue_screen">
-            <div className="shuffle-btn">
-              <ShuffleIcon
-                style={{
-                  marginTop: "28px",
-                  fontSize: 28,
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              />
+            <Tooltip title="Shuffle" arrow>
+              <div className="shuffle-btn">
+                <ShuffleIcon
+                  style={{
+                    marginTop: "28px",
+                    fontSize: 28,
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                />
 
-              <PlayButton
-                shuffleSongId={shuffleSongId}
-                songId={songId}
-                foundedId={founded[0]?.id}
-                founded={founded[0]}
-                playing={playing}
-                setIsPlaying={setIsPlaying}
-                pauseSong={pauseSong}
-                loggedInUser={loggedInUser}
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
-              />
-            </div>
+                <PlayButton
+                  shuffleSongId={shuffleSongId}
+                  songId={songId}
+                  foundedId={founded[0]?.id}
+                  founded={founded[0]}
+                  playing={playing}
+                  setIsPlaying={setIsPlaying}
+                  pauseSong={pauseSong}
+                  loggedInUser={loggedInUser}
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+              </div>
+            </Tooltip>
             <div className="queue-music">
               {authenticated && (
+                <Tooltip title="Queue" arrow>
+                  <button onClick={() => alert("feature in progress")}>
+                    <QueueMusicIcon
+                      style={{
+                        marginTop: "28px",
+                        fontSize: 30,
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                  </button>
+                </Tooltip>
+              )}
+            </div>
+            <div className="full-screen">
+              <Tooltip title="Full Screen" arrow>
                 <button onClick={() => alert("feature in progress")}>
-                  <QueueMusicIcon
+                  <FullscreenIcon
                     style={{
                       marginTop: "28px",
                       fontSize: 30,
@@ -804,19 +860,7 @@ const Player = ({
                     }}
                   />
                 </button>
-              )}
-            </div>
-            <div className="full-screen">
-              <button onClick={() => alert("feature in progress")}>
-                <FullscreenIcon
-                  style={{
-                    marginTop: "28px",
-                    fontSize: 30,
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                />
-              </button>
+              </Tooltip>
             </div>
           </div>
         </div>

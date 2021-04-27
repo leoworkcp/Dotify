@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
-
+import Tooltip from "@material-ui/core/Tooltip";
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -116,22 +116,29 @@ const PlayButton = ({
     <>
       <div className="PlayButton">
         {!playing && (
-          <button className="btn-play__active" onClick={(e) => setSong(e)}>
-            <PlayArrowIcon
-              style={{
-                fontSize: 40,
-              }}
-            />
-          </button>
+          <Tooltip title="Play" arrow>
+            <button className="btn-play__active" onClick={(e) => setSong(e)}>
+              <PlayArrowIcon
+                style={{
+                  fontSize: 40,
+                }}
+              />
+            </button>
+          </Tooltip>
         )}
         {playing && (
-          <button className="btn-pause__active" onClick={(e) => pausesSong(e)}>
-            <PauseIcon
-              style={{
-                fontSize: 40,
-              }}
-            />
-          </button>
+          <Tooltip title="Pause" arrow>
+            <button
+              className="btn-pause__active"
+              onClick={(e) => pausesSong(e)}
+            >
+              <PauseIcon
+                style={{
+                  fontSize: 40,
+                }}
+              />
+            </button>
+          </Tooltip>
         )}
         <Modal
           isOpen={modalIsOpenLogin}

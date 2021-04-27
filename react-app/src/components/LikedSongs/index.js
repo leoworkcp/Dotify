@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { NavLink } from "react-router-dom";
 import likedImg from "./liked-img.png";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import * as likeActions from "../../store/likes";
 import "./LikedSongs.css";
 
@@ -73,7 +74,16 @@ const LikedSongs = ({
             <div className="presentation__row">TITLE</div>
             <div className="presentation__row margin-move">ALBUM</div>
             <div className="presentation__row">DATE ADDED</div>
-            <div className="presentation__row">⌚</div>
+            <div className="presentation__row">
+              <QueryBuilderIcon
+                style={{
+                  width: "18px",
+                  height: "18px",
+                  // color: "#15883e",
+                }}
+              ></QueryBuilderIcon>
+            </div>
+            {/* <div className="presentation__row">⌚</div> */}
           </div>
 
           {hadLiked &&
