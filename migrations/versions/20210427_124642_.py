@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3eaf058121ed
+Revision ID: 24948e6f316f
 Revises: 
-Create Date: 2021-04-26 18:06:39.343126
+Create Date: 2021-04-27 12:46:42.004313
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3eaf058121ed'
+revision = '24948e6f316f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -70,7 +70,7 @@ def upgrade():
     sa.Column('likes', sa.Integer(), nullable=False),
     sa.Column('public', sa.Boolean(), nullable=False),
     sa.Column('image_url', sa.String(length=255), nullable=True),
-    sa.Column('waveform_url', sa.String(length=255), nullable=True),
+    sa.Column('album', sa.String(length=255), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['artist_id'], ['users.id'], ),

@@ -188,6 +188,7 @@ export default function App() {
             setIsPlaying={setIsPlaying}
             pauseSong={pauseSong}
             wavesurfer={wavesurfer}
+            userid={userid}
           />
         </Route>
       </BrowserRouter>

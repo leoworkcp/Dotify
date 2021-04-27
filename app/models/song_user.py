@@ -180,8 +180,8 @@ class Song(db.Model):
     likes = db.Column(db.Integer, default=0, nullable=False)
     public = db.Column(db.Boolean, nullable=False, default=True)
     image_url = db.Column(db.String(255))
-    waveform_url = db.Column(db.String(255))
-    # waveform_url1 = db.Column(db.String(255) default="default")
+    album = db.Column(db.String(255),  nullable=False, default="Single")
+
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
@@ -227,7 +227,7 @@ class Song(db.Model):
             "likes": self.likes,
             "public": self.public,
             "image_url": self.image_url,
-            "waveform_url": self.waveform_url,
+            "album": self.album,
             "comments": [comment.to_dict() for comment in self.comments],
             "artist": self.artists.to_dict(),
         }

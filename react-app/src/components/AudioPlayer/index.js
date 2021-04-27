@@ -8,6 +8,7 @@ import "./AudioPlayer.css";
 
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
@@ -77,6 +78,7 @@ const Player = ({
   wavesurfer,
   authenticated,
   setAuthenticated,
+  userid,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -86,20 +88,23 @@ const Player = ({
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
   const { songId } = useParams();
-  const likes = useSelector((state) => state?.likes);
-  console.log(likes);
+  // const likes = useSelector((state) => state?.likes);
+  // console.log(likes);
   // like song feature
   const [likesChanged, setLikesChanged] = useState(false);
+  const [hadLiked, setHadLiked] = useState(false);
   const handleAddLike = (e, songId) => {
     e.stopPropagation();
     dispatch(likeActions.addLike(songId, loggedInUser.id));
     setLikesChanged(true);
+    // setHadLiked(true)
   };
 
   const handleRemoveLike = (e, songId) => {
     e.stopPropagation();
     dispatch(likeActions.removeLike(songId, loggedInUser.id));
     setLikesChanged(false);
+    //  setHadLiked(false);
   };
 
   // like song feature ends
@@ -212,16 +217,6 @@ const Player = ({
   // console.log(selectedSong);
   const [playings, setPlays] = useState(false);
   useEffect(() => {
-    // setPlays(false);
-
-    // const options = formWaveSurferOptions(waveformRef.current);
-    // wavesurfer.current = WaveSurfer.create(options);
-
-    // creating instance of  WaveSurfer waveForm
-
-    // load waveForm and ProgressBar
-    // console.log(songId);
-
     if (songId) {
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
@@ -506,7 +501,33 @@ const Player = ({
   });
   // console.log(wavesurfer.current);
 
-  console.log(currentSong);
+  // const hasLikes = useSelector((state) => state?.likes);
+
+  const likedUser = useSelector((state) =>
+    state?.likes
+      .map((like) =>
+        Object.values(publicSongs).find(
+          (song) =>
+            song?.id == parseInt(like) && song?.artist_id !== parseInt(userid)
+        )
+      )
+      .filter((s) => s !== undefined)
+  );
+
+  const playingLiked = likedUser.filter((l) =>
+    l.name.includes(currentSong.name)
+  );
+
+  const playingOwnLiked = String(currentSong.artist_id) === String(userid);
+
+  useEffect(() => {
+    if (playingLiked.length > 0) setHadLiked(true);
+    else if (playingLiked.length === 0) setHadLiked(false);
+  }, [playingLiked]);
+
+  useEffect(() => {
+    if (userid) dispatch(likeActions.fetchUserLikes(userid));
+  }, [dispatch]);
   return (
     <nav className="player-navBar">
       {authenticated && (
@@ -541,25 +562,28 @@ const Player = ({
                     />
                   </button>
                 )}
-                {authenticated && songIsLoaded && !likesChanged && (
-                  <button onClick={(e) => handleAddLike(e, currentSong?.id)}>
-                    <FavoriteBorderIcon
-                      style={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        paddingBottom: "5px",
-                      }}
-                    />
-                  </button>
-                )}
-                {authenticated && songIsLoaded && likesChanged && (
+                {authenticated &&
+                  songIsLoaded &&
+                  !hadLiked &&
+                  !playingOwnLiked && (
+                    <button onClick={(e) => handleAddLike(e, currentSong?.id)}>
+                      <FavoriteBorderIcon
+                        style={{
+                          marginLeft: "10px",
+                          marginRight: "10px",
+                          paddingBottom: "5px",
+                        }}
+                      />
+                    </button>
+                  )}
+                {authenticated && songIsLoaded && hadLiked && !playingOwnLiked && (
                   <button onClick={(e) => handleRemoveLike(e, currentSong?.id)}>
-                    <FavoriteBorderIcon
+                    <FavoriteIcon
                       style={{
                         marginLeft: "10px",
                         marginRight: "10px",
                         paddingBottom: "5px",
-                        color: "red",
+                        color: "#15883e",
                       }}
                     />
                   </button>
