@@ -6,7 +6,7 @@ import playingReducer from "./playing";
 import songsReducer from "./songs";
 import usersReducer from "./users";
 import publicSongReducer from "./publicSongs";
-
+import likesReducer from "./likes";
 const rootReducer = combineReducers({
   session: sessionReducer,
   userSongs: userInfoReducer,
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
   playing: playingReducer,
   songs: songsReducer,
   users: usersReducer,
+  likes: likesReducer,
 });
 
 let enhancer;

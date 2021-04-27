@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-// import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+// like feat
+import { useDispatch, useSelector } from "react-redux";
+import * as likeActions from "../../store/likes";
 
-// import "react-h5-audio-player/lib/styles.css";
 import "./AudioPlayer.css";
 
 import { NavLink } from "react-router-dom";
@@ -16,7 +17,6 @@ import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 
-// new stuff
 import RepeatIcon from "@material-ui/icons/Repeat";
 import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 import LoopIcon from "@material-ui/icons/Loop";
@@ -79,13 +79,30 @@ const Player = ({
   setAuthenticated,
 }) => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const [loopActive, setLoopActive] = useState(false);
   const [repeatOnce, setRepeatOnce] = useState(false);
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
   // function ideas to mute sound of glitch
   const { songId } = useParams();
+  const likes = useSelector((state) => state?.likes);
+  console.log(likes);
+  // like song feature
+  const [likesChanged, setLikesChanged] = useState(false);
+  const handleAddLike = (e, songId) => {
+    e.stopPropagation();
+    dispatch(likeActions.addLike(songId, loggedInUser.id));
+    setLikesChanged(true);
+  };
+
+  const handleRemoveLike = (e, songId) => {
+    e.stopPropagation();
+    dispatch(likeActions.removeLike(songId, loggedInUser.id));
+    setLikesChanged(false);
+  };
+
+  // like song feature ends
 
   // modal
   const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
@@ -488,6 +505,8 @@ const Player = ({
     // if (!wavesurfer.current) setDrag(false);
   });
   // console.log(wavesurfer.current);
+
+  console.log(currentSong);
   return (
     <nav className="player-navBar">
       {authenticated && (
@@ -511,13 +530,36 @@ const Player = ({
                 </NavLink>
               </div>
               <div className="like-artist__cover">
-                {authenticated && (
-                  <button onClick={() => alert("feature in progress")}>
+                {authenticated && !songIsLoaded && (
+                  <button>
                     <FavoriteBorderIcon
                       style={{
                         marginLeft: "10px",
                         marginRight: "10px",
                         paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && songIsLoaded && !likesChanged && (
+                  <button onClick={(e) => handleAddLike(e, currentSong?.id)}>
+                    <FavoriteBorderIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                      }}
+                    />
+                  </button>
+                )}
+                {authenticated && songIsLoaded && likesChanged && (
+                  <button onClick={(e) => handleRemoveLike(e, currentSong?.id)}>
+                    <FavoriteBorderIcon
+                      style={{
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                        paddingBottom: "5px",
+                        color: "red",
                       }}
                     />
                   </button>

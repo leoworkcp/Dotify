@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, Song, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -113,3 +113,41 @@ def edit_user():
     matched_user.profile_URL = url
     db.session.commit()
     return matched_user.to_dict()
+
+
+@auth_routes.route('/likes/', methods=['PUT'])
+def userLikes():
+    userId = request.json
+    likes = User.query.get(userId).songs.all()
+    likeList = []
+    for like in likes:
+        song = like.to_dict()
+        likeList.append(song['id'])
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!', likeList)
+    return jsonify(likeList)
+
+
+@auth_routes.route('/likes/', methods=['POST'])
+def addLike():
+    data = request.json
+    user = User.query.get(data['userId'])
+    song = Song.query.get(data['songId'])
+    user.songs.append(song)
+    song.users.append(user)
+    db.session.commit()
+    likeList = []
+    likes = [likeList.append(song.to_dict()['id']) for song in user.songs]
+    return jsonify(likeList)
+
+
+@auth_routes.route('/likes/', methods=['DELETE'])
+def deleteLike():
+    data = request.json
+    user = User.query.get(data['userId'])
+    song = Song.query.get(data['songId'])
+    user.songs.remove(song)
+    song.users.remove(user)
+    db.session.commit()
+    likeList = []
+    likes = [likeList.append(song.to_dict()['id']) for song in user.songs]
+    return jsonify(likeList)

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
+
 // import { ThemeProvider } from "@material-ui/styles";
 // new auth to test
 // import { authenticate } from "./store/auth";
@@ -9,6 +10,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute/index";
 import * as sessionActions from "./store/session";
 
 // components
+import LikedSongs from "./components/LikedSongs/index";
 import NavBar from "./components/NavBar/index";
 import Sidebar from "./components/Sidebar/index";
 import ProfilePage from "./components/ProfilePage";
@@ -154,6 +156,14 @@ export default function App() {
               <SearchBar
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated}
+              />
+            </Route>
+            <Route path={"/collection/tracks/:userid"} exact={true}>
+              <LikedSongs
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+                publicSongs={publicSongs}
+                loggedInUser={loggedInUser}
               />
             </Route>
           </Switch>

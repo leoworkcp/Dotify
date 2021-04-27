@@ -128,12 +128,12 @@ class User(db.Model, UserMixin):
     comments_users = db.relationship(
         "Comment", back_populates='users_comments', cascade="all")
     # songs relationship
-    songs = db.relationship(
-        'Song', secondary=song_users, back_populates='users', lazy='dynamic',
-    )
+    # songs = db.relationship(
+    #     'Song', secondary=song_users, back_populates='users', lazy='dynamic',
+    # )
     # songs likes
-    song_like = db.relationship(
-        'Song', secondary=songs_likes, back_populates='user_song_like', lazy='dynamic',
+    songs = db.relationship(
+        'Song', secondary=songs_likes, back_populates='users', lazy='dynamic'
     )
 
     # playlist_likes
@@ -199,10 +199,10 @@ class Song(db.Model):
         'Comment', back_populates='song_comments',  cascade="all")
 
     #  songs relationship
-    users = db.relationship(
-        'User', secondary=song_users, back_populates='songs',
-        lazy='dynamic',
-    )
+    # users = db.relationship(
+    #     'User', secondary=song_users, back_populates='songs',
+    #     lazy='dynamic',
+    # )
     # playlist relationship
     songs_playlist = db.relationship(
         'Playlist', secondary=song_playlists, back_populates='playlists',
@@ -211,8 +211,8 @@ class Song(db.Model):
     #  playlist relationship Like
 
     # songs relationship Like
-    user_song_like = db.relationship(
-        'User', secondary=songs_likes, back_populates='song_like',
+    users = db.relationship(
+        'User', secondary=songs_likes, back_populates='songs',
         lazy='dynamic',
     )
 
