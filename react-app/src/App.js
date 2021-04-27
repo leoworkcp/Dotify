@@ -164,6 +164,7 @@ export default function App() {
                 setAuthenticated={setAuthenticated}
                 publicSongs={publicSongs}
                 loggedInUser={loggedInUser}
+                userid={userid}
               />
             </Route>
           </Switch>
