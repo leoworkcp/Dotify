@@ -128,12 +128,12 @@ class User(db.Model, UserMixin):
     comments_users = db.relationship(
         "Comment", back_populates='users_comments', cascade="all")
     # songs relationship
-    songs = db.relationship(
-        'Song', secondary=song_users, back_populates='users', lazy='dynamic',
-    )
+    # songs = db.relationship(
+    #     'Song', secondary=song_users, back_populates='users', lazy='dynamic',
+    # )
     # songs likes
-    song_like = db.relationship(
-        'Song', secondary=songs_likes, back_populates='user_song_like', lazy='dynamic',
+    songs = db.relationship(
+        'Song', secondary=songs_likes, back_populates='users', lazy='dynamic'
     )
 
     # playlist_likes
@@ -180,8 +180,8 @@ class Song(db.Model):
     likes = db.Column(db.Integer, default=0, nullable=False)
     public = db.Column(db.Boolean, nullable=False, default=True)
     image_url = db.Column(db.String(255))
-    waveform_url = db.Column(db.String(255))
-    # waveform_url1 = db.Column(db.String(255) default="default")
+    album = db.Column(db.String(255),  nullable=False, default="Single")
+
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow()
     )
@@ -199,10 +199,10 @@ class Song(db.Model):
         'Comment', back_populates='song_comments',  cascade="all")
 
     #  songs relationship
-    users = db.relationship(
-        'User', secondary=song_users, back_populates='songs',
-        lazy='dynamic',
-    )
+    # users = db.relationship(
+    #     'User', secondary=song_users, back_populates='songs',
+    #     lazy='dynamic',
+    # )
     # playlist relationship
     songs_playlist = db.relationship(
         'Playlist', secondary=song_playlists, back_populates='playlists',
@@ -211,8 +211,8 @@ class Song(db.Model):
     #  playlist relationship Like
 
     # songs relationship Like
-    user_song_like = db.relationship(
-        'User', secondary=songs_likes, back_populates='song_like',
+    users = db.relationship(
+        'User', secondary=songs_likes, back_populates='songs',
         lazy='dynamic',
     )
 
@@ -227,7 +227,7 @@ class Song(db.Model):
             "likes": self.likes,
             "public": self.public,
             "image_url": self.image_url,
-            "waveform_url": self.waveform_url,
+            "album": self.album,
             "comments": [comment.to_dict() for comment in self.comments],
             "artist": self.artists.to_dict(),
         }

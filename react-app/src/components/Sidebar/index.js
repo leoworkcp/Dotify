@@ -145,11 +145,7 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   };
   const handleClickLiked = (newPlacement) => (event) => {
     if (authenticated) {
-      // history.push("/collection/tracks");
-      return setTimeout(
-        () => alert("Sorry, this Page is under construction."),
-        100
-      );
+      history.push(`/collection/tracks/${userid}`);
     } else {
       setLik(true);
       setLib(false);
@@ -180,41 +176,37 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
     history.push("/search");
   }
 
-  function createPlaylist() {
-    return setTimeout(
-      () => alert("Sorry, this Page is under construction."),
-      100
-    );
+  // function createPlaylist() {
+  //   return setTimeout(
+  //     () => alert("Sorry, this Page is under construction."),
+  //     100
+  //   );
 
-    // if (authenticated) {
-    //   history.push("/create/playlist");
-    // } else {
-    //   return setTimeout(
-    //     () => alert("Sorry, this Page is under construction."),
-    //     100
-    //   );
-    // }
-  }
+  //   // if (authenticated) {
+  //   //   history.push("/create/playlist");
+  //   // } else {
+  //   //   return setTimeout(
+  //   //     () => alert("Sorry, this Page is under construction."),
+  //   //     100
+  //   //   );
+  //   // }
+  // }
 
-  function likeSongs() {
-    return setTimeout(
-      () => alert("Sorry, this Page is under construction."),
-      100
-    );
+  // function likeSongs() {
+  //   if (authenticated) {
+  //     history.push(`/collection/tracks/${userid}`);
+  //   } else {
+  //     return setTimeout(
+  //       () => alert("Sorry, this Page is under construction."),
+  //       100
+  //     );
+  //   }
+  // }
 
-    // if (authenticated) {
-    //   history.push("/collection/tracks");
-    // } else {
-    //   return setTimeout(
-    //     () => alert("Sorry, this Page is under construction."),
-    //     100
-    //   );
-    // }
-  }
+  // function enterButton() {
+  //   history.push("/entertainment");
+  // }
 
-  function enterButton() {
-    history.push("/entertainment");
-  }
   useEffect(() => {
     // if (modalIsOpenLogin || modalIsOpenSignUp) {
     //   return setAnchorEl(null);
