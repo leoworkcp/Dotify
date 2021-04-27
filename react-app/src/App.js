@@ -165,6 +165,9 @@ export default function App() {
                 publicSongs={publicSongs}
                 loggedInUser={loggedInUser}
                 userid={userid}
+                playing={playing}
+                setIsPlaying={setIsPlaying}
+                pauseSong={pauseSong}
               />
             </Route>
           </Switch>

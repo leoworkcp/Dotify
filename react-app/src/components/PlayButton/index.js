@@ -52,6 +52,7 @@ const PlayButton = ({
   authenticated,
   setAuthenticated,
   shuffleSongId,
+  lastLikedSong,
 }) => {
   const [isReady, setIsReady] = useState(false);
 
@@ -101,6 +102,7 @@ const PlayButton = ({
     if (publicSong) dispatch(setCurrentSong(publicSong));
     if (song) dispatch(setCurrentSong(song));
     if (founded) dispatch(setCurrentSong(founded));
+    if (lastLikedSong) dispatch(setCurrentSong(lastLikedSong));
   };
 
   const pausesSong = (e) => {

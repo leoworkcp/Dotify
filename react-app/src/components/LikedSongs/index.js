@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import likedImg from "./liked-img.png";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import * as likeActions from "../../store/likes";
+import PlayButton from "../PlayButton/index";
 import "./LikedSongs.css";
 
 const LikedSongs = ({
@@ -14,6 +15,9 @@ const LikedSongs = ({
   setAuthenticated,
   publicSongs,
   userid,
+  playing,
+  setIsPlaying,
+  pauseSong,
 }) => {
   const dispatch = useDispatch();
   const [hadLiked, setHadLiked] = useState(false);
@@ -42,7 +46,9 @@ const LikedSongs = ({
   useEffect(() => {
     if (hasLikes) setHadLiked(true);
   }, []);
-  // console.log(hadLiked);
+
+  console.log(likes[0]);
+
   return (
     <div className="liked_page__container">
       <div className="liked_page__banner">
@@ -58,14 +64,25 @@ const LikedSongs = ({
                 <NavLink
                   to={`/profile/${userid}`}
                 >{`${loggedInUser.username}`}</NavLink>
-                <p>{` • ${1223} songs`}</p>
+                <p>{` • ${likes.length} songs`}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="play-liked__container">
-        <div className="liked-btn__container"></div>
+        <div className="liked-btn__container">
+          <PlayButton
+            lastLikedSong={likes[0]}
+            playing={playing}
+            setIsPlaying={setIsPlaying}
+            pauseSong={pauseSong}
+            loggedInUser={loggedInUser}
+            // songId={songId}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+        </div>
       </div>
       <div className="song-liked__container">
         <div className="liked-grid__container">

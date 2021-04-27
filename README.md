@@ -83,7 +83,6 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
    ```
 
 8. Release your docker container to heroku
-   <!-- need to finish this -->
 
    ```bash
    heroku container:release web -a dotify-sound-v1
