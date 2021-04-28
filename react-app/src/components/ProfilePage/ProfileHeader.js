@@ -9,17 +9,17 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const { userid } = useParams();
   const [usersLoaded, setUsersLoaded] = useState(false);
-  const [songsClicked, setSongsClicked] = useState(true);
-  const [popularClicked, setPopularClicked] = useState(false);
+  // const [songsClicked, setSongsClicked] = useState(true);
+  // const [popularClicked, setPopularClicked] = useState(false);
 
-  const displaySongs = () => {
-    setSongsClicked(true);
-    setPopularClicked(false);
-  };
-  const displayPopular = () => {
-    setSongsClicked(false);
-    setPopularClicked(true);
-  };
+  // const displaySongs = () => {
+  //   setSongsClicked(true);
+  //   setPopularClicked(false);
+  // };
+  // const displayPopular = () => {
+  //   setSongsClicked(false);
+  //   setPopularClicked(true);
+  // };
 
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));

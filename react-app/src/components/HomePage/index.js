@@ -39,10 +39,40 @@ const HomePage = ({
   const rap = publicSongs?.filter((ele) =>
     ele?.category.toLowerCase().includes("rap")
   );
+  const [checkRock, setCheckRock] = useState(false);
+  useEffect(() => {
+    if (rock.length) setCheckRock(true);
+  }, []);
+  const [checkHop, setCheckHop] = useState(false);
+  useEffect(() => {
+    if (hop.length) setCheckHop(true);
+  }, []);
+  const [checkPop, setCheckPop] = useState(false);
+  useEffect(() => {
+    if (pop.length) setCheckPop(true);
+  }, []);
+  const [checkJazz, setCheckJazz] = useState(false);
+  useEffect(() => {
+    if (jazz.length) setCheckJazz(true);
+  }, []);
 
+  const [checkRnb, setCheckRnb] = useState(false);
+  useEffect(() => {
+    if (rnb.length) setCheckRnb(true);
+  });
+  const [checkEdm, setCheckEdm] = useState(false);
+  useEffect(() => {
+    if (edm.length) setCheckEdm(true);
+  });
+  const [checkRap, setCheckRap] = useState(false);
+  useEffect(() => {
+    if (rap.length) setCheckRap(true);
+  });
+  const checkR = rock.length;
+  console.log();
   return (
     isLoaded && (
-      <div className="home-main__container">
+      <div className="home-main__container_home">
         <div className="music__container">
           <CarouselSongs
             pauseSong={pauseSong}
@@ -57,7 +87,7 @@ const HomePage = ({
             setAuthenticated={setAuthenticated}
           />
         </div>
-        {rock.length && (
+        {checkRock && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -73,7 +103,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {hop.length && (
+        {checkHop && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -89,7 +119,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {pop.length && (
+        {checkPop && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -105,7 +135,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {jazz.length && (
+        {checkJazz && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -121,7 +151,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {rnb.length && (
+        {checkRnb && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -137,7 +167,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {edm.length && (
+        {checkEdm && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}
@@ -153,7 +183,7 @@ const HomePage = ({
             />
           </div>
         )}
-        {rap.length && (
+        {checkRap && (
           <div className="music__container">
             <CarouselSongs
               pauseSong={pauseSong}

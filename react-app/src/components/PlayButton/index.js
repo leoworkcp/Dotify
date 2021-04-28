@@ -8,7 +8,7 @@ import PauseIcon from "@material-ui/icons/Pause";
 
 // modal
 import Modal from "react-modal";
-import LogoutButton from "../auth/LogoutButton/index";
+// import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
 import Tooltip from "@material-ui/core/Tooltip";

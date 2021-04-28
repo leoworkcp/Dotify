@@ -172,22 +172,50 @@
   }
 }
 
-@media (max-width: 720px) {
-  .player-navBar {
-    padding-bottom: 0px;
-  }
-  .home-main__container {
+@media (max-width: 830px) {
+  .home-main__container,
+  .home-main__container_home {
     margin-top: 0px;
     padding-bottom: 0px;
     margin-left: 220px;
   }
+  .profile-header__container {
+    margin-left: 220px;
+  }
+}
+@media (max-width: 720px) {
+  .player-navBar {
+    padding-bottom: 0px;
+  }
+  .home-main__container,
+  .home-main__container_home {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 210px;
+  }
 }
 /* check */
 @media (max-width: 640px) {
-  .home-main__container {
+  #profile-user__page {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .music__container {
+    display: inline-block;
+    margin-left: 0px;
+    max-width: 300px;
+
     margin-top: 50px;
-    padding-bottom: 0px;
-    margin-left: 50px;
+    margin-bottom: 0px;
+  }
+  .home-main__container,
+  .home-main__container_home {
+    display: flex;
+    margin-top: 50px;
+    padding-bottom: 100px;
+    margin-left: 0px;
+    justify-content: center;
   }
   .sideBar-title-container,
   .sideBar-button__search,
