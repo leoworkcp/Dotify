@@ -22,6 +22,7 @@ const LikedSongs = ({
   const dispatch = useDispatch();
   const [hadLiked, setHadLiked] = useState(false);
 
+  const [deleteShown, setDeleteShown] = useState(false);
   // console.log(publicSongs);
   //   console.log(userid);
   const likes = useSelector((state) =>
@@ -111,8 +112,27 @@ const LikedSongs = ({
                   role="presentation"
                   className="presentation-container"
                   key={idx}
+                  onMouseEnter={() => setDeleteShown(true)}
+                  onMouseLeave={() => setDeleteShown(false)}
                 >
-                  <div className="presentation__row">{idx}</div>
+                  <div className="presentation__row">
+                    {deleteShown && (
+                      <PlayButton
+                        lastLikedSong={lik}
+                        playing={playing}
+                        setIsPlaying={setIsPlaying}
+                        pauseSong={pauseSong}
+                        loggedInUser={loggedInUser}
+                        // songId={songId}
+                        authenticated={authenticated}
+                        setAuthenticated={setAuthenticated}
+                      />
+                    )}
+                    {/* {!playing && idx} */}
+                    {!deleteShown && !playing && idx}
+                    {playing && !deleteShown && idx}
+                    {/* {playing && !deleteShown && <h7>{idx}</h7>} */}
+                  </div>
                   <div className="presentation__img">
                     <div id="img_liked_container">
                       <img id="img_liked-songs" src={lik.image_url}></img>
