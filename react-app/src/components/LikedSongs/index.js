@@ -8,7 +8,7 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import * as likeActions from "../../store/likes";
 import PlayButton from "../PlayButton/index";
 import "./LikedSongs.css";
-
+import eqGif from "./equalizerGIF.gif";
 const LikedSongs = ({
   loggedInUser,
   authenticated,
@@ -130,7 +130,9 @@ const LikedSongs = ({
                     )}
                     {/* {!playing && idx} */}
                     {!deleteShown && !playing && idx}
-                    {playing && !deleteShown && idx}
+                    {playing && !deleteShown && (
+                      <img src={eqGif} alt="loading..." />
+                    )}
                     {/* {playing && !deleteShown && <h7>{idx}</h7>} */}
                   </div>
                   <div className="presentation__img">

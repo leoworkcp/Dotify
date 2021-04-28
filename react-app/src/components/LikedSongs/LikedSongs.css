@@ -258,7 +258,7 @@
 .presentation__row > .PlayButton > button {
   display: flex;
   justify-content: center;
-  width: 25px;
+  width: 22px;
   height: 25px;
   /* background-color: red; */
   background-color: transparent;
@@ -271,9 +271,16 @@
   width: 20px;
   height: 20px;
 }
-h7{
+/* h7{
   color: #15883e;
+} */
+
+.presentation__row > img {
+  width: 13px;
+
+  /* margin-left: 5px; */
 }
+
 .presentation__img {
   display: flex;
   align-items: center;
