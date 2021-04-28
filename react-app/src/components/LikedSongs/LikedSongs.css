@@ -1,7 +1,7 @@
 .liked_page__container {
   /* background-color: aqua; */
   margin-left: 270px;
-  height: 100%;
+
   /* transition: all 0.5s ease-in-out; */
   margin-bottom: 90px;
   background: linear-gradient(#5038a03b, #5038a00c, #181818);
@@ -156,7 +156,7 @@
   box-sizing: border-box;
   color: #b3b3b3;
   box-sizing: border-box;
-
+  padding-bottom: 363px;
   /* border-radius: 4px; */
   min-height: 300px;
   outline: 0;

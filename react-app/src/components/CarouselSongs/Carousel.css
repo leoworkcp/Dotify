@@ -1,12 +1,21 @@
+.carousel-main_container {
+  /* margin-left: 10px; */
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
+}
+.music__container {
+}
 .carousel-title > h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10px;
+  color: #fff;
 }
 
 .carousel-title > h1 {
   text-align: center;
+  color: #fff;
 }
 
 .carousel .slide .legend {

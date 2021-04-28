@@ -1,10 +1,19 @@
 /* start here */
+
+.profile-page-contents {
+  display: flex;
+  /* background-color: red; */
+  margin-bottom: 100px;
+  align-self: flex-start;
+}
+
 .profile-header__container {
-  margin-left: 240px;
+  margin-left: 270px;
   height: 340px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  background: linear-gradient(#5038a03b, #5038a00c, #181818);
 }
 
 .profile-header {
