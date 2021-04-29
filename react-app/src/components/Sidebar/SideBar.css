@@ -110,12 +110,6 @@
   /* background-color: aqua; */
 }
 
-.sideBar-button__home > .sideBar:hover,
-.sideBar-button__search > .sideBar:hover,
-.sideBar-button__library > .sideBar:hover {
-  /* background-color: #383838; */
-  /* color: #fff; */
-}
 .sideBar-button__home > .sideBar:focus,
 .sideBar-button__search > .sideBar:focus,
 .sideBar-button__library > .sideBar:focus {

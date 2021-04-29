@@ -69,12 +69,28 @@
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   background-color: #181818;
 
   border-radius: 5px;
 }
-
+@media (max-width: 670px) {
+  .profile-songs-container {
+    margin-right: 0;
+  }
+}
+@media (max-width: 640px) {
+  .profile-songs-container {
+    margin-top: 80px;
+  }
+}
+@media (max-width: 1100px) {
+  #profile-user__page {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
 .album-cover {
   max-width: 300px;
   max-height: 300px;

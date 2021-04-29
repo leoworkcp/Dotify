@@ -25,7 +25,7 @@ function SongPage({
   );
 
   return (
-    <div>
+    <div className="SongPage__Container">
       <div className="song_page" key={selectedSong?.id}>
         <img src={banner1} alt="banner" />
         <div className="profile-username songPage">

@@ -177,10 +177,10 @@
   .home-main__container_home {
     margin-top: 0px;
     padding-bottom: 0px;
-    margin-left: 220px;
+    margin-left: 230px;
   }
   .profile-header__container {
-    margin-left: 220px;
+    margin-left: 230px;
   }
 }
 @media (max-width: 720px) {
@@ -191,7 +191,7 @@
   .home-main__container_home {
     margin-top: 0px;
     padding-bottom: 0px;
-    margin-left: 210px;
+    margin-left: 230px;
   }
 }
 /* check */
