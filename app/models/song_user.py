@@ -64,6 +64,11 @@ songs_likes = db.Table(
     db.Column(
         'song_id', db.Integer, db.ForeignKey('songs.id'),
         nullable=False
+    ),
+    db.Column(
+        'created_at',
+        db.DateTime, nullable=False, default=datetime.utcnow(),
+
     )
 )
 

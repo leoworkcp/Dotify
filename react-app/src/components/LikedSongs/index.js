@@ -47,8 +47,8 @@ const LikedSongs = ({
   useEffect(() => {
     if (hasLikes) setHadLiked(true);
   }, []);
-
-  console.log(likes[0]);
+  console.log(hasLikes);
+  // console.log(likes[0]);
 
   return (
     <div className="liked_page__container">

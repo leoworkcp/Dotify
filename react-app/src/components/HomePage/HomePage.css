@@ -1,7 +1,7 @@
 .home-main__container {
   display: flex;
   flex-wrap: wrap;
-
+  min-height: calc(60vh - 60px);
   margin-left: 270px;
   /* width: 100%; */
   background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818);
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-left: 270px;
-
+  /* margin-bottom: 80px; */
   min-height: calc(100vh - 60px);
 
   background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818);
