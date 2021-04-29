@@ -1,10 +1,13 @@
-.song_page {
-  /* background-color: rgba(255, 255, 255, 0); */
-  /* background-color: rgba(255, 255, 255, 0.527); */
+.SongPage__Container {
+  background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818);
+  min-height: calc(100vh - 60px);
+}
 
+.song_page {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  height: 100%;
 }
 
 .song_page > img {
@@ -23,6 +26,7 @@
 }
 
 .full-song__container {
+  /* background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818); */
   padding-left: 220px;
   width: 1650px;
   display: flex;

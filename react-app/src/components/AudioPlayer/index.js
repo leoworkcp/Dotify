@@ -218,6 +218,7 @@ const Player = ({
   const [playings, setPlays] = useState(false);
   useEffect(() => {
     if (songId) {
+      // setIsPlaying(false);
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
         hideScrollbar: true,
@@ -282,7 +283,7 @@ const Player = ({
         await wavesurfer.current.play();
         setPlays(true);
         setSongIsLoaded(true);
-        // setIsPlaying(true);
+        setIsPlaying(true);
 
         // make sure object still available when file loaded
         if (wavesurfer.current) {

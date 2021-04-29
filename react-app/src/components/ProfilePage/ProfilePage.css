@@ -74,7 +74,23 @@
 
   border-radius: 5px;
 }
-
+@media (max-width: 670px) {
+  .profile-songs-container {
+    margin-right: 0;
+  }
+}
+@media (max-width: 640px) {
+  .profile-songs-container {
+    margin-top: 80px;
+  }
+}
+@media (max-width: 1100px) {
+  #profile-user__page {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
 .album-cover {
   max-width: 300px;
   max-height: 300px;

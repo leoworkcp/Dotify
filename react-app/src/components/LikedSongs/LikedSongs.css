@@ -177,10 +177,7 @@
 }
 
 #presentation-container {
-  /* grid-template-columns: [index] 16px [first] 30px [var1] 4fr [var2] 3fr [last] minmax(
-      120px,
-      1fr
-    ); */
+  white-space: nowrap;
   grid-template-columns: 16px 7fr 3fr 2.5fr minmax(70px, 1fr);
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
   color: #b3b3b3;
@@ -192,6 +189,7 @@
   /* background-color: #5038a0; */
 }
 .presentation-container {
+  white-space: nowrap;
   /* grid-template-columns: [index] 16px [first] 30px [var1] 4fr [var2] 3fr [last] minmax(
       120px,
       1fr
@@ -338,6 +336,58 @@
   width: 40px;
   height: 40px;
 }
+/* check this */
+@media (max-width: 850px) {
+  #presentation-container > .presentation__row:nth-last-child(1) {
+    /* justify-self: end; */
+    /* background-color: red; */
+    display: none;
+  }
+  .presentation-container > .presentation__row:nth-last-child(1) {
+    /* justify-self: end; */
+    display: none;
+    /* background-color: red; */
+  }
+  #presentation-container {
+    grid-template-columns: 16px 7fr 3fr 0px minmax(70px, 1fr);
+  }
+  .presentation-container {
+    grid-template-columns: 16px 7fr 3fr 0px minmax(70px, 1fr);
+  }
+}
+@media (max-width: 755px) {
+  #presentation-container > .presentation__row:nth-last-child(2) {
+    background-color: red;
+    display: none;
+  }
+  .presentation-container > .presentation__row:nth-last-child(2) {
+    display: none;
+    background-color: red;
+  }
+  #presentation-container {
+    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+  }
+  .presentation-container {
+    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+  }
+}
+@media (max-width: 670px) {
+  .profile-songs-container {
+    margin-right: 0;
+  }
+  #presentation-container > .presentation__row:nth-last-child(3) {
+    display: none;
+  }
+  .presentation-container > .presentation__row:nth-last-child(3) {
+    display: none;
+  }
+  #presentation-container {
+    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+  }
+  .presentation-container {
+    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+  }
+}
 
 /* media queries */
 @media (max-width: 1220px) {
@@ -376,7 +426,7 @@
     font-size: 40px;
   }
   .liked_page__container {
-    margin-left: 200px;
+    margin-left: 220px;
   }
 }
 
@@ -397,10 +447,7 @@
 
 @media (max-width: 676px) {
   .liked-user__info > h1 {
-    font-size: 25px;
-  }
-  .liked_page__container {
-    margin-left: 0px;
+    font-size: 20px;
   }
 }
 
@@ -409,6 +456,9 @@
     font-size: 22px;
   }
   .container-ref > img {
+    margin-left: 0px;
+  }
+  .liked_page__container {
     margin-left: 0px;
   }
 }
