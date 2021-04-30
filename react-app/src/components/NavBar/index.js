@@ -187,6 +187,7 @@ const NavBar = ({
             contentLabel="Example Modal"
           >
             <SongForm
+              loggedInUser={loggedInUser}
               authenticated={authenticated}
               setAuthenticated={setAuthenticated}
               closeModalSongForm={closeModalSongForm}

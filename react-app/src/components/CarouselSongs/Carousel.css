@@ -1,8 +1,7 @@
 .carousel-main_container {
   margin-bottom: 80px;
 }
-.music__container {
-}
+
 .carousel-title > h3 {
   display: flex;
   flex-wrap: wrap;
@@ -28,4 +27,16 @@
 .img-controller {
   min-height: 300px;
   min-width: 300px;
+}
+.carousel {
+  /* background-color: aqua; */
+}
+
+ul.thumbs.animated {
+  /* background-color: red; */
+  padding: 0;
+}
+
+.carousel .thumb {
+  /* border-color: #b3b3b3; */
 }

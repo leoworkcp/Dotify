@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import { getUserSongs } from "../../store/songs";
+
 import {
   MenuList,
   MenuItem,
@@ -88,9 +91,9 @@ const MessageDropdown = ({
   song,
   loggedInUser,
 }) => {
+  const dispatch = useDispatch();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
   const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
   //  new stuff delete song
   const [deleteShown, setDeleteShown] = useState(true);
@@ -150,6 +153,12 @@ const MessageDropdown = ({
       }, 100);
     }
   };
+
+  useEffect(() => {
+    if (deleted && deleteShown) {
+      dispatch(getUserSongs(userid));
+    }
+  }, [deleted, deleteShown]);
 
   return (
     <>

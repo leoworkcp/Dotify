@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+// import { findPublicSongs } from "./../../store/userInfo";
+import { useDispatch } from "react-redux";
 import "./Carousel.css";
 import { NavLink } from "react-router-dom";
 import PlayButton from "../PlayButton/index";
@@ -15,6 +17,10 @@ const CarouselSongs = ({
   authenticated,
   setAuthenticated,
 }) => {
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (isLoaded) dispatch(findPublicSongs());
+  // }, [isLoaded]);
   // console.log(publicSongs);
   return (
     isLoaded && (

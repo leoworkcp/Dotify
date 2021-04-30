@@ -173,7 +173,7 @@ export const deleteUserSong = (songId) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   });
-  console.log("response", res);
+  // console.log("response", res);
   const data = await res.json();
 
   dispatch(deleteSong());
