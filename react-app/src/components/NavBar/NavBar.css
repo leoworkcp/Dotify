@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Catamaran&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+/*  */
+
+@import url("https://fonts.googleapis.com/css2?family=Texturina&display=swap");
+
+/*  */
 .mainNavBar {
   background-color: #181818;
   width: 100%;
@@ -70,7 +76,8 @@
 .mainLogoContainer {
   display: flex;
   align-items: center;
-  color: gray;
+  /* color: gray; */
+  color: #f7f9ff;
   font-size: 1.5em;
   flex-wrap: wrap;
   padding-left: 190px;
@@ -84,14 +91,20 @@
 }
 
 .mainLogo {
-  font-family: "Pacifico", cursive;
-  background-color: #15883e;
+  font-family: "Texturina", serif;
+  /* font-family: "Pacifico", cursive; */
+  /* background: linear-gradient(#5038a0, #5038a03b); */
+
+  /* background-color: #15883e; */
   border-radius: 100%;
   padding: 0px 6px;
   margin-right: 10px;
   font-size: 1em;
   font-weight: bold;
-  color: #292b2f;
+
+  background: linear-gradient(#6439f3, #6439f3);
+  color: #f7f9ff;
+  /* color: #292b2f; */
 }
 
 .LoginSongForm {
