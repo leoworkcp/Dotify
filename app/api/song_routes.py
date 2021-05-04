@@ -143,6 +143,36 @@ def delete_song():
     songs = Song.query.all()
     return {"songs": [song.to_dict() for song in songs]}
 
+
+@song_routes.route('/edit/', methods=['PUT'])
+def edit_song():
+
+    matched_song = Song.query.get(request.form['id'])
+    url_image = None
+    url_song = None
+    if "song" in request.files:
+        song_file = request.files["song"]
+        song_file.filename = get_unique_filename(song_file.filename)
+        upload = upload_file_to_s3(song_file)
+        url_song = upload["url"]
+    if "image_url" in request.files:
+        image = request.files["image_url"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        url_image = upload["url"]
+    else:
+        url_image = 'https://i.stack.imgur.com/l60Hf.png'
+    matched_song.name = request.form['name']
+    matched_song.description = request.form['description']
+    matched_song.album = request.form['album']
+    matched_song.image_url = url_image
+    matched_song.category = request.form['category']
+    matched_song.song = url_song
+    db.session.commit()
+    data = matched_song.to_dict()
+    return data
+
+
 # new stuff  ends
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { getUserSongs } from "../../store/songs";
-
+import { findPublicSongs } from "../../store/publicSongs";
 import {
   MenuList,
   MenuItem,
@@ -15,7 +15,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CommentRoundedIcon from "@material-ui/icons/CommentRounded";
-import SongForm from "../SongForm/index";
+import EditSongForm from "../SongForm/editSongForm";
 import CommentForm from "../CommentForm/CommentForm";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
@@ -97,7 +97,7 @@ const MessageDropdown = ({
   const [open, setOpen] = useState(false);
   const [modalIsOpenSongForm, setIsOpenSongForm] = useState(false);
   //  new stuff delete song
-  const [deleteShown, setDeleteShown] = useState(true);
+  // const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
   let loggedInUserId;
@@ -151,11 +151,14 @@ const MessageDropdown = ({
     if (Number(userid) === Number(e.target.className.split(" ")[1])) {
       // console.log(typeof e.target.id);
       dispatch(deleteExistingSong(e.target.id));
+
       setDeleted(true);
       setTimeout(() => {
         setDeleted(false);
       }, 100);
     }
+    dispatch(findPublicSongs());
+    dispatch(getUserSongs(userid));
   };
 
   // useEffect(() => {
@@ -163,10 +166,10 @@ const MessageDropdown = ({
   // }, [deleted, deleteShown]);
 
   useEffect(() => {
-    if (deleted && deleteShown) {
+    if (deleted) {
       dispatch(getUserSongs(userid));
     }
-  }, [deleted, deleteShown, dispatch, userid]);
+  }, [deleted, dispatch, userid]);
   // console.log(deleted);
   // console.log(deleteShown);
   // console.log(userid);
@@ -204,7 +207,7 @@ const MessageDropdown = ({
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
-              {deleteShown && Number(loggedInUserId) === song.artist_id && (
+              {Number(loggedInUserId) === song.artist_id && (
                 <CustomMenuItem onClick={(e) => openModal(e)}>
                   <div className="edit-dropdown__container">
                     <button onClick={(e) => openModalSongForm(e)}>Edit</button>
@@ -217,7 +220,9 @@ const MessageDropdown = ({
                       style={customStyles}
                       contentLabel="Example Modal"
                     >
-                      <SongForm
+                      <EditSongForm
+                        songsId={songsId}
+                        song={song}
                         authenticated={authenticated}
                         setAuthenticated={setAuthenticated}
                         closeModalSongForm={closeModalSongForm}
@@ -226,7 +231,7 @@ const MessageDropdown = ({
                   </div>
                 </CustomMenuItem>
               )}
-              {deleteShown && Number(loggedInUserId) === song.artist_id && (
+              {Number(loggedInUserId) === song.artist_id && (
                 <CustomMenuItem>
                   <div className="edit-dropdown__container">
                     <button
