@@ -110,7 +110,7 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   }
 
   // modal ends
-
+  console.log(authenticated);
   const handleClickLibrary = (newPlacement) => (event) => {
     if (authenticated) {
       history.push(`/profile/${userid}`);
@@ -207,19 +207,19 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   //   history.push("/entertainment");
   // }
 
-  useEffect(() => {
-    // if (modalIsOpenLogin || modalIsOpenSignUp) {
-    //   return setAnchorEl(null);
-    // }
-    if (
-      modalIsOpenLogin ||
-      modalIsOpenSignUp ||
-      (anchorEl !== null && !modalIsOpenSignUp) ||
-      (anchorEl !== null && !modalIsOpenLogin)
-    ) {
-      return setAnchorEl(null);
-    }
-  }, [modalIsOpenLogin, modalIsOpenSignUp, anchorEl]);
+  // useEffect(() => {
+  //   // if (modalIsOpenLogin || modalIsOpenSignUp) {
+  //   //   return setAnchorEl(null);
+  //   // }
+  //   if (
+  //     modalIsOpenLogin ||
+  //     modalIsOpenSignUp ||
+  //     (anchorEl !== null && !modalIsOpenSignUp) ||
+  //     (anchorEl !== null && !modalIsOpenLogin)
+  //   ) {
+  //     return setAnchorEl(null);
+  //   }
+  // }, [modalIsOpenLogin, modalIsOpenSignUp, anchorEl]);
   return (
     <>
       <div className="sidebar-main-container">

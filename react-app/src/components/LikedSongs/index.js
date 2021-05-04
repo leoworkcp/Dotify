@@ -7,8 +7,10 @@ import likedImg from "./liked-img.png";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import * as likeActions from "../../store/likes";
 import PlayButton from "../PlayButton/index";
+import MessageDropdown from "../MessageDropdown/index";
 import "./LikedSongs.css";
 import eqGif from "./equalizerGIF.gif";
+import { Divider } from "@material-ui/core";
 const LikedSongs = ({
   loggedInUser,
   authenticated,
@@ -153,10 +155,19 @@ const LikedSongs = ({
                   </div>
                   <div className="presentation__row">{lik.album}</div>
                   <div className="presentation__row">11 days ago</div>
-                  <div className="presentation__row">3:28</div>
+                  <div className="presentation__row">
+                    3:28
+                    <MessageDropdown
+                      songsId={lik.id}
+                      song={lik}
+                      loggedInUser={loggedInUser}
+                      userid={userid}
+                    />
+                  </div>
                 </div>
               );
             })}
+          {/* <Divider></Divider> */}
         </div>
       </div>
     </div>

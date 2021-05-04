@@ -1,5 +1,6 @@
 .edit-dropdown__container {
   width: 145px;
+
   /* display: flex;
   justify-content: space-between; */
 }
@@ -32,5 +33,5 @@
   min-width: 135px;
 }
 .MuiPaper-root > ul > li {
-  width: 147px;
+  /* width: 147px; */
 }

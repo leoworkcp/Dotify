@@ -68,7 +68,9 @@ h1 {
 button {
   border: none;
 }
-
+button {
+  cursor: pointer;
+}
 input:focus,
 button:focus,
 textarea:focus {

@@ -112,7 +112,7 @@
   height: 38px;
   /* background-color: aqua; */
   position: absolute;
-  margin-left: 110px;
+  /* margin-left: 110px; */
   margin-top: 6px;
 }
 
@@ -129,9 +129,7 @@
   border-radius: 10px;
   color: #292b2f;
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  margin-left: 110px;
 }
 
 /* media query Logo */
