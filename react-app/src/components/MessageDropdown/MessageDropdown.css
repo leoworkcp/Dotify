@@ -1,10 +1,14 @@
 .edit-dropdown__container {
-  width: 135px;
-  display: flex;
-  justify-content: space-between;
+  width: 145px;
+  /* display: flex;
+  justify-content: space-between; */
 }
-
-.edit-dropdown__container > button {
+.edit-dropdown__container > li {
+  /* display: flex;
+  justify-content: space-around; */
+  /* background-color: aqua; */
+}
+.edit-dropdown__container > li > button {
   /* background-color: aqua; */
   background-color: transparent;
   width: 100px;
@@ -13,11 +17,13 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: #fff;
   letter-spacing: 0.01938em;
-  padding-right: 10px;
+  padding: 0px;
 }
 
-.edit-dropdown__container > svg {
+.edit-dropdown__container > li > svg {
+  padding-left: 10px;
   /* background-color: aqua; */
+  /* padding: 0; */
 }
 
 .MuiPaper-root {

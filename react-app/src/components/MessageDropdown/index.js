@@ -120,8 +120,9 @@ const MessageDropdown = ({
   function openModal() {
     setOpen(true);
   }
-  console.log(open);
-  console.log(modalIsOpenSongForm);
+
+  // console.log(open);
+  // console.log(modalIsOpenSongForm);
   // comment modal
   const [openComments, setOpenComments] = useState(false);
   const [modalIsOpenComments, setIsOpenComments] = useState(false);
@@ -206,10 +207,14 @@ const MessageDropdown = ({
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
               {Number(loggedInUserId) === song.artist_id && (
-                <CustomMenuItem>
+                <>
                   <div className="edit-dropdown__container">
-                    <button onClick={(e) => openModalSongForm(e)}>Edit</button>
-                    <EditIcon style={{ color: "white" }} />
+                    <CustomMenuItem>
+                      <button onClick={(e) => openModalSongForm(e)}>
+                        Edit
+                      </button>
+                      <EditIcon style={{ color: "white" }} />
+                    </CustomMenuItem>
                   </div>
                   <div className="LoginSongForm">
                     <Modal
@@ -219,6 +224,7 @@ const MessageDropdown = ({
                       contentLabel="Example Modal"
                     >
                       <EditSongForm
+                        open={open}
                         songsId={songsId}
                         song={song}
                         authenticated={authenticated}
@@ -227,45 +233,49 @@ const MessageDropdown = ({
                       />
                     </Modal>
                   </div>
-                </CustomMenuItem>
+                </>
               )}
               {Number(loggedInUserId) === song.artist_id && (
-                <CustomMenuItem>
+                <>
                   <div className="edit-dropdown__container">
-                    <button
-                      className={`delete-song__btn ${song.artist_id}`}
-                      id={song.id}
-                      userid={song.artist_id}
-                      onClick={(e) => deleteSong(e)}
-                    >
-                      Delete
-                    </button>
+                    <CustomMenuItem>
+                      <button
+                        className={`delete-song__btn ${song.artist_id}`}
+                        id={song.id}
+                        userid={song.artist_id}
+                        onClick={(e) => deleteSong(e)}
+                      >
+                        Delete
+                      </button>
+                      <DeleteIcon style={{ color: "white" }} />
+                    </CustomMenuItem>
                   </div>
-                  <DeleteIcon style={{ color: "white" }} />
-                </CustomMenuItem>
+                </>
               )}
-              {/* view comments modal */}
-              <CustomMenuItem onClick={(e) => openModal2(e)}>
-                <div className="edit-dropdown__container">
+
+              <div className="edit-dropdown__container">
+                <CustomMenuItem>
                   <button onClick={(e) => openModalComments(e)}>
                     Comments
                   </button>
                   <CommentRoundedIcon style={{ color: "white" }} />
-                </div>
-                <div className="LoginSongForm">
-                  <Modal
-                    isOpen={modalIsOpenComments}
-                    onRequestClose={closeModalComments}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                  >
-                    <CommentForm
-                      closeModalComments={closeModalComments}
-                      songsId={songsId}
-                    />
-                  </Modal>
-                </div>
-              </CustomMenuItem>
+                </CustomMenuItem>
+              </div>
+
+              <div className="LoginSongForm">
+                <Modal
+                  isOpen={modalIsOpenComments}
+                  onRequestClose={closeModalComments}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                >
+                  <CommentForm
+                    closeModalComments={closeModalComments}
+                    songsId={songsId}
+                  />
+                </Modal>
+              </div>
+
               {/* view comments modal ends*/}
             </CustomMenuList>
           </ClickAwayListener>
