@@ -4,7 +4,9 @@
   justify-content: space-between; */
 }
 .edit-dropdown__container > li {
+  /* width: 100%; */
   /* display: flex;
+  
   justify-content: space-around; */
   /* background-color: aqua; */
 }
@@ -21,7 +23,7 @@
 }
 
 .edit-dropdown__container > li > svg {
-  padding-left: 10px;
+  /* padding-left: 10px; */
   /* background-color: aqua; */
   /* padding: 0; */
 }

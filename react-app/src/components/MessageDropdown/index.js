@@ -69,7 +69,7 @@ const CustomMenuItem = withStyles({
     padding: "5px 10px",
     margin: "0px 6px",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     position: "relative",
     zIndex: 2,
   },
@@ -110,11 +110,12 @@ const MessageDropdown = ({
 
   function openModalSongForm() {
     setIsOpenSongForm(true);
+    setOpen(false);
   }
 
   function closeModalSongForm() {
     setIsOpenSongForm(false);
-    // setOpen(false);
+    setOpen(true);
   }
 
   function openModal() {
@@ -129,15 +130,13 @@ const MessageDropdown = ({
 
   function openModalComments() {
     setIsOpenComments(true);
+    setOpen(false);
   }
 
   function closeModalComments() {
     setIsOpenComments(false);
     setOpenComments(false);
-  }
-
-  function openModal2() {
-    setOpenComments(true);
+    setOpen(true);
   }
 
   const handleClose = (event) => {
@@ -161,6 +160,7 @@ const MessageDropdown = ({
     }
     dispatch(findPublicSongs());
     dispatch(getUserSongs(userid));
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -207,36 +207,25 @@ const MessageDropdown = ({
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
               {Number(loggedInUserId) === song.artist_id && (
-                <>
+                <div>
                   <div className="edit-dropdown__container">
                     <CustomMenuItem>
-                      <button onClick={(e) => openModalSongForm(e)}>
+                      <button
+                        onClick={(e) => openModalSongForm(e)}
+                        key={`edit${song.id}`}
+                      >
                         Edit
                       </button>
-                      <EditIcon style={{ color: "white" }} />
+                      <EditIcon
+                        style={{ color: "white" }}
+                        key={`edit-icon${song.id}`}
+                      />
                     </CustomMenuItem>
                   </div>
-                  <div className="LoginSongForm">
-                    <Modal
-                      isOpen={modalIsOpenSongForm}
-                      onRequestClose={closeModalSongForm}
-                      style={customStyles}
-                      contentLabel="Example Modal"
-                    >
-                      <EditSongForm
-                        open={open}
-                        songsId={songsId}
-                        song={song}
-                        authenticated={authenticated}
-                        setAuthenticated={setAuthenticated}
-                        closeModalSongForm={closeModalSongForm}
-                      />
-                    </Modal>
-                  </div>
-                </>
+                </div>
               )}
               {Number(loggedInUserId) === song.artist_id && (
-                <>
+                <div>
                   <div className="edit-dropdown__container">
                     <CustomMenuItem>
                       <button
@@ -244,36 +233,32 @@ const MessageDropdown = ({
                         id={song.id}
                         userid={song.artist_id}
                         onClick={(e) => deleteSong(e)}
+                        key={`delete${song.id}`}
                       >
                         Delete
                       </button>
-                      <DeleteIcon style={{ color: "white" }} />
+                      <DeleteIcon
+                        style={{ color: "white" }}
+                        key={`delete-icon${song.id}`}
+                      />
                     </CustomMenuItem>
                   </div>
-                </>
+                </div>
               )}
 
               <div className="edit-dropdown__container">
                 <CustomMenuItem>
-                  <button onClick={(e) => openModalComments(e)}>
+                  <button
+                    onClick={(e) => openModalComments(e)}
+                    key={`comment${song.id}`}
+                  >
                     Comments
                   </button>
-                  <CommentRoundedIcon style={{ color: "white" }} />
-                </CustomMenuItem>
-              </div>
-
-              <div className="LoginSongForm">
-                <Modal
-                  isOpen={modalIsOpenComments}
-                  onRequestClose={closeModalComments}
-                  style={customStyles}
-                  contentLabel="Example Modal"
-                >
-                  <CommentForm
-                    closeModalComments={closeModalComments}
-                    songsId={songsId}
+                  <CommentRoundedIcon
+                    style={{ color: "white" }}
+                    key={`comment-icon${song.id}`}
                   />
-                </Modal>
+                </CustomMenuItem>
               </div>
 
               {/* view comments modal ends*/}
@@ -289,6 +274,35 @@ const MessageDropdown = ({
         showEditMessageModal={showEditMessageModal}
         setShowEditMessageModal={setShowEditMessageModal}
       /> */}
+      <div className="LoginSongForm">
+        <Modal
+          isOpen={modalIsOpenSongForm}
+          onRequestClose={closeModalSongForm}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <EditSongForm
+            songsId={songsId}
+            song={song}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+            closeModalSongForm={closeModalSongForm}
+          />
+        </Modal>
+      </div>
+      <div className="LoginSongForm">
+        <Modal
+          isOpen={modalIsOpenComments}
+          onRequestClose={closeModalComments}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <CommentForm
+            closeModalComments={closeModalComments}
+            songsId={songsId}
+          />
+        </Modal>
+      </div>
     </>
   );
 };
