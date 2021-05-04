@@ -144,6 +144,8 @@ const MessageDropdown = ({
     setOpen(false);
   };
 
+  // console.log(typeof userid);
+
   const deleteSong = (e) => {
     if (userid === Number(e.target.className.split(" ")[1])) {
       // console.log(typeof e.target.id);
@@ -156,9 +158,7 @@ const MessageDropdown = ({
   };
 
   useEffect(() => {
-    if (deleted && deleteShown) {
-      dispatch(getUserSongs(userid));
-    }
+    dispatch(getUserSongs(userid));
   }, [deleted, deleteShown]);
 
   return (

@@ -104,6 +104,8 @@ def add_song():
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
         url_image = upload["url"]
+    else:
+        url_image = 'https://i.stack.imgur.com/l60Hf.png'
     if "song" in request.files:
         song_file = request.files["song"]
         song_file.filename = get_unique_filename(song_file.filename)
@@ -142,14 +144,6 @@ def delete_song():
     return {"songs": [song.to_dict() for song in songs]}
 
 # new stuff  ends
-
-# @song_routes.route('/<int:id>/delete/', methods=["DELETE"])
-# def delete_song(id):
-#     song = Song.query.get(id)
-#     db.session.delete(song)
-#     db.session.commit()
-#     # db.session.flush()
-#     return song.to_dict()
 
 
 @song_routes.route("/public/", methods=['GET'])
