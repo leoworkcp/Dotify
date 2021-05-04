@@ -90,6 +90,7 @@ const MessageDropdown = ({
   songsId,
   song,
   loggedInUser,
+  userid,
 }) => {
   const dispatch = useDispatch();
   const anchorRef = useRef(null);
@@ -99,8 +100,8 @@ const MessageDropdown = ({
   const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  let userid;
-  if (loggedInUser) userid = loggedInUser?.id;
+  // let userid;
+  // if (loggedInUser) userid = loggedInUser?.id;
 
   // console.log(song);
 
@@ -147,7 +148,7 @@ const MessageDropdown = ({
   // console.log(typeof userid);
 
   const deleteSong = (e) => {
-    if (userid === Number(e.target.className.split(" ")[1])) {
+    if (Number(userid) === Number(e.target.className.split(" ")[1])) {
       // console.log(typeof e.target.id);
       dispatch(deleteExistingSong(e.target.id));
       setDeleted(true);
@@ -157,10 +158,17 @@ const MessageDropdown = ({
     }
   };
 
+  // useEffect(() => {
+  //   dispatch(getUserSongs(userid));
+  // }, [deleted, deleteShown]);
+
   useEffect(() => {
-    dispatch(getUserSongs(userid));
+    if (deleted && deleteShown) {
+      dispatch(getUserSongs(userid));
+    }
   }, [deleted, deleteShown]);
 
+  console.log(typeof userid);
   return (
     <>
       <CustomIconButton
@@ -193,7 +201,7 @@ const MessageDropdown = ({
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
-              {deleteShown && userid === song.artist_id && (
+              {deleteShown && Number(userid) === song.artist_id && (
                 <CustomMenuItem onClick={(e) => openModal(e)}>
                   <div className="edit-dropdown__container">
                     <button onClick={(e) => openModalSongForm(e)}>Edit</button>
@@ -215,7 +223,7 @@ const MessageDropdown = ({
                   </div>
                 </CustomMenuItem>
               )}
-              {deleteShown && userid === song.artist_id && (
+              {deleteShown && Number(userid) === song.artist_id && (
                 <CustomMenuItem>
                   <div className="edit-dropdown__container">
                     <button

@@ -40,6 +40,7 @@ const ProfileSongs = ({
               pauseSong={pauseSong}
               key={idx}
               song={song}
+              userid={userid}
               loggedInUser={loggedInUser}
               authenticated={authenticated}
               setAuthenticated={setAuthenticated}

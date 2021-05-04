@@ -12,6 +12,7 @@ const ProfileSongInfo = ({
   pauseSong,
   authenticated,
   setAuthenticated,
+  userid,
 }) => {
   // song is already the user songs NOTE
   // console.log(song);
@@ -25,6 +26,7 @@ const ProfileSongInfo = ({
             songsId={song.id}
             song={song}
             loggedInUser={loggedInUser}
+            userid={userid}
           />
         </div>
         <div className="play-user__btn">
