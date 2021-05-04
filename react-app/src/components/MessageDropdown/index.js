@@ -114,13 +114,14 @@ const MessageDropdown = ({
 
   function closeModalSongForm() {
     setIsOpenSongForm(false);
-    setOpen(false);
+    // setOpen(false);
   }
 
   function openModal() {
     setOpen(true);
   }
-
+  console.log(open);
+  console.log(modalIsOpenSongForm);
   // comment modal
   const [openComments, setOpenComments] = useState(false);
   const [modalIsOpenComments, setIsOpenComments] = useState(false);
@@ -161,20 +162,17 @@ const MessageDropdown = ({
     dispatch(getUserSongs(userid));
   };
 
-  // useEffect(() => {
-  //   dispatch(getUserSongs(userid));
-  // }, [deleted, deleteShown]);
-
   useEffect(() => {
     if (deleted) {
       dispatch(getUserSongs(userid));
     }
   }, [deleted, dispatch, userid]);
-  // console.log(deleted);
-  // console.log(deleteShown);
-  // console.log(userid);
-  // console.log(song.artist_id);
 
+  // useEffect(() => {
+  //   if (modalIsOpenSongForm) {
+  //     setOpen(false);
+  //   }
+  // }, [open, modalIsOpenSongForm]);
   return (
     <>
       <CustomIconButton
@@ -208,7 +206,7 @@ const MessageDropdown = ({
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
               {Number(loggedInUserId) === song.artist_id && (
-                <CustomMenuItem onClick={(e) => openModal(e)}>
+                <CustomMenuItem>
                   <div className="edit-dropdown__container">
                     <button onClick={(e) => openModalSongForm(e)}>Edit</button>
                     <EditIcon style={{ color: "white" }} />
