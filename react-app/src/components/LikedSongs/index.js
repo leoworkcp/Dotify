@@ -44,10 +44,10 @@ const LikedSongs = ({
 
   useEffect(() => {
     if (userid) dispatch(likeActions.fetchUserLikes(userid));
-  }, [dispatch]);
+  }, [dispatch, userid]);
   useEffect(() => {
     if (hasLikes) setHadLiked(true);
-  }, []);
+  }, [hasLikes]);
   // console.log(hasLikes);
   // console.log(likes[0]);
 

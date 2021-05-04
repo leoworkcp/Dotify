@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+// import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 // import { findPublicSongs } from "../../store/publicSongs";
 import CarouselSongs from "../CarouselSongs/index";
@@ -42,34 +43,33 @@ const HomePage = ({
   const [checkRock, setCheckRock] = useState(false);
   useEffect(() => {
     if (rock.length) setCheckRock(true);
-  }, []);
+  }, [rock.length]);
   const [checkHop, setCheckHop] = useState(false);
   useEffect(() => {
     if (hop.length) setCheckHop(true);
-  }, []);
+  }, [hop.length]);
   const [checkPop, setCheckPop] = useState(false);
   useEffect(() => {
     if (pop.length) setCheckPop(true);
-  }, []);
+  }, [pop.length]);
   const [checkJazz, setCheckJazz] = useState(false);
   useEffect(() => {
     if (jazz.length) setCheckJazz(true);
-  }, []);
+  }, [jazz.length]);
 
   const [checkRnb, setCheckRnb] = useState(false);
   useEffect(() => {
     if (rnb.length) setCheckRnb(true);
-  });
+  }, [rnb.length]);
   const [checkEdm, setCheckEdm] = useState(false);
   useEffect(() => {
     if (edm.length) setCheckEdm(true);
-  });
+  }, [edm.length]);
   const [checkRap, setCheckRap] = useState(false);
   useEffect(() => {
     if (rap.length) setCheckRap(true);
-  });
-  const checkR = rock.length;
-  console.log();
+  }, [rap.length]);
+
   return (
     isLoaded && (
       <div className="home-main__container_home">

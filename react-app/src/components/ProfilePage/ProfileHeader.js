@@ -41,7 +41,7 @@ const ProfilePage = () => {
                 </div>
               </div>
             );
-          }
+          } else return <></>;
         })}
       </>
     )

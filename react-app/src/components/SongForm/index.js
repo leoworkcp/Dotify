@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { newUpload } from "../../store/upload";
 import "./SongForm.css";
 import { getUserSongs } from "../../store/songs";
 import { findPublicSongs } from "../../store/publicSongs";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import * as musicActions from "../../store/song";
 const SongForm = ({ closeModalSongForm }) => {
   const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const SongForm = ({ closeModalSongForm }) => {
 
   const [songLoading, setSongLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
-  const [newSong, setNewSong] = useState(false);
+  // const [newSong, setNewSong] = useState(false);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -24,36 +23,8 @@ const SongForm = ({ closeModalSongForm }) => {
   // const [isPublic, setIsPublic] = useState(true);
   const [category, setCategory] = useState("");
   const [album, setAlbum] = useState("");
-  const [isLoaded, setIsLoaded] = useState([]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const song_path = new FormData();
-  //   song_path.append("song", song);
-  //   song_path.append("image", image);
-  //   const songAttributes = {
-  //     name,
-  //     description,
-  //     artist_id: user.id,
-  //     category,
-  //   };
-  //   setSongLoading(true);
-  //   setImageLoading(true);
-  //   closeModalSongForm();
-  //   const res = await dispatch(newUpload(song_path, songAttributes));
-  //   /* aws uploads can be a bit slow—displaying
-  //   some sort of loading message is a good idea*/
-
-  //   if (res.ok) {
-  //     await res.json();
-  //     setSongLoading(false);
-  //     setImageLoading(false);
-  //   } else {
-  //     // setErrors(user.payload.errors);
-  //     setSongLoading(false);
-  //     setImageLoading(false);
-  //   }
-  // };
+  // const [isLoaded, setIsLoaded] = useState([]);
 
   const onUpload = async (e) => {
     e.preventDefault();
@@ -83,26 +54,6 @@ const SongForm = ({ closeModalSongForm }) => {
     //   setErrors(newError);
     // }
   };
-
-  // function extra(e) {
-  //   const item = e.target.value;
-  //   setIsLoaded((isLoaded) => [...isLoaded, item]);
-  // }
-
-  // const [userSongsLoaded, setUserSongsLoaded] = useState(false);
-  // const userSongs = useSelector((state) => state.songs.user_songs);
-  // useEffect(() => {
-  //   if (!userid) return;
-  //   else {
-  //     let userSongsValues;
-  //     userSongsLoaded
-  //       ? (userSongsValues = Object.values(userSongs))
-  //       : (userSongsValues = null);
-
-  //     dispatch(getUserSongs(userid)).then((req) => setUserSongsLoaded(true));
-  //     return setNewSong(false);
-  //   }
-  // }, [dispatch, newSong, userid]);
 
   const updateSong = (e) => {
     const file = e.target.files[0];

@@ -60,7 +60,7 @@ const songReducer = (state = initialState, action) => {
       return { ...state, [action.newSong.id]: action.newSong };
 
     case DELETE_SONG:
-      const newState = {};
+      // const newState = {};
       return state;
 
     case EDIT_SONG:

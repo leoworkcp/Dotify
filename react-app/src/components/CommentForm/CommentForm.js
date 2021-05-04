@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+// import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // like icons
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
+// import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import Timestamp from "react-timestamp";
 //
-import { MenuList, MenuItem } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { withStyles } from "@material-ui/styles";
+// import { MenuList, MenuItem } from "@material-ui/core";
+// import EditIcon from "@material-ui/icons/Edit";
+// import DeleteIcon from "@material-ui/icons/Delete";
+// import { withStyles } from "@material-ui/styles";
 //
 import { postUserComment, addCommentLike } from "../../store/songs";
 import "./CommentForm.css";
@@ -18,45 +19,45 @@ import { getSong } from "../../store/songs";
 
 import { getAllUsers } from "../../store/users";
 
-import { deleteUserComment, getAllLikes } from "../../store/songs";
+import { deleteUserComment } from "../../store/songs";
 // new Imports
-const CustomMenuList = withStyles({
-  root: {
-    width: "150px",
-    boxShadow: "3px 3px 3px #28292E",
-    backgroundColor: "#18191C",
-    borderRadius: "5px",
-    position: "relative",
-    zIndex: 2,
-  },
-})(MenuList);
+// const CustomMenuList = withStyles({
+//   root: {
+//     width: "150px",
+//     boxShadow: "3px 3px 3px #28292E",
+//     backgroundColor: "#18191C",
+//     borderRadius: "5px",
+//     position: "relative",
+//     zIndex: 2,
+//   },
+// })(MenuList);
 
-const CustomMenuItem = withStyles({
-  root: {
-    "&:hover": {
-      backgroundColor: "#7289DA",
-      borderRadius: "5px",
-    },
-    padding: "5px 10px",
-    margin: "0px 6px",
-    display: "flex",
-    justifyContent: "space-between",
-    position: "relative",
-    zIndex: 2,
-  },
-})(MenuItem);
+// const CustomMenuItem = withStyles({
+//   root: {
+//     "&:hover": {
+//       backgroundColor: "#7289DA",
+//       borderRadius: "5px",
+//     },
+//     padding: "5px 10px",
+//     margin: "0px 6px",
+//     display: "flex",
+//     justifyContent: "space-between",
+//     position: "relative",
+//     zIndex: 2,
+//   },
+// })(MenuItem);
 const CommentForm = ({ songsId }) => {
-  const history = useHistory();
+  // const history = useHistory();
   //
-  const [showDeleteMessageModal, setShowDeleteMessageModal] = useState(false);
-  const [showEditMessageModal, setShowEditMessageModal] = useState(false);
+  // const [showDeleteMessageModal, setShowDeleteMessageModal] = useState(false);
+  // const [showEditMessageModal, setShowEditMessageModal] = useState(false);
 
-  const openEditMessageModal = (e) => {
-    setShowEditMessageModal((prev) => !prev);
-  };
-  const openDeleteMessageModal = (e) => {
-    setShowDeleteMessageModal((prev) => !prev);
-  };
+  // const openEditMessageModal = (e) => {
+  //   setShowEditMessageModal((prev) => !prev);
+  // };
+  // const openDeleteMessageModal = (e) => {
+  //   setShowDeleteMessageModal((prev) => !prev);
+  // };
 
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -70,7 +71,7 @@ const CommentForm = ({ songsId }) => {
   const song = useSelector((state) => state.songs?.currentSong);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [deleteShown, setDeleteShown] = useState(true);
+  // const [deleteShown, setDeleteShown] = useState(true);
   const [newComment, setNewComment] = useState(false);
   const [deleted, setDeleted] = useState(false);
   // users
@@ -150,14 +151,20 @@ const CommentForm = ({ songsId }) => {
     setComment("");
   }, [newComment, liked]);
 
-  useEffect(async () => {
-    dispatch(getSong(songsId)).then(() => setIsLoaded(true));
+  useEffect(() => {
+    async function get() {
+      await dispatch(getSong(songsId)).then(() => setIsLoaded(true));
 
-    return setNewComment(false);
-  }, [dispatch, newComment, deleted, liked]);
+      return setNewComment(false);
+    }
+    get();
+  }, [dispatch, newComment, deleted, liked, songsId]);
 
-  useEffect(async () => {
-    return setNewComment(false);
+  useEffect(() => {
+    async function get() {
+      return setNewComment(false);
+    }
+    get();
   }, [dispatch, liked]);
 
   return (
@@ -172,19 +179,17 @@ const CommentForm = ({ songsId }) => {
               return (
                 <>
                   {allUsers.map((user) => {
-                    {
-                      return (
-                        usersLoaded &&
-                        user?.id === comment?.user_id && (
-                          <div className="profile-icon__comments">
-                            <NavLink to={`profile/${comment.user_id}`}>
-                              <img src={user?.profile_URL} alt="profile-img" />
-                              <p id="profile-username">{user?.username}</p>
-                            </NavLink>
-                          </div>
-                        )
-                      );
-                    }
+                    return (
+                      usersLoaded &&
+                      user?.id === comment?.user_id && (
+                        <div className="profile-icon__comments">
+                          <NavLink to={`profile/${comment.user_id}`}>
+                            <img src={user?.profile_URL} alt="profile-img" />
+                            <p id="profile-username">{user?.username}</p>
+                          </NavLink>
+                        </div>
+                      )
+                    );
                   })}
                   <div id={comment.id} className="comment-container">
                     <p id="old-comments">{comment?.description}</p>
@@ -230,13 +235,14 @@ const CommentForm = ({ songsId }) => {
                         options={{ includeDay: true, twentyFourHour: true }}
                         autoUpdate
                       />
-                      {deleteShown && userid === comment.user_id && (
+                      {userid === comment.user_id && (
                         <button
                           className={`delete-comment__btn ${comment.user_id}`}
                           id={comment.id}
                           userid={comment.user_id}
                           onClick={deleteComment}
                         >
+                          <span role="img"></span>
                           🗑️
                           {/* <DeleteIcon /> */}
                         </button>

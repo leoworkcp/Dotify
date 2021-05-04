@@ -100,8 +100,8 @@ const MessageDropdown = ({
   const [deleteShown, setDeleteShown] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  // let userid;
-  // if (loggedInUser) userid = loggedInUser?.id;
+  let loggedInUserId;
+  if (loggedInUser) loggedInUserId = loggedInUser?.id;
 
   // console.log(song);
 
@@ -166,9 +166,12 @@ const MessageDropdown = ({
     if (deleted && deleteShown) {
       dispatch(getUserSongs(userid));
     }
-  }, [deleted, deleteShown]);
+  }, [deleted, deleteShown, dispatch, userid]);
+  // console.log(deleted);
+  // console.log(deleteShown);
+  // console.log(userid);
+  // console.log(song.artist_id);
 
-  console.log(typeof userid);
   return (
     <>
       <CustomIconButton
@@ -201,7 +204,7 @@ const MessageDropdown = ({
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
-              {deleteShown && Number(userid) === song.artist_id && (
+              {deleteShown && Number(loggedInUserId) === song.artist_id && (
                 <CustomMenuItem onClick={(e) => openModal(e)}>
                   <div className="edit-dropdown__container">
                     <button onClick={(e) => openModalSongForm(e)}>Edit</button>
@@ -223,7 +226,7 @@ const MessageDropdown = ({
                   </div>
                 </CustomMenuItem>
               )}
-              {deleteShown && Number(userid) === song.artist_id && (
+              {deleteShown && Number(loggedInUserId) === song.artist_id && (
                 <CustomMenuItem>
                   <div className="edit-dropdown__container">
                     <button

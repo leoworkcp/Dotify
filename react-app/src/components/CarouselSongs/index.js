@@ -53,7 +53,7 @@ const CarouselSongs = ({
                   {!authenticated && (
                     <p className="legend">{publicSong?.name}</p>
                   )}
-                  <img src={publicSong?.image_url}></img>
+                  <img src={publicSong?.image_url} alt="profile-song"></img>
                 </div>
               );
             })}
