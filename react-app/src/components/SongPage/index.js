@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import banner1 from "./banner1.jpg";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -18,10 +18,10 @@ function SongPage({
   setAuthenticated,
 }) {
   const { songId } = useParams();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const selectedSong = Object.values(publicSongs).find(
-    (song) => song?.id == parseInt(songId)
+    (song) => Number(song?.id) === parseInt(songId)
   );
 
   return (

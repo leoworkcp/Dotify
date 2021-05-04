@@ -19,7 +19,7 @@ import SongForm from "../SongForm/index";
 import CommentForm from "../CommentForm/CommentForm";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
-import { deleteUserSong } from "../../store/songs";
+import { deleteExistingSong } from "../../store/song";
 import "./MessageDropdown.css";
 const customStyles = {
   overlay: {
@@ -146,7 +146,8 @@ const MessageDropdown = ({
 
   const deleteSong = (e) => {
     if (userid === Number(e.target.className.split(" ")[1])) {
-      dispatch(deleteUserSong(e.target.id));
+      // console.log(typeof e.target.id);
+      dispatch(deleteExistingSong(e.target.id));
       setDeleted(true);
       setTimeout(() => {
         setDeleted(false);
@@ -221,7 +222,7 @@ const MessageDropdown = ({
                       className={`delete-song__btn ${song.artist_id}`}
                       id={song.id}
                       userid={song.artist_id}
-                      onClick={deleteSong}
+                      onClick={(e) => deleteSong(e)}
                     >
                       Delete
                     </button>

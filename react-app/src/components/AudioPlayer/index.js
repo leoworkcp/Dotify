@@ -211,13 +211,14 @@ const Player = ({
   // new stuff
   // console.log(currentSong);
   const selectedSong = Object.values(publicSongs).find(
-    (song) => song?.id == parseInt(songId)
+    (song) => Number(song?.id) === parseInt(songId)
   );
 
+  // console.log(currentSong);
   // console.log(selectedSong);
   const [playings, setPlays] = useState(false);
   useEffect(() => {
-    if (songId) {
+    if (songId && currentSong.song) {
       // setIsPlaying(false);
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
@@ -252,7 +253,7 @@ const Player = ({
       });
 
       wavesurfer.current.load(`${selectedSong.song}`);
-    } else if (!songId && authenticated) {
+    } else if (!songId && authenticated && currentSong.song) {
       setPlays(false);
 
       // setSongIsLoaded(true);
@@ -509,7 +510,8 @@ const Player = ({
       .map((like) =>
         Object.values(publicSongs).find(
           (song) =>
-            song?.id == parseInt(like) && song?.artist_id !== parseInt(userid)
+            Number(song?.id) === parseInt(like) &&
+            song?.artist_id !== parseInt(userid)
         )
       )
       .filter((s) => s !== undefined)
@@ -528,7 +530,7 @@ const Player = ({
 
   useEffect(() => {
     if (userid) dispatch(likeActions.fetchUserLikes(userid));
-  }, [dispatch]);
+  }, [dispatch, userid]);
   return (
     <nav className="player-navBar">
       {authenticated && (
@@ -553,7 +555,7 @@ const Player = ({
               </div>
               <div className="like-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <Tooltip title="Add to Your Library" arrow>
+                  <Tooltip title="Add to Your Likes" arrow>
                     <button>
                       <FavoriteBorderIcon
                         style={{
@@ -569,7 +571,7 @@ const Player = ({
                   songIsLoaded &&
                   !hadLiked &&
                   !playingOwnLiked && (
-                    <Tooltip title="Save to Your Library" arrow>
+                    <Tooltip title="Save to Your Likes" arrow>
                       <button
                         onClick={(e) => handleAddLike(e, currentSong?.id)}
                       >
@@ -584,7 +586,7 @@ const Player = ({
                     </Tooltip>
                   )}
                 {authenticated && songIsLoaded && hadLiked && !playingOwnLiked && (
-                  <Tooltip title="Remove from Your Library" arrow>
+                  <Tooltip title="Remove from Your Likes" arrow>
                     <button
                       onClick={(e) => handleRemoveLike(e, currentSong?.id)}
                     >

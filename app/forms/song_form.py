@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, IntegerField
+from wtforms import StringField, DateField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
 
@@ -18,5 +18,8 @@ class SongForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     description = StringField('description')
     category = StringField('category')
+    album = StringField('album')
     song = StringField('song')
     image_url = StringField('image_url')
+    # public = BooleanField('public', validators=[
+    #     DataRequired()])

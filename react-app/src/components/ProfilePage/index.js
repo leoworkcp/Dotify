@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+// import React, { useEffect, useState } from "react";
+// import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProfileSongs from "./ProfileSongs";
 // import { getArtist } from "../../store/users";
@@ -14,10 +15,9 @@ const ProfilePage = ({
   setAuthenticated,
 }) => {
   const { userid } = useParams();
-  const dispatch = useDispatch();
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
+  // const dispatch = useDispatch();
+  // const [isLoaded, setIsLoaded] = useState(false);
   // const artist = useSelector((state) => state.users.username);
   // useEffect(() => {
   //   // if (sessionUser.user) setIsLoaded(true);
