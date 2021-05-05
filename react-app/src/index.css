@@ -68,11 +68,15 @@ h1 {
 button {
   border: none;
 }
-
+button {
+  cursor: pointer;
+}
 input:focus,
-button:focus {
+button:focus,
+textarea:focus {
   outline: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -80,16 +84,13 @@ input {
   border-radius: 4px;
 }
 
-textarea:focus {
-  outline: none;
-}
-
 textarea {
   font-size: 14px;
   border-radius: 5px;
 }
 
-p {
+p,
+button {
   word-break: break-all;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",

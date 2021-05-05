@@ -12,15 +12,17 @@ const removeUserSongs = () => ({
 
 export const fetchUserSongs = (userid) => async (dispatch) => {
   if (!userid) return;
-  const response = await fetch("/api/users/songs/", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userid),
-  });
-  const userSongs = await response.json();
-  return dispatch(findUserSongs(userSongs));
+  else {
+    const response = await fetch("/api/users/songs/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userid),
+    });
+    const userSongs = await response.json();
+    return dispatch(findUserSongs(userSongs));
+  }
 };
 
 export const resetUserSongs = () => async (dispatch) => {

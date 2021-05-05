@@ -6,8 +6,11 @@ import { getUserSongs } from "../../store/songs";
 import { findPublicSongs } from "../../store/publicSongs";
 // import { useParams } from "react-router-dom";
 import * as musicActions from "../../store/song";
-const SongForm = ({ closeModalSongForm }) => {
+const EditSongForm = ({ closeModalSongForm, songsId, song }) => {
   const dispatch = useDispatch();
+
+  //   console.log(song);
+
   const user = useSelector((state) => state?.session.user);
   // console.log(user);
   const [errors, setErrors] = useState([]);
@@ -16,21 +19,22 @@ const SongForm = ({ closeModalSongForm }) => {
   const [imageLoading, setImageLoading] = useState(false);
   // const [newSong, setNewSong] = useState(false);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [upSong, setUpSong] = useState("");
+  const [name, setName] = useState(song.name);
+  const [description, setDescription] = useState(song.description);
+  const [image, setImage] = useState(song.image_url);
+  const [upSong, setUpSong] = useState(song.song);
   // const [isPublic, setIsPublic] = useState(true);
-  const [category, setCategory] = useState("");
-  const [album, setAlbum] = useState("");
+  const [category, setCategory] = useState(song.category);
+  const [album, setAlbum] = useState(song.album);
 
   // const [isLoaded, setIsLoaded] = useState([]);
-
+  //   console.log(typeof songsId);
   const onUpload = async (e) => {
     e.preventDefault();
     setSongLoading(true);
     setImageLoading(true);
     const formData = new FormData();
+    formData.append("id", songsId);
     formData.append("artist_id", user.id);
     formData.append("name", name);
     formData.append("description", description);
@@ -40,7 +44,7 @@ const SongForm = ({ closeModalSongForm }) => {
     formData.append("category", category);
     formData.append("album", album);
 
-    const song = await dispatch(musicActions.addNewSong(formData));
+    const song = await dispatch(musicActions.updateExistingSong(formData));
     dispatch(getUserSongs(user.id));
     dispatch(findPublicSongs());
     closeModalSongForm();
@@ -69,7 +73,7 @@ const SongForm = ({ closeModalSongForm }) => {
       <div className="SignUpModalContainer">
         <form onSubmit={onUpload}>
           <div className="SignUpModalFormTitleContainer">
-            <div className="SignUpModalFormTitle">Upload a Song</div>
+            <div className="SignUpModalFormTitle">{`Edit ${song.name} `}</div>
           </div>
           <div className="LoginErrorModalContainer">
             {errors.map((error) => (
@@ -152,7 +156,7 @@ const SongForm = ({ closeModalSongForm }) => {
           </div>
           <div className="SignUpModalInputContainer">
             <label>Upload an album image</label>
-            <input type="file" accept="image/*" onChange={updateImage} />
+            <input type="file" accept="image/*" onChange={updateImage} s />
             {imageLoading && <p>Loading...</p>}
           </div>
           <div id="upload-submit-button-div">
@@ -166,4 +170,4 @@ const SongForm = ({ closeModalSongForm }) => {
   );
 };
 
-export default SongForm;
+export default EditSongForm;

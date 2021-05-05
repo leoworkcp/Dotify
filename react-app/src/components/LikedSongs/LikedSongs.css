@@ -2,7 +2,7 @@
   margin-left: 270px;
   min-height: calc(100vh - 60px);
   /* transition: all 0.5s ease-in-out; */
-  /* margin-bottom: 90px; */
+  margin-bottom: 20px;
   background: linear-gradient(#181818, #181818);
 }
 
@@ -181,26 +181,20 @@
   padding: 0 16px;
   margin-bottom: 12px;
   /* background-color: #5038a0; */
+  font-size: 16px;
 }
 .presentation-container {
   white-space: nowrap;
-  /* grid-template-columns: [index] 16px [first] 30px [var1] 4fr [var2] 3fr [last] minmax(
-      120px,
-      1fr
-    ); */
+
   /* background-color: red; */
   grid-template-columns: 16px 7fr 3fr 2.5fr minmax(70px, 1fr);
-  /* border-top: 1px solid hsla(0, 0%, 100%, 0.1); */
+
   color: #b3b3b3;
-  /* height: 100%; */
 
   grid-gap: 16px;
   display: grid;
   padding: 0 16px;
-  /* background-color: #5038a0; */
-  /* margin-bottom: 5px; */
-  /* background-color: #5038a0; */
-  /* margin-top: 12px; */
+
   border-radius: 5px;
 }
 .presentation-container:hover {
@@ -216,11 +210,17 @@
 
 #presentation-container > .presentation__row:nth-last-child(1) {
   justify-self: end;
+  width: 36px;
   /* background-color: red; */
 }
+
 .presentation-container > .presentation__row:nth-last-child(1) {
+  /* text-align: end; */
   justify-self: end;
+
   /* background-color: red; */
+  /* display: flex;
+  justify-content: space-evenly; */
 }
 
 .presentation__row {
@@ -234,6 +234,46 @@
   /* white-space: nowrap; */
 }
 
+.presentation__row > button {
+  /* background-color: rebeccapurple; */
+  position: relative;
+  top: 1px;
+  left: 5px;
+  width: 22px;
+  /* z-index: 3; */
+  border-radius: 0;
+  /* margin: 0px; */
+}
+.presentation__row > button:hover {
+  background-color: transparent;
+
+  /* margin: 0px; */
+}
+
+.presentation__row > div {
+  position: relative;
+  top: 1px;
+  left: 1px;
+  border-radius: 5px;
+  /* background-color: pink; */
+  height: fit-content;
+  width: fit-content;
+}
+.presentation__row > div > div > ul {
+  /* background-color: green; */
+
+  min-height: fit-content;
+}
+/* .liked-grid__container > hr.MuiDivider-root {
+  background-color: red;
+  color: #15883e;
+} */
+
+.presentation__row > button > .MuiIconButton-label > svg {
+  /* background-color: gold; */
+  width: 22px;
+  margin: 0;
+}
 .presentation__row > .PlayButton {
   /* background-color: rebeccapurple; */
   position: relative;

@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 // like feat
 import { useDispatch, useSelector } from "react-redux";
 import * as likeActions from "../../store/likes";
 
 import "./AudioPlayer.css";
-
+import eqGif from "../LikedSongs/equalizerGIF.gif";
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -31,10 +31,8 @@ import { useParams } from "react-router";
 
 // modal
 import Modal from "react-modal";
-import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
-import { authenticate } from "../../store/auth";
 
 const customStyles = {
   overlay: {
@@ -91,19 +89,19 @@ const Player = ({
   // const likes = useSelector((state) => state?.likes);
   // console.log(likes);
   // like song feature
-  const [likesChanged, setLikesChanged] = useState(false);
+  // const [likesChanged, setLikesChanged] = useState(false);
   const [hadLiked, setHadLiked] = useState(false);
   const handleAddLike = (e, songId) => {
     e.stopPropagation();
     dispatch(likeActions.addLike(songId, loggedInUser.id));
-    setLikesChanged(true);
+    // setLikesChanged(true);
     // setHadLiked(true)
   };
 
   const handleRemoveLike = (e, songId) => {
     e.stopPropagation();
     dispatch(likeActions.removeLike(songId, loggedInUser.id));
-    setLikesChanged(false);
+    // setLikesChanged(false);
     //  setHadLiked(false);
   };
 
@@ -136,88 +134,100 @@ const Player = ({
 
   // modal ends
 
-  function muteMe(elem) {
-    elem.muted = true;
-    elem.pause();
-  }
+  // function muteMe(elem) {
+  //   elem.muted = true;
+  //   elem.pause();
+  // }
 
-  function mutePage() {
-    var elems = document.querySelectorAll("video, audio");
+  // function mutePage() {
+  //   var elems = document.querySelectorAll("video, audio");
 
-    [].forEach.call(elems, function (elem) {
-      muteMe(elem);
-    });
-  }
-  function audioGlitch(e) {
-    e.preventDefault();
-    setTimeout(mutePage, 1000);
-  }
+  //   [].forEach.call(elems, function (elem) {
+  //     muteMe(elem);
+  //   });
+  // }
 
-  const playSong = () => {
-    setIsPlaying(true);
-    setSongIsLoaded(true);
-  };
+  // function audioGlitch(e) {
+  //   e.preventDefault();
+  //   setTimeout(mutePage, 1000);
+  // }
 
   // shuffle attempt
   let audio_url = [];
   let covert = publicSongs.map((song) => {
-    audio_url.push(song.song);
+    return audio_url.push(song.song);
   });
   let random_file = audio_url[Math.floor(Math.random() * audio_url.length)];
-  let test;
+
   let founded = publicSongs?.filter((ele) =>
     ele?.song.toLowerCase().includes(random_file)
   );
 
-  const task = (e) => {
-    e.preventDefault();
-    if (mute && playing) {
-      document.querySelector(".rhap_button-clear.rhap_volume-button").click();
-    }
-  };
+  // const task = (e) => {
+  //   e.preventDefault();
+  //   if (mute && playing) {
+  //     document.querySelector(".rhap_button-clear.rhap_volume-button").click();
+  //   }
+  // };
 
-  const HandleSeek = (e) => {
-    const { target } = e;
-    const newSeek = +target.value;
-    if (newSeek) {
-      setSeek(newSeek);
-      wavesurfer.current.seekTo(newSeek || 1);
-    }
-  };
+  // const HandleSeek = (e) => {
+  //   const { target } = e;
+  //   const newSeek = +target.value;
+  //   if (newSeek) {
+  //     setSeek(newSeek);
+  //     wavesurfer.current.seekTo(newSeek || 1);
+  //   }
+  // };
 
   // console.log(volumeMute);
 
-  async function onNext() {
-    setIsPlaying(false);
-    document.querySelector(".control-arrow.control-next").click();
-    return await document.querySelector(".btn-play__active").click();
-  }
-
-  // let next = console.log(document.querySelector(".btn-play__active"));
-  // if (next) {
-
+  // async function onNext() {
+  //   setIsPlaying(false);
+  //   document.querySelector(".control-arrow.control-next").click();
+  //   return await document.querySelector(".btn-play__active").click();
   // }
-  function onPrevious(e, cb) {
-    e.preventDefault();
-    return cb(document.querySelector(".control-arrow.control-prev").click());
-  }
 
-  let duration = 0;
-  function onDuration(e) {
-    e.preventDefault();
-    duration = wavesurfer.current.getDuration();
-  }
+  // // let next = console.log(document.querySelector(".btn-play__active"));
 
-  // new stuff
+  // function onPrevious(e, cb) {
+  //   e.preventDefault();
+  //   return cb(document.querySelector(".control-arrow.control-prev").click());
+  // }
+
+  // let duration = 0;
+  // function onDuration(e) {
+  //   e.preventDefault();
+  //   duration = wavesurfer.current.getDuration();
+  // }
+
+  // loading flag
+  function UpdateLoadingFlag(Percentage) {
+    if (document.getElementById("loading_flag")) {
+      document.getElementById("loading_flag").innerText =
+        "Loading " + Percentage + "%";
+      if (Percentage >= 100) {
+        document.getElementById("loading_flag").style.display = "none";
+        document.getElementById("position-relative_loading").style.display =
+          "none";
+      } else {
+        document.getElementById("position-relative_loading").style.display =
+          "block";
+        document.getElementById("loading_flag").style.display = "flex";
+      }
+    }
+  }
+  // loading flag ends
   // console.log(currentSong);
   const selectedSong = Object.values(publicSongs).find(
-    (song) => song?.id == parseInt(songId)
+    (song) => Number(song?.id) === parseInt(songId)
   );
-
+  let currCheck = currentSong?.song;
+  let selectCheck = selectedSong?.song;
+  // console.log(currentSong);
   // console.log(selectedSong);
   const [playings, setPlays] = useState(false);
   useEffect(() => {
-    if (songId) {
+    if (songId && currCheck) {
       // setIsPlaying(false);
       wavesurfer.current = WaveSurfer.create({
         container: "#wave-minimap",
@@ -250,9 +260,11 @@ const Player = ({
           }),
         ],
       });
-
-      wavesurfer.current.load(`${selectedSong.song}`);
-    } else if (!songId && authenticated) {
+      wavesurfer.current.on("loading", function (X, evt) {
+        UpdateLoadingFlag(X);
+      });
+      wavesurfer.current.load(`${selectCheck}`);
+    } else if (!songId && authenticated && currCheck) {
       setPlays(false);
 
       // setSongIsLoaded(true);
@@ -273,10 +285,12 @@ const Player = ({
         progressColor: "#15883dbb",
         // loopSelection: true,
       });
-
-      wavesurfer.current.load(`${currentSong.song}`);
+      wavesurfer.current.on("loading", function (X, evt) {
+        UpdateLoadingFlag(X);
+      });
     }
-    if (currentSong.song) {
+    if (currCheck) {
+      wavesurfer.current.load(`${currCheck}`);
       wavesurfer.current.on("ready", async function () {
         // https://wavesurfer-js.org/docs/methods.html
 
@@ -286,12 +300,12 @@ const Player = ({
         setIsPlaying(true);
 
         // make sure object still available when file loaded
-        if (wavesurfer.current) {
-          wavesurfer.current.setVolume(volume);
-          setVolume(volume);
-          // wavesurfer.current.audioRate(time);
-          // setTime(time);
-        }
+        // if (wavesurfer.current) {
+        //   wavesurfer.current.setVolume(volume);
+        //   setVolume(volume);
+        //   // wavesurfer.current.audioRate(time);
+        //   // setTime(time);
+        // }
       });
     }
 
@@ -302,7 +316,15 @@ const Player = ({
         wavesurfer.current.destroy();
       };
     }
-  }, [`${currentSong.song}`, `${selectedSong?.song}`]);
+  }, [
+    currCheck,
+    selectCheck,
+    authenticated,
+    setIsPlaying,
+    songId,
+    // volume,
+    wavesurfer,
+  ]);
 
   // const currentTime = wavesurfer.current.getCurrentTime();
   // const setTime = wavesurfer.current.setCurrentTime(seconds);
@@ -396,13 +418,14 @@ const Player = ({
       }
     }
   };
-  const newVolume2 = volume;
+  // const newVolume2 = volume;
+
   const onVolumeMute = async (e) => {
     e.preventDefault();
     if (wavesurfer.current && volume > 0.01) {
       // const { target } = e;
       const newVolume = 0;
-      const newVolume1 = volume;
+      // const newVolume1 = volume;
 
       setVolume(newVolume);
       await wavesurfer.current.setVolume(newVolume);
@@ -451,17 +474,15 @@ const Player = ({
 
   // next song
   const nextSong = () => {
-    console.log("2");
     if (songIsLoaded) {
       let next = document.getElementsByClassName("control-arrow control-next");
-      console.log(next);
+      // console.log(next);
       for (let i = 0; i < next.length; i++) {
         // let s = next[i].className;
         // console.log(s);
         // console.log(next[i]);
         // let dom = !s.includes("disable");
         if (!next[i].className.includes("disable")) {
-          console.log("1");
           return next[i].click();
         }
       }
@@ -499,7 +520,7 @@ const Player = ({
       };
     }
     // if (!wavesurfer.current) setDrag(false);
-  });
+  }, [volume, authenticated, songIsLoaded, setMute, setDrag, wavesurfer]);
   // console.log(wavesurfer.current);
 
   // const hasLikes = useSelector((state) => state?.likes);
@@ -509,7 +530,8 @@ const Player = ({
       .map((like) =>
         Object.values(publicSongs).find(
           (song) =>
-            song?.id == parseInt(like) && song?.artist_id !== parseInt(userid)
+            Number(song?.id) === parseInt(like) &&
+            song?.artist_id !== parseInt(userid)
         )
       )
       .filter((s) => s !== undefined)
@@ -527,8 +549,24 @@ const Player = ({
   }, [playingLiked]);
 
   useEffect(() => {
+    if (wavesurfer.current && playing) {
+      wavesurfer.current.setVolume(volume);
+      setVolume(volume);
+      // wavesurfer.current.audioRate(time);
+      // setTime(time);
+    }
+  }, [volume, wavesurfer, playing]);
+
+  useEffect(() => {
     if (userid) dispatch(likeActions.fetchUserLikes(userid));
-  }, [dispatch]);
+  }, [dispatch, userid]);
+  // const [loading, setLoading] = useState(false);
+  // testing loading
+
+  // console.log(currentSong.song);
+  // console.log(loading);
+  // testing loading ends
+
   return (
     <nav className="player-navBar">
       {authenticated && (
@@ -553,7 +591,7 @@ const Player = ({
               </div>
               <div className="like-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <Tooltip title="Add to Your Library" arrow>
+                  <Tooltip title="Add to Your Likes" arrow>
                     <button>
                       <FavoriteBorderIcon
                         style={{
@@ -569,7 +607,7 @@ const Player = ({
                   songIsLoaded &&
                   !hadLiked &&
                   !playingOwnLiked && (
-                    <Tooltip title="Save to Your Library" arrow>
+                    <Tooltip title="Save to Your Likes" arrow>
                       <button
                         onClick={(e) => handleAddLike(e, currentSong?.id)}
                       >
@@ -584,7 +622,7 @@ const Player = ({
                     </Tooltip>
                   )}
                 {authenticated && songIsLoaded && hadLiked && !playingOwnLiked && (
-                  <Tooltip title="Remove from Your Library" arrow>
+                  <Tooltip title="Remove from Your Likes" arrow>
                     <button
                       onClick={(e) => handleRemoveLike(e, currentSong?.id)}
                     >
@@ -805,7 +843,12 @@ const Player = ({
             </div>
             {!playing && handlePlayPause()}
             {playing && handlePlay()}
-            <div id="wave-minimap"></div>
+
+            <div id="wave-minimap">
+              <div id="position-relative_loading">
+                <div id="loading_flag"></div>
+              </div>
+            </div>
           </div>
           <div className="controllers-queue_screen">
             <Tooltip title="Shuffle" arrow>

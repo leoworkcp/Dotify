@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,8 +7,10 @@ import likedImg from "./liked-img.png";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import * as likeActions from "../../store/likes";
 import PlayButton from "../PlayButton/index";
+import MessageDropdown from "../MessageDropdown/index";
 import "./LikedSongs.css";
 import eqGif from "./equalizerGIF.gif";
+// import { Divider } from "@material-ui/core";
 const LikedSongs = ({
   loggedInUser,
   authenticated,
@@ -30,7 +32,8 @@ const LikedSongs = ({
       .map((like) =>
         Object.values(publicSongs).find(
           (song) =>
-            song?.id == parseInt(like) && song?.artist_id !== parseInt(userid)
+            Number(song?.id) === parseInt(like) &&
+            song?.artist_id !== parseInt(userid)
         )
       )
       .filter((s) => s !== undefined)
@@ -43,25 +46,25 @@ const LikedSongs = ({
 
   useEffect(() => {
     if (userid) dispatch(likeActions.fetchUserLikes(userid));
-  }, [dispatch]);
+  }, [dispatch, userid]);
   useEffect(() => {
     if (hasLikes) setHadLiked(true);
-  }, []);
-  console.log(hasLikes);
+  }, [hasLikes]);
+  // console.log(hasLikes);
   // console.log(likes[0]);
 
   return (
     <div className="liked_page__container">
       <div className="liked_page__banner">
         <div className="container-ref">
-          <img src={likedImg}></img>
+          <img src={likedImg} alt="like-profile"></img>
 
           <div className="liked_page__info">
             <div className="liked-user__info">
               <h2>PLAYLIST</h2>
               <h1>Liked Songs</h1>
               <div className="user-info__data">
-                <img src={loggedInUser.profile_URL} />
+                <img src={loggedInUser.profile_URL} alt="user-profile" />
                 <NavLink
                   to={`/profile/${userid}`}
                 >{`${loggedInUser.username}`}</NavLink>
@@ -137,7 +140,11 @@ const LikedSongs = ({
                   </div>
                   <div className="presentation__img">
                     <div id="img_liked_container">
-                      <img id="img_liked-songs" src={lik.image_url}></img>
+                      <img
+                        id="img_liked-songs"
+                        src={lik.image_url}
+                        alt="song-profile"
+                      ></img>
                     </div>
                     <div className="info-links__artist">
                       <p> {lik.name}</p>
@@ -148,10 +155,19 @@ const LikedSongs = ({
                   </div>
                   <div className="presentation__row">{lik.album}</div>
                   <div className="presentation__row">11 days ago</div>
-                  <div className="presentation__row">3:28</div>
+                  <div className="presentation__row">
+                    3:28
+                    <MessageDropdown
+                      songsId={lik.id}
+                      song={lik}
+                      loggedInUser={loggedInUser}
+                      userid={userid}
+                    />
+                  </div>
                 </div>
               );
             })}
+          {/* <Divider></Divider> */}
         </div>
       </div>
     </div>

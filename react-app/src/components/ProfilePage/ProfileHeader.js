@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getAllUsers } from "../../store/users";
 import { useDispatch, useSelector } from "react-redux";
-
+// import banner1 from "../SongPage/banner1.jpg";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -33,15 +33,17 @@ const ProfilePage = () => {
           if (Number(userid) === song.id) {
             return (
               <div className="profile-header__container" key={idx}>
-                <div className="profile-header">
-                  <img src={song.profile_URL} alt="profile" />
-                </div>
+                {/* <div className="profile-header">
+                  <div className="profile-header__banner"></div>
+                  <img src={banner1} alt="profile" />
+                </div> */}
                 <div className="profile-username">
+                  <img src={song.profile_URL} alt="profile" />
                   <h1>{song?.username}</h1>
                 </div>
               </div>
             );
-          }
+          } else return <></>;
         })}
       </>
     )

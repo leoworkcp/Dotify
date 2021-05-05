@@ -35,8 +35,11 @@ export default function App() {
   // console.log(currentSong);
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(async () => {
-    await dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
+  useEffect(() => {
+    async function find() {
+      await dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
+    }
+    find();
   }, [dispatch]);
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
@@ -59,12 +62,16 @@ export default function App() {
   }
 
   // user frontend auth
-  useEffect(async () => {
-    const user = await dispatch(sessionActions.restoreUser());
-    if (!user.errors) {
-      setAuthenticated(true);
+  useEffect(() => {
+    async function user() {
+      await dispatch(sessionActions.restoreUser());
+      if (!user.errors) {
+        setAuthenticated(true);
+      }
+      setLoaded(true);
     }
-    setLoaded(true);
+    // const user =
+    user();
   }, [dispatch]);
 
   const pauseSong = async () => {
@@ -173,6 +180,7 @@ export default function App() {
           </Switch>
         </div>
         {draggable()}
+
         <Route path={["/song/:songId", "/profile/:userid", "/", "/search"]}>
           <Player
             authenticated={authenticated}
@@ -191,7 +199,6 @@ export default function App() {
             setIsPlaying={setIsPlaying}
             pauseSong={pauseSong}
             wavesurfer={wavesurfer}
-            userid={userid}
           />
         </Route>
       </BrowserRouter>

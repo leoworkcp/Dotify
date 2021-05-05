@@ -54,7 +54,7 @@ const PlayButton = ({
   shuffleSongId,
   lastLikedSong,
 }) => {
-  const [isReady, setIsReady] = useState(false);
+  // const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -89,7 +89,7 @@ const PlayButton = ({
   // console.log(songId);
   useEffect(() => {
     if (selectedSong) dispatch(setCurrentSong(selectedSong));
-  }, [selectedSong]);
+  }, [dispatch, selectedSong]);
 
   const setSong = (e) => {
     e.preventDefault();

@@ -28,16 +28,15 @@
   position: relative;
   word-break: break-all;
   border-radius: 10px;
-  min-height: 50px;
+  min-height: 80px;
 }
 
 #old-comments {
   margin-top: 0px;
-
+  padding-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 0px;
-
   max-width: 412px;
 }
 
@@ -97,8 +96,17 @@ textarea::-webkit-scrollbar {
 }
 
 #like-comment__container {
+  display: flex;
   margin-bottom: 20px;
+
+  justify-content: space-between;
 }
+
+#like-comment__container > time {
+  align-self: center;
+  margin-left: 10px;
+}
+
 .profile-icon__comments > a > img {
   height: 40px;
   width: 40px;

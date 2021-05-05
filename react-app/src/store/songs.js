@@ -1,9 +1,8 @@
-const ALL_SONGS = "/songs/allSongs";
+// const ALL_SONGS = "/songs/allSongs";
 const USER_SONGS = "/songs/userSongs";
 const SONG = "/songs/song";
 const POST_COMMENT = "/songs/postComment";
 const DELETE_COMMENT = "/songs/deleteComment";
-const DELETE_SONG = "/songs/deleteSong";
 
 // new stuff
 const SAVE_COMMENT = "comment/saveComment";
@@ -57,12 +56,12 @@ export const addCommentLike = (commentId) => async (dispatch) => {
 
 // new stuff ends
 
-const allSongs = (songs) => {
-  return {
-    type: ALL_SONGS,
-    songs: songs,
-  };
-};
+// const allSongs = (songs) => {
+//   return {
+//     type: ALL_SONGS,
+//     songs: songs,
+//   };
+// };
 
 const userSongs = (songs) => {
   return {
@@ -90,12 +89,6 @@ const deleteComment = () => {
   };
 };
 
-const deleteSong = () => {
-  return {
-    type: DELETE_SONG,
-  };
-};
-
 // const oneSong = (song) => {
 //   return {
 //     type: GET_SONG,
@@ -103,22 +96,25 @@ const deleteSong = () => {
 //   }
 // }
 
-export const getAllSongs = () => async (dispatch) => {
-  const res = await fetch("/api/songs/");
+// export const getAllSongs = () => async (dispatch) => {
+//   const res = await fetch("/api/songs/");
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  dispatch(allSongs(data.songs));
+//   dispatch(allSongs(data.songs));
 
-  return data;
-};
+//   return data;
+// };
 export const getUserSongs = (userid) => async (dispatch) => {
-  const res = await fetch(`/api/users/songs/${userid}/`);
-  const data = await res.json();
-  // console.log("data", data);
-  dispatch(userSongs(data.songs));
+  if (!userid) return;
+  else {
+    const res = await fetch(`/api/users/songs/${userid}/`);
+    const data = await res.json();
+    // console.log("data", data);
+    dispatch(userSongs(data.songs));
 
-  return data;
+    return data;
+  }
 };
 export const getSong = (songId) => async (dispatch) => {
   const res = await fetch(`/api/songs/${songId}/`);
@@ -145,7 +141,7 @@ export const postUserComment = (comment, songId) => async (dispatch) => {
   });
 
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   dispatch(postComment(data));
 
   return data;
@@ -165,34 +161,19 @@ export const deleteUserComment = (commentId) => async (dispatch) => {
 
   return data;
 };
-// Delete user song
-export const deleteUserSong = (songId) => async (dispatch) => {
-  const res = await fetch(`/api/songs/${songId}/delete/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  // console.log("response", res);
-  const data = await res.json();
-
-  dispatch(deleteSong());
-
-  return data;
-};
 
 const initialState = {};
 
 const songsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
-    case ALL_SONGS: {
-      const allSongs = {};
-      const songs = action.songs;
-      // console.log(songs);
-      // songs.forEach((song) => (allSongs[song.id] = song));
-      return allSongs;
-    }
+    // case ALL_SONGS: {
+    //   const allSongs = {};
+    //   const songs = action.songs;
+    //   // console.log(songs);
+    //   // songs.forEach((song) => (allSongs[song.id] = song));
+    //   return allSongs;
+    // }
     case USER_SONGS: {
       newState = { ...state };
       // const userSongs = newState.user_songs = {}
@@ -209,9 +190,6 @@ const songsReducer = (state = initialState, action) => {
       const song = action.song;
       newState.currentSong = song;
       return newState;
-    }
-    case DELETE_SONG: {
-      return state;
     }
     case POST_COMMENT: {
       newState = { ...state };

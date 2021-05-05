@@ -19,13 +19,13 @@ import ArrowLeftSharpIcon from "@material-ui/icons/ArrowLeftSharp";
 
 import Popper from "@material-ui/core/Popper";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+// import Grid from "@material-ui/core/Grid";
+// import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 // modal
 import Modal from "react-modal";
-import LogoutButton from "../auth/LogoutButton/index";
+// import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
 import "./SideBar.css";
@@ -110,7 +110,7 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   }
 
   // modal ends
-
+  // console.log(authenticated);
   const handleClickLibrary = (newPlacement) => (event) => {
     if (authenticated) {
       history.push(`/profile/${userid}`);
@@ -207,19 +207,19 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   //   history.push("/entertainment");
   // }
 
-  useEffect(() => {
-    // if (modalIsOpenLogin || modalIsOpenSignUp) {
-    //   return setAnchorEl(null);
-    // }
-    if (
-      modalIsOpenLogin ||
-      modalIsOpenSignUp ||
-      (anchorEl !== null && !modalIsOpenSignUp) ||
-      (anchorEl !== null && !modalIsOpenLogin)
-    ) {
-      return setAnchorEl(null);
-    }
-  }, [modalIsOpenLogin, modalIsOpenSignUp]);
+  // useEffect(() => {
+  //   // if (modalIsOpenLogin || modalIsOpenSignUp) {
+  //   //   return setAnchorEl(null);
+  //   // }
+  //   if (
+  //     modalIsOpenLogin ||
+  //     modalIsOpenSignUp ||
+  //     (anchorEl !== null && !modalIsOpenSignUp) ||
+  //     (anchorEl !== null && !modalIsOpenLogin)
+  //   ) {
+  //     return setAnchorEl(null);
+  //   }
+  // }, [modalIsOpenLogin, modalIsOpenSignUp, anchorEl]);
   return (
     <>
       <div className="sidebar-main-container">

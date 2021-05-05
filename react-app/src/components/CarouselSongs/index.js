@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+// import React, { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 // import { findPublicSongs } from "./../../store/userInfo";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import MessageDropdown from "../MessageDropdown/index";
 import "./Carousel.css";
 import { NavLink } from "react-router-dom";
 import PlayButton from "../PlayButton/index";
@@ -17,11 +20,13 @@ const CarouselSongs = ({
   authenticated,
   setAuthenticated,
 }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // useEffect(() => {
   //   if (isLoaded) dispatch(findPublicSongs());
   // }, [isLoaded]);
   // console.log(publicSongs);
+  const loggedInUser = useSelector((state) => state?.session.user);
+  const userid = loggedInUser?.id;
   return (
     isLoaded && (
       <div className="carousel-main_container">
@@ -45,14 +50,24 @@ const CarouselSongs = ({
                     setIsPlaying={setIsPlaying}
                   />
                   {authenticated && (
-                    <NavLink to={`song/${publicSong?.id}`}>
-                      <p className="legend">{publicSong?.name}</p>
-                    </NavLink>
+                    <div className="title-dropBtn__container">
+                      <NavLink to={`song/${publicSong?.id}`}>
+                        <p className="legend">{publicSong?.name}</p>
+                      </NavLink>
+                      <div className="legend">
+                        <MessageDropdown
+                          songsId={publicSong.id}
+                          song={publicSong}
+                          loggedInUser={loggedInUser}
+                          userid={userid}
+                        />
+                      </div>
+                    </div>
                   )}
                   {!authenticated && (
                     <p className="legend">{publicSong?.name}</p>
                   )}
-                  <img src={publicSong?.image_url}></img>
+                  <img src={publicSong?.image_url} alt="profile-song"></img>
                 </div>
               );
             })}

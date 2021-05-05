@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSongs } from "../../store/songs";
-import ProfileHeader from "./ProfileHeader";
+// import ProfileHeader from "./ProfileHeader";
 import ProfileSongInfo from "./ProfileSongInfo";
 
 const ProfileSongs = ({
@@ -40,6 +40,7 @@ const ProfileSongs = ({
               pauseSong={pauseSong}
               key={idx}
               song={song}
+              userid={userid}
               loggedInUser={loggedInUser}
               authenticated={authenticated}
               setAuthenticated={setAuthenticated}

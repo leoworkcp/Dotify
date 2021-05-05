@@ -84,6 +84,7 @@ const NavBar = ({
                 href="https://leoworkcp.github.io"
                 add
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Developer
               </a>
