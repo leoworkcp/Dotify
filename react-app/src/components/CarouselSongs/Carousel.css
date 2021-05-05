@@ -84,21 +84,9 @@ div.legend > button > span > svg:hover {
   color: #fff;
 
   transition: all 0.1ms;
-  /* width: 100px;
-  height: 50px; */
-  /* opacity: 1; */
 }
-
-/* .img-controller > .title-dropBtn__container > button > span {
-  color: purple;
-  width: 100px;
-} */
 
 ul.thumbs.animated {
   /* background-color: red; */
   padding: 0;
-}
-
-.carousel .thumb {
-  /* border-color: #b3b3b3; */
 }

@@ -4,7 +4,8 @@ import React from "react";
 import banner1 from "./banner1.jpg";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import MessageDropdown from "../MessageDropdown/index";
 import "./SongPage.css";
 import PlayButton from "../PlayButton/index";
 
@@ -19,7 +20,8 @@ function SongPage({
 }) {
   const { songId } = useParams();
   // const dispatch = useDispatch();
-
+  const loggedInUser = useSelector((state) => state?.session.user);
+  const userid = loggedInUser?.id;
   const selectedSong = Object.values(publicSongs).find(
     (song) => Number(song?.id) === parseInt(songId)
   );
@@ -46,6 +48,14 @@ function SongPage({
           />
           <div className="cover-div">
             <img src={selectedSong.image_url} alt="song-cover" />
+            <div className="legend">
+              <MessageDropdown
+                songsId={selectedSong.id}
+                song={selectedSong}
+                loggedInUser={loggedInUser}
+                userid={userid}
+              />
+            </div>
           </div>
           <div className="fullX-song__container">
             <div className="song-page__title">

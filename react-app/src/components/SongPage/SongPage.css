@@ -49,13 +49,40 @@
 .cover-div {
   max-height: 300px;
   max-width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 .cover-div > img {
   max-height: 300px;
   max-width: 300px;
 }
+.cover-div > div.legend {
+  position: absolute;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.522);
+  height: 25px;
+  bottom: 390px;
 
+  color: #b9bbbee3;
+  opacity: 0.6;
+}
+.cover-div > div.legend:hover {
+  color: #fff;
+  opacity: 1;
+}
+.cover-div > div.legend > button {
+  /* margin-top: 5px; */
+  /* background-color: aqua; */
+  border-radius: 5px;
+  height: 30px;
+  width: fit-content;
+  border-radius: 0px;
+}
+.cover-div > div.legend > button > span > svg {
+  /* background-color: aqua; */
+  margin-bottom: 5px;
+}
 #waveform {
   margin-top: 50px;
   width: 500px;
