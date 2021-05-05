@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as likeActions from "../../store/likes";
 
 import "./AudioPlayer.css";
-
+import eqGif from "../LikedSongs/equalizerGIF.gif";
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -200,7 +200,23 @@ const Player = ({
   //   duration = wavesurfer.current.getDuration();
   // }
 
-  // new stuff
+  // loading flag
+  function UpdateLoadingFlag(Percentage) {
+    if (document.getElementById("loading_flag")) {
+      document.getElementById("loading_flag").innerText =
+        "Loading " + Percentage + "%";
+      if (Percentage >= 100) {
+        document.getElementById("loading_flag").style.display = "none";
+        document.getElementById("position-relative_loading").style.display =
+          "none";
+      } else {
+        document.getElementById("position-relative_loading").style.display =
+          "block";
+        document.getElementById("loading_flag").style.display = "flex";
+      }
+    }
+  }
+  // loading flag ends
   // console.log(currentSong);
   const selectedSong = Object.values(publicSongs).find(
     (song) => Number(song?.id) === parseInt(songId)
@@ -244,7 +260,9 @@ const Player = ({
           }),
         ],
       });
-
+      wavesurfer.current.on("loading", function (X, evt) {
+        UpdateLoadingFlag(X);
+      });
       wavesurfer.current.load(`${selectCheck}`);
     } else if (!songId && authenticated && currCheck) {
       setPlays(false);
@@ -267,10 +285,12 @@ const Player = ({
         progressColor: "#15883dbb",
         // loopSelection: true,
       });
-
-      wavesurfer.current.load(`${currCheck}`);
+      wavesurfer.current.on("loading", function (X, evt) {
+        UpdateLoadingFlag(X);
+      });
     }
     if (currCheck) {
+      wavesurfer.current.load(`${currCheck}`);
       wavesurfer.current.on("ready", async function () {
         // https://wavesurfer-js.org/docs/methods.html
 
@@ -540,6 +560,13 @@ const Player = ({
   useEffect(() => {
     if (userid) dispatch(likeActions.fetchUserLikes(userid));
   }, [dispatch, userid]);
+  // const [loading, setLoading] = useState(false);
+  // testing loading
+
+  // console.log(currentSong.song);
+  // console.log(loading);
+  // testing loading ends
+
   return (
     <nav className="player-navBar">
       {authenticated && (
@@ -816,7 +843,12 @@ const Player = ({
             </div>
             {!playing && handlePlayPause()}
             {playing && handlePlay()}
-            <div id="wave-minimap"></div>
+
+            <div id="wave-minimap">
+              <div id="position-relative_loading">
+                <div id="loading_flag"></div>
+              </div>
+            </div>
           </div>
           <div className="controllers-queue_screen">
             <Tooltip title="Shuffle" arrow>
