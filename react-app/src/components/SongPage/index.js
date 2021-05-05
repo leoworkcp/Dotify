@@ -29,7 +29,8 @@ function SongPage({
   return (
     <div className="SongPage__Container">
       <div className="song_page" key={selectedSong?.id}>
-        <img src={banner1} alt="banner" />
+        {/* <img src={banner1} alt="banner" /> */}
+        <div className="song-page__banner"></div>
         <div className="profile-username songPage">
           <NavLink to={`/profile/${selectedSong.artist?.id}`}>
             <h1>{selectedSong.artist.username}</h1>
@@ -47,7 +48,6 @@ function SongPage({
             setAuthenticated={setAuthenticated}
           />
           <div className="cover-div">
-            <img src={selectedSong.image_url} alt="song-cover" />
             <div className="legend">
               <MessageDropdown
                 songsId={selectedSong.id}
@@ -56,6 +56,7 @@ function SongPage({
                 userid={userid}
               />
             </div>
+            <img src={selectedSong.image_url} alt="song-cover" />
           </div>
           <div className="fullX-song__container">
             <div className="song-page__title">

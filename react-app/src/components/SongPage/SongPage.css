@@ -1,5 +1,5 @@
 .SongPage__Container {
-  background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818);
+  /* background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818); */
   min-height: calc(100vh - 60px);
 }
 
@@ -8,17 +8,20 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   height: 100%;
+  /* background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818); */
 }
 
-.song_page > img {
+.song_page > .song-page__banner {
   margin-left: 270px;
   display: flex;
   flex-wrap: wrap;
   width: 1650px;
   height: 363px;
 }
+.song-page__banner {
+  background: linear-gradient(#5038a0, #5038a03b);
+}
 .songPage > a > h1 {
-  margin: 0px;
   color: #fff;
   text-shadow: #b9bbbe23 -5px 5px;
   margin-left: 250px;
@@ -26,31 +29,32 @@
 }
 
 .full-song__container {
-  /* background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818); */
-  padding-left: 220px;
+  background: linear-gradient(#5038a03b, #5038a005, #5038a00c, #181818);
+  margin-left: 270px;
   width: 1650px;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 50px;
-
+  min-height: 600px;
   /* min-width: fit-content; */
   justify-content: center;
 }
 
 .fullX-song__container {
   position: relative;
-  margin-left: 130px;
+  /* margin-left: 130px; */
   margin-bottom: 100px;
   /* display: flex; */
   flex-wrap: wrap;
   /* width: 1250px; */
   /* height: 363px; */
+  margin-left: 25px;
 }
 .cover-div {
-  max-height: 300px;
-  max-width: 300px;
-  display: flex;
-  justify-content: center;
+  max-height: 332px;
+  max-width: 332px;
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 .cover-div > img {
@@ -58,11 +62,14 @@
   max-width: 300px;
 }
 .cover-div > div.legend {
-  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+
+  /* position: absolute;
+  height: 25px;
+  bottom: 390px; */
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.522);
-  height: 25px;
-  bottom: 390px;
 
   color: #b9bbbee3;
   opacity: 0.6;
@@ -72,16 +79,22 @@
   opacity: 1;
 }
 .cover-div > div.legend > button {
+  position: absolute;
+
+  background: rgba(0, 0, 0, 0.522);
+
   /* margin-top: 5px; */
   /* background-color: aqua; */
-  border-radius: 5px;
-  height: 30px;
+
+  height: 25px;
+  /* margin-top: 25px; */
   width: fit-content;
-  border-radius: 0px;
+  border-radius: 5px;
 }
 .cover-div > div.legend > button > span > svg {
   /* background-color: aqua; */
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  /* border-radius: 5px; */
 }
 #waveform {
   margin-top: 50px;
@@ -126,62 +139,50 @@
 }
 
 /* @media queries */
-@media (max-width: 870px) {
-  .fullX-song__container {
-    margin-left: 0px;
-  }
-}
+
 @media (max-width: 770px) {
-  .song_page > img {
-    width: 800px;
-    margin-left: 0px;
-  }
   .songPage > a > h1 {
-    margin: 0px;
-
-    margin-left: 0px;
-  }
-  .full-song__container {
-    padding-left: 0px;
-
-    justify-content: center;
+    margin-left: 150px;
   }
   .song-page__title > h2 {
-    padding-left: 10px;
+    padding-left: 0px;
   }
   .song-page__title {
-    margin-left: 200px;
+    /* margin-left: 200px; */
     display: flex;
     text-align: center;
     flex-direction: column;
     justify-content: center;
   }
-  #waveform {
-    margin-left: 200px;
-  }
-  .cover-div {
-    margin-left: 200px;
-  }
-  .full-song__container > .PlayButton > .btn-play__active {
-    left: 200px;
-  }
-  .full-song__container > .PlayButton > .btn-pause__active {
-    left: 200px;
-  }
 }
 
-@media (max-width: 730px) {
-  #waveform {
-    display: none;
-  }
-}
 @media (max-height: 800px) {
   .cover-div {
     margin-bottom: 100px;
   }
 }
+@media (max-width: 795px) {
+  #waveform {
+    display: none;
+  }
+}
 /* check */
 @media (max-width: 640px) {
+  .full-song__container {
+    margin-left: 0px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .song_page > .song-page__banner {
+    margin-left: 0px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .songPage > a > h1 {
+    margin-left: 0px;
+    margin-top: 150px;
+  }
+
   .cover-div {
     margin-left: 0px;
   }
