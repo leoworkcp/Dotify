@@ -9,8 +9,10 @@ def seed_users():
 
     demo = User(username='Demo', email='demo@aa.io',
                 password='password', artist=True, profile_URL="https://i.stack.imgur.com/l60Hf.png")
+
     steve = User(username='Steve', email='steve@gmail.com',
                  password='Demouser123', artist=True, profile_URL="https://dotify-sound.s3.amazonaws.com/bca695cd14a044e8ac8d26bf9a9045e9.jpg")
+
     locoman = User(username='Locoman', email='leo@gmail.com',
                    password='Demouser123', artist=True, profile_URL="https://images.unsplash.com/photo-1617517131638-0a41bcbf6f9e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80")
 

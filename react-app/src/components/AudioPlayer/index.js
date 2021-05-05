@@ -290,7 +290,6 @@ const Player = ({
       });
     }
     if (currCheck) {
-      wavesurfer.current.load(`${currCheck}`);
       wavesurfer.current.on("ready", async function () {
         // https://wavesurfer-js.org/docs/methods.html
 
@@ -307,6 +306,7 @@ const Player = ({
         //   // setTime(time);
         // }
       });
+      wavesurfer.current.load(`${currCheck}`);
     }
 
     // Removes events, elements and disconnects Web Audio nodes.
