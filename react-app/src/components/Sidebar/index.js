@@ -110,7 +110,7 @@ function Sidebar({ userid, authenticated, setAuthenticated }) {
   }
 
   // modal ends
-  console.log(authenticated);
+  // console.log(authenticated);
   const handleClickLibrary = (newPlacement) => (event) => {
     if (authenticated) {
       history.push(`/profile/${userid}`);

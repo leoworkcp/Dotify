@@ -185,7 +185,7 @@ const MessageDropdown = ({
         onClick={(e) => openModal(e)}
         ref={anchorRef}
       >
-        <MoreHorizIcon style={{ color: "white" }} />
+        <MoreHorizIcon />
       </CustomIconButton>
       <Popper
         open={open}

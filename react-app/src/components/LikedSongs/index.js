@@ -10,7 +10,7 @@ import PlayButton from "../PlayButton/index";
 import MessageDropdown from "../MessageDropdown/index";
 import "./LikedSongs.css";
 import eqGif from "./equalizerGIF.gif";
-import { Divider } from "@material-ui/core";
+// import { Divider } from "@material-ui/core";
 const LikedSongs = ({
   loggedInUser,
   authenticated,
