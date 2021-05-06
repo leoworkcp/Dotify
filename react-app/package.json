@@ -12,6 +12,7 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-draggable": "^4.4.3",
+    "react-full-screen": "^1.0.2",
     "react-modal": "^3.12.1",
     "react-redux": "^7.2.3",
     "react-responsive-carousel": "^3.2.18",

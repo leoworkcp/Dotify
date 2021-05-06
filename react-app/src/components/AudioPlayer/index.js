@@ -12,6 +12,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import PictureInPictureAltIcon from "@material-ui/icons/PictureInPictureAlt";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
@@ -77,10 +78,12 @@ const Player = ({
   authenticated,
   setAuthenticated,
   userid,
+  handle,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [loopActive, setLoopActive] = useState(false);
+
   const [repeatOnce, setRepeatOnce] = useState(false);
   const [songIsLoaded, setSongIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.75);
@@ -106,6 +109,10 @@ const Player = ({
   };
 
   // like song feature ends
+  // full screen controllers
+  // console.log(handle.active);
+  // console.log(handle.enter);
+  // console.log(handle.exit);
 
   // modal
   const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
@@ -893,18 +900,34 @@ const Player = ({
               )}
             </div>
             <div className="full-screen">
-              <Tooltip title="Full Screen" arrow>
-                <button onClick={() => alert("feature in progress")}>
-                  <FullscreenIcon
-                    style={{
-                      marginTop: "28px",
-                      fontSize: 30,
-                      marginLeft: "10px",
-                      marginRight: "10px",
-                    }}
-                  />
-                </button>
-              </Tooltip>
+              {!handle?.active && (
+                <Tooltip title="Full Screen" arrow>
+                  <button onClick={handle.enter}>
+                    <FullscreenIcon
+                      style={{
+                        marginTop: "28px",
+                        fontSize: 30,
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                  </button>
+                </Tooltip>
+              )}
+              {handle?.active && (
+                <Tooltip title="Exit Screen" arrow>
+                  <button onClick={handle.exit}>
+                    <FullscreenExitIcon
+                      style={{
+                        marginTop: "28px",
+                        fontSize: 30,
+                        marginLeft: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                  </button>
+                </Tooltip>
+              )}
             </div>
           </div>
         </div>
