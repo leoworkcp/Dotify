@@ -1,7 +1,7 @@
 import React from "react";
 
 // import { useDispatch } from "react-redux";
-import banner1 from "./banner1.jpg";
+
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -29,7 +29,6 @@ function SongPage({
   return (
     <div className="SongPage__Container">
       <div className="song_page" key={selectedSong?.id}>
-        {/* <img src={banner1} alt="banner" /> */}
         <div className="song-page__banner"></div>
         <div className="profile-username songPage">
           <NavLink to={`/profile/${selectedSong.artist?.id}`}>

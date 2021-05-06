@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { fetchUserSongs } from "../../../store/userInfo";
+// import { fetchUserSongs } from "../../../store/userInfo";
 import * as sessionActions from "../../../store/session";
 import { useDispatch } from "react-redux";
 import "./LoginForm.css";
@@ -33,7 +33,7 @@ const LoginForm = ({
     if (!user.payload.errors) {
       setIsOpenLogin(false);
       setAuthenticated(true);
-      dispatch(fetchUserSongs(user.payload.id));
+      // dispatch(fetchUserSongs(user.payload.id));
       return history.push("/");
     } else {
       setErrors(user.payload.errors);

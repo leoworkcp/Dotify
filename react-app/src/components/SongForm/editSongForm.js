@@ -119,7 +119,7 @@ const EditSongForm = ({ closeModalSongForm, songsId, song }) => {
             <input
               type="radio"
               name="drone"
-              value={true}
+              value="true"
               onChange={() => setIsPublic(true)}
               checked={isPublic === true}
             />

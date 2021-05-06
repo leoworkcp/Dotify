@@ -5,7 +5,7 @@ import "./SignUpForm.css";
 import * as sessionActions from "../../../store/session";
 import { useDispatch } from "react-redux";
 
-import { fetchUserSongs } from "../../../store/userInfo";
+// import { fetchUserSongs } from "../../../store/userInfo";
 
 const SignUpForm = ({
   authenticated,
@@ -43,7 +43,7 @@ const SignUpForm = ({
       if (!user.payload.errors) {
         setImageLoading(false);
         setAuthenticated(true);
-        dispatch(fetchUserSongs(user.payload.id));
+        // dispatch(fetchUserSongs(user.payload.id));
 
         return history.push("/");
       } else {
@@ -130,7 +130,7 @@ const SignUpForm = ({
               onChange={updatePassword}
               // onChange={setFirst}
               value={password}
-              required={true}
+              required="true"
             ></input>
           </div>
           <div className="SignUpModalInputContainer">
@@ -141,7 +141,7 @@ const SignUpForm = ({
               onChange={updateRepeatPassword}
               // onChange={setSecond}
               value={repeatPassword}
-              required={true}
+              required="true"
             ></input>
           </div>
           <div className="SignUpModalInputContainer">
