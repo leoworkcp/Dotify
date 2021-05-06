@@ -80,6 +80,16 @@
     font-size: 37px;
   }
 }
+@media (max-width: 860px) {
+  .profile-username > a > h1 {
+    font-size: 64px;
+  }
+}
+@media (max-width: 796px) {
+  .profile-username > a > h1 {
+    font-size: 44px;
+  }
+}
 @media (max-width: 830px) {
   .profile-username > h1 {
     margin-left: 160px;
