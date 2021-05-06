@@ -156,6 +156,7 @@ const NavBar = ({
             ) : (
               <LogoutButton
                 setAuthenticated={setAuthenticated}
+                authenticated={authenticated}
                 loggedInUser={loggedInUser}
                 playing={playing}
                 setIsPlaying={setIsPlaying}

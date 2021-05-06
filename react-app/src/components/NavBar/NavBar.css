@@ -54,6 +54,7 @@
   border-style: solid;
   border-radius: 10px;
   border: none;
+  z-index: 22;
   /* background-color: #15883e; */
   cursor: pointer;
 }

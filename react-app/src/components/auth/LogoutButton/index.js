@@ -9,23 +9,26 @@ import Tooltip from "@material-ui/core/Tooltip";
 const LogoutButton = ({
   setAuthenticated,
   loggedInUser,
-
+  authenticated,
   setIsPlaying,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onLogout = () => {
-    dispatch(logout());
-    dispatch(setCurrentSong(false));
+  const onLogout = (e) => {
+    e.preventDefault();
     setIsPlaying(false);
     setAuthenticated(false);
+    dispatch(logout());
+    dispatch(setCurrentSong(false));
+
     history.push("/");
   };
 
+  // console.log(authenticated);
   return (
     <>
-      <button className="LogoutModalSubmit" onClick={onLogout}>
+      <button className="LogoutModalSubmit" onClick={(e) => onLogout(e)}>
         Logout
       </button>
       <div className="profile-icon">

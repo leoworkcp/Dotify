@@ -35,15 +35,11 @@ export default function App() {
   // console.log(currentSong);
   // public songs
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    async function find() {
-      await dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
-    }
-    find();
-  }, [dispatch]);
 
   const publicSongs = useSelector((state) => Object.values(state?.publicSong));
 
+  const loggedInUser = useSelector((state) => state?.session.user);
+  const userid = loggedInUser?.id;
   // custom drag for audi0player
   function draggable() {
     if (drag === true) {
@@ -61,32 +57,36 @@ export default function App() {
     } else return;
   }
 
+  const pauseSong = async () => {
+    await setIsPlaying(false);
+  };
+
   // user frontend auth
   useEffect(() => {
     async function user() {
-      await dispatch(sessionActions.restoreUser());
+      const user = await dispatch(sessionActions.restoreUser());
       if (!user.errors) {
         setAuthenticated(true);
       }
       setLoaded(true);
     }
-    // const user =
+
     user();
   }, [dispatch]);
 
-  const pauseSong = async () => {
-    await setIsPlaying(false);
-  };
-
-  const loggedInUser = useSelector((state) => state?.session.user);
-  const userid = loggedInUser?.id;
-
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
 
   // console.log(playing);
   // console.log(mute);
+
+  useEffect(() => {
+    async function find() {
+      await dispatch(findPublicSongs()).then((req) => setIsLoaded(true));
+    }
+    find();
+  }, [dispatch]);
 
   return (
     isLoaded && (
