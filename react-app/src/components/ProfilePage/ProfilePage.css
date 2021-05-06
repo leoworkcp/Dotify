@@ -56,9 +56,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 40px;
+  margin-left: 175px;
   margin-top: 0px;
   margin-bottom: 0px;
+  white-space: nowrap;
 
   width: 232px;
   height: 80px;
@@ -77,6 +78,11 @@
 @media (max-width: 920px) {
   .profile-username {
     font-size: 37px;
+  }
+}
+@media (max-width: 830px) {
+  .profile-username > h1 {
+    margin-left: 160px;
   }
 }
 
