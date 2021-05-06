@@ -148,7 +148,10 @@ const LikedSongs = ({
                     </div>
                     <div className="info-links__artist">
                       <p> {lik.name}</p>
-                      <NavLink id="artist_linked" to={`/profile/${userid}`}>
+                      <NavLink
+                        id="artist_linked"
+                        to={`/profile/${lik.artist?.id}`}
+                      >
                         {lik.artist?.username}
                       </NavLink>
                     </div>
