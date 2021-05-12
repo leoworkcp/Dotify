@@ -391,18 +391,19 @@
 }
 @media (max-width: 755px) {
   #presentation-container > .presentation__row:nth-last-child(2) {
-    background-color: red;
+    /* background-color: red; */
     display: none;
   }
   .presentation-container > .presentation__row:nth-last-child(2) {
     display: none;
-    background-color: red;
+    /* background-color: red; */
   }
   #presentation-container {
-    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+    grid-template-columns: 16px 5fr 0px minmax(70px, 1fr);
   }
   .presentation-container {
-    grid-template-columns: 16px 7fr 0px minmax(70px, 1fr);
+    grid-template-columns: 16px 5fr 0px minmax(70px, 1fr);
+    white-space: normal;
   }
 }
 @media (max-width: 670px) {
