@@ -26,8 +26,9 @@ const ProfilePage = () => {
   let artistId = Number(userid);
   // console.log(artistId, typeof artistId);
   const [followsChanged, setFollowsChanged] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   const user = useSelector((state) => state?.session.user);
-  const follows = useSelector((state) => state?.follows);
+  // const follows = useSelector((state) => state?.follows);
   const followings = useSelector((state) => state?.follows.followers);
   // console.log(followings);
   // console.log(follows);
@@ -54,7 +55,11 @@ const ProfilePage = () => {
     setFollowsChanged(false);
   }, [dispatch, user?.id, followsChanged]);
 
-  // console.log(isFollowed);
+  useEffect(() => {
+    if (user?.id === artistId) setIsUser(true);
+  }, [user?.id, artistId, isUser]);
+
+  console.log(isUser);
   // follows new ends
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
@@ -69,13 +74,14 @@ const ProfilePage = () => {
               <div className="profile-header__container" key={idx}>
                 <div className="profile-username">
                   <img src={song.profile_URL} alt="profile" />
-                  {isFollowed ? (
+                  {isFollowed && !isUser && (
                     <div className="follow">
                       <button onClick={(e) => offFollow(e, artistId)}>
                         unFollow
                       </button>
                     </div>
-                  ) : (
+                  )}
+                  {!isFollowed && !isUser && (
                     <div className="follow">
                       <button onClick={(e) => onFollow(e, artistId)}>
                         + Follow
