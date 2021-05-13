@@ -52,9 +52,21 @@
   /* width: fit-content; */
   border-radius: 0px;
   margin: 0;
-  margin-top: 40px;
+  margin-top: 41px;
   padding: 0;
   top: 0px;
+}
+
+.title-dropBtn__container > a > p.legend.username {
+  position: absolute;
+  top: 66px;
+  margin-top: 0px;
+  /* text-align: end; */
+  /* left: -70px; */
+  /* width: min-content; */
+  white-space: nowrap;
+  height: min-content;
+  /* background-color: red; */
 }
 
 div.legend > button {
@@ -64,6 +76,7 @@ div.legend > button {
   border-radius: 0;
   z-index: 22;
 }
+
 div.legend > div > div > ul {
   min-height: fit-content;
 }

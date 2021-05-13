@@ -54,6 +54,11 @@ const CarouselSongs = ({
                       <NavLink to={`song/${publicSong?.id}`}>
                         <p className="legend">{publicSong?.name}</p>
                       </NavLink>
+                      <NavLink to={`profile/${publicSong?.artist_id}`}>
+                        <p className="legend username">
+                          {publicSong?.artist?.username}
+                        </p>
+                      </NavLink>
                       <div className="legend">
                         <MessageDropdown
                           songsId={publicSong.id}
