@@ -59,7 +59,7 @@ const ProfilePage = () => {
     if (user?.id === artistId) setIsUser(true);
   }, [user?.id, artistId, isUser]);
 
-  console.log(isUser);
+  // console.log(isUser);
   // follows new ends
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));

@@ -16,17 +16,34 @@
 }
 
 .follow {
-  background-color: red;
+  /* background-color: red; */
   width: max-content;
   position: absolute;
   left: 100%;
+  margin-left: 20px;
   top: 30%;
   font-size: small;
 }
 .follow > button {
-  min-width: 100px;
-  min-height: 30px;
+  min-width: 120px;
+  min-height: 32px;
   font-size: large;
+  /* border-color: #fff; */
+  /*  */
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 16px;
+  padding: 7px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  /*  */
 }
 /* .profile-header {
   display: flex;
