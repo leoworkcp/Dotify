@@ -24,40 +24,42 @@ const ProfilePage = () => {
 
   // follows new
   let artistId = Number(userid);
-  console.log(userId, typeof userId);
+  // console.log(artistId, typeof artistId);
   const [followsChanged, setFollowsChanged] = useState(false);
   const user = useSelector((state) => state?.session.user);
   const follows = useSelector((state) => state?.follows);
   const followings = useSelector((state) => state?.follows.followers);
-  console.log(followings);
-  console.log(follows);
+  // console.log(followings);
+  // console.log(follows);
   const isFollowed = followings?.find((following) => following.id === artistId);
-
+  // console.log(user?.id);
   const onFollow = (e, artistId) => {
-    e.stopPropagation();
-    dispatch(followActions.addFollow(userId, artistId));
+    // e.stopPropagation();
+    e.preventDefault();
+    dispatch(followActions.addFollow(user?.id, artistId));
     setTimeout(() => {
       setFollowsChanged(true);
     }, 100);
   };
 
   const offFollow = (e, artistId) => {
-    e.stopPropagation();
-    dispatch(followActions.removeFollow(userId, artistId));
+    // e.stopPropagation();
+    e.preventDefault();
+    dispatch(followActions.removeFollow(user?.id, artistId));
   };
 
   useEffect(() => {
-    dispatch(followActions.fetchUserFollows(userId));
+    dispatch(followActions.fetchUserFollows(user?.id));
     // dispatch(playlistActions.fetchUserPlaylists(userId));
     setFollowsChanged(false);
-  }, [dispatch, userId, followsChanged]);
+  }, [dispatch, user?.id, followsChanged]);
 
+  // console.log(isFollowed);
   // follows new ends
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
   }, [dispatch]);
   const allUsers = useSelector((state) => Object.values(state?.users));
-
   return (
     usersLoaded && (
       <>
@@ -68,18 +70,16 @@ const ProfilePage = () => {
                 <div className="profile-username">
                   <img src={song.profile_URL} alt="profile" />
                   {isFollowed ? (
-                    <div
-                      className="follow"
-                      onClick={(e) => offFollow(e, userId)}
-                    >
-                      unFollow
+                    <div className="follow">
+                      <button onClick={(e) => offFollow(e, artistId)}>
+                        unFollow
+                      </button>
                     </div>
                   ) : (
-                    <div
-                      className="follow"
-                      onClick={(e) => onFollow(e, userId)}
-                    >
-                      + Follow
+                    <div className="follow">
+                      <button onClick={(e) => onFollow(e, artistId)}>
+                        + Follow
+                      </button>
                     </div>
                   )}
                   <h1>{song?.username}</h1>

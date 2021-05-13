@@ -21,7 +21,7 @@ export const fetchUserFollows = (userId) => async (dispatch) => {
     body: JSON.stringify({ userId }),
   });
   const userFollows = await response.json();
-
+  // console.log(userFollows);
   return dispatch(findUserFollows(userFollows));
 };
 

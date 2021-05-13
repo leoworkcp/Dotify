@@ -15,6 +15,19 @@
   background: linear-gradient(#5038a0, #5038a03b);
 }
 
+.follow {
+  background-color: red;
+  width: max-content;
+  position: absolute;
+  left: 100%;
+  top: 30%;
+  font-size: small;
+}
+.follow > button {
+  min-width: 100px;
+  min-height: 30px;
+  font-size: large;
+}
 /* .profile-header {
   display: flex;
 

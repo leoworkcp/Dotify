@@ -22,7 +22,8 @@ def add_follow():
 @follows_routes.route('/', methods=['PUT'])
 def find_follows():
     data = request.json
-    user = User.query.get(data['following_userId'])
+    user = User.query.get(data['userId'])
+    print('//////////////', user)
     followers = [follower.to_dict() for follower in user.followers]
     following = [follower.to_dict() for follower in user.followed]
     return jsonify({"followers": followers, "following": following})
