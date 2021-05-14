@@ -72,8 +72,15 @@ const ProfilePage = () => {
           if (Number(userid) === song.id) {
             return (
               <div className="profile-header__container" key={idx}>
+                {isUser && (
+                  <div className="user-menu__container">
+                    <button>Uploaded</button>
+                    <button>Artists</button>
+                  </div>
+                )}
                 <div className="profile-username">
                   <img src={song.profile_URL} alt="profile" />
+
                   {isFollowed && !isUser && (
                     <div className="follow">
                       <button onClick={(e) => offFollow(e, artistId)}>
