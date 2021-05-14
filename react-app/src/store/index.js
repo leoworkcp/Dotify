@@ -8,6 +8,7 @@ import usersReducer from "./users";
 import publicSongReducer from "./publicSongs";
 import likesReducer from "./likes";
 import songReducer from "./songs";
+import followsReducer from "./follows";
 const rootReducer = combineReducers({
   session: sessionReducer,
   userSongs: userInfoReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   likes: likesReducer,
   songNew: songReducer,
+  follows: followsReducer,
 });
 
 let enhancer;

@@ -498,15 +498,26 @@ const Player = ({
 
   // next song ends
   // prev song
-  const prevSong = () => {
+  const prevSong = async () => {
     if (songIsLoaded) {
       let prev = document.getElementsByClassName("control-arrow control-prev");
 
+      // console.log(prev);
+
       for (let i = 0; i < prev.length; i++) {
         if (!prev[i].className.includes("disable")) {
-          console.log("1");
-          return prev[i].click();
+          // console.log("1");
+          prev[i].click();
         }
+
+        // if (
+        //   document.getElementsByClassName("btn-pause__active") !== undefined
+        // ) {
+        //   let btn = document.getElementsByClassName("btn-pause__active");
+        //   btn[i].click();
+        //   let play = await document.getElementsByClassName("btn-play__active");
+        //   return await play[i].click();
+        // }
       }
     }
   };

@@ -51,9 +51,20 @@ const CarouselSongs = ({
                   />
                   {authenticated && (
                     <div className="title-dropBtn__container">
-                      <NavLink to={`song/${publicSong?.id}`}>
-                        <p className="legend">{publicSong?.name}</p>
-                      </NavLink>
+                      <p className="legend">
+                        <NavLink to={`song/${publicSong?.id}`}>
+                          {publicSong?.name}
+                        </NavLink>
+                        <NavLink to={`profile/${publicSong?.artist_id}`}>
+                          {publicSong?.artist?.username}
+                        </NavLink>
+                      </p>
+
+                      {/* <NavLink to={`profile/${publicSong?.artist_id}`}>
+                        <p className="legend username">
+                          {publicSong?.artist?.username}
+                        </p>
+                      </NavLink> */}
                       <div className="legend">
                         <MessageDropdown
                           songsId={publicSong.id}

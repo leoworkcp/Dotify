@@ -1,6 +1,6 @@
 from flask import Blueprint, json, request, jsonify, flash
-from app.models import Song, db, User, Comment
-from app.forms import CommentForm
+from app.models import Song, db, User
+# from app.forms import CommentForm
 follows_routes = Blueprint('follows', __name__)
 
 
@@ -14,6 +14,7 @@ def add_follow():
     followList = []
     follows = [followList.append(followed.to_dict()['id'])
                for followed in follower.followed]
+
     return jsonify(followList)
 # Find single server
 
@@ -21,7 +22,8 @@ def add_follow():
 @follows_routes.route('/', methods=['PUT'])
 def find_follows():
     data = request.json
-    user = User.query.get(data['following_userId'])
+    user = User.query.get(data['userId'])
+    print('//////////////', user)
     followers = [follower.to_dict() for follower in user.followers]
     following = [follower.to_dict() for follower in user.followed]
     return jsonify({"followers": followers, "following": following})
