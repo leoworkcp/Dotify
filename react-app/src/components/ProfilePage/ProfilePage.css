@@ -245,3 +245,13 @@
   margin: 0;
   color: rgba(255, 255, 255, 0.863);
 }
+
+.follows-div__artists {
+  width: 206.7px;
+  height: 284.7px;
+}
+.follows-div__artists > img {
+  width: 174.7px;
+  height: 174.7px;
+  border-radius: 50%;
+}

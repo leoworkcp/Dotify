@@ -2,17 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getAllUsers } from "../../store/users";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import * as followActions from "../../store/follows";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { userid } = useParams();
   const [usersLoaded, setUsersLoaded] = useState(false);
   // const [songsClicked, setSongsClicked] = useState(true);
   // const [popularClicked, setPopularClicked] = useState(false);
-
+  function uploadButton() {
+    history.push(`/profile/${userid}`);
+  }
+  function artistButton() {
+    history.push(`/profile/${userid}/artists`);
+  }
   // const displaySongs = () => {
   //   setSongsClicked(true);
   //   setPopularClicked(false);
@@ -74,8 +80,8 @@ const ProfilePage = () => {
               <div className="profile-header__container" key={idx}>
                 {isUser && (
                   <div className="user-menu__container">
-                    <button>Uploaded</button>
-                    <button>Artists</button>
+                    <button onClick={uploadButton}>Uploaded</button>
+                    <button onClick={artistButton}>Artists</button>
                   </div>
                 )}
                 <div className="profile-username">
