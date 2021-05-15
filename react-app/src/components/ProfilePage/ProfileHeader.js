@@ -3,21 +3,30 @@ import { useParams } from "react-router-dom";
 import { getAllUsers } from "../../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import * as followActions from "../../store/follows";
 import "./ProfilePage.css";
 
-const ProfilePage = () => {
+const ProfilePage = ({ loggedInUser }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userid } = useParams();
   const [usersLoaded, setUsersLoaded] = useState(false);
   // const [songsClicked, setSongsClicked] = useState(true);
   // const [popularClicked, setPopularClicked] = useState(false);
+  const [isTheUser, setIsTheUser] = useState(false);
+
+  useEffect(() => {
+    if (Number(userid) === loggedInUser.id) {
+      setIsTheUser(true);
+    } else setIsTheUser(false);
+  }, [isTheUser, userid, loggedInUser]);
+
   function uploadButton() {
-    history.push(`/profile/${userid}`);
+    history.push(`/profile/${loggedInUser.id}`);
   }
   function artistButton() {
-    history.push(`/profile/${userid}/artists`);
+    history.push(`/profile/${loggedInUser.id}/artists`);
   }
   // const displaySongs = () => {
   //   setSongsClicked(true);
@@ -32,7 +41,7 @@ const ProfilePage = () => {
   let artistId = Number(userid);
   // console.log(artistId, typeof artistId);
   const [followsChanged, setFollowsChanged] = useState(false);
-  const [isUser, setIsUser] = useState(false);
+  // const [isUser, setIsUser] = useState(false);
   const user = useSelector((state) => state?.session.user);
   // const follows = useSelector((state) => state?.follows);
   const followings = useSelector((state) => state?.follows.followers);
@@ -61,16 +70,18 @@ const ProfilePage = () => {
     setFollowsChanged(false);
   }, [dispatch, user?.id, followsChanged]);
 
-  useEffect(() => {
-    if (user?.id === artistId) setIsUser(true);
-  }, [user?.id, artistId, isUser]);
-
+  // useEffect(() => {
+  //   if (user?.id === artistId) setIsUser(true);
+  // }, [user?.id, artistId, isUser]);
   // console.log(isUser);
+
   // follows new ends
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
   }, [dispatch]);
   const allUsers = useSelector((state) => Object.values(state?.users));
+
+  console.log(isTheUser);
   return (
     usersLoaded && (
       <>
@@ -78,7 +89,7 @@ const ProfilePage = () => {
           if (Number(userid) === song.id) {
             return (
               <div className="profile-header__container" key={idx}>
-                {isUser && (
+                {isTheUser && (
                   <div className="user-menu__container">
                     <button onClick={uploadButton}>Uploaded</button>
                     <button onClick={artistButton}>Artists</button>
@@ -87,14 +98,14 @@ const ProfilePage = () => {
                 <div className="profile-username">
                   <img src={song.profile_URL} alt="profile" />
 
-                  {isFollowed && !isUser && (
+                  {isFollowed && !isTheUser && (
                     <div className="follow">
                       <button onClick={(e) => offFollow(e, artistId)}>
                         unFollow
                       </button>
                     </div>
                   )}
-                  {!isFollowed && !isUser && (
+                  {!isFollowed && !isTheUser && (
                     <div className="follow">
                       <button onClick={(e) => onFollow(e, artistId)}>
                         + Follow

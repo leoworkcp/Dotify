@@ -131,7 +131,10 @@ export default function App() {
                 authenticated={authenticated}
               ></ProtectedRoute>
               <Route path={["/profile/:userid/artists", "/profile/:userid"]}>
-                <ProfileHeader publicSongs={publicSongs} />
+                <ProfileHeader
+                  publicSongs={publicSongs}
+                  loggedInUser={loggedInUser}
+                />
 
                 <Route path={"/profile/:userid"} exact={true}>
                   <ProfilePage

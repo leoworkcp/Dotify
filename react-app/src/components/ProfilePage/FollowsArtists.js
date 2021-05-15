@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import "./ProfilePage.css";
 
 const FollowsArtists = () => {
+  // const { userid } = useParams();
   const [usersLoaded, setUsersLoaded] = useState(false);
 
   //   const user = useSelector((state) => state?.session.user);
@@ -22,6 +23,7 @@ const FollowsArtists = () => {
   return (
     usersLoaded && (
       <div className="home-main__container follows-page" key="follows-page">
+        <h4>Artists</h4>
         {followings.map((artists, idx) => {
           return (
             <NavLink
