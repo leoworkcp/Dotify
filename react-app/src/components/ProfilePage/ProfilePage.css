@@ -247,11 +247,67 @@
 }
 
 .follows-div__artists {
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 206.7px;
   height: 284.7px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+  background: #181818; */
+  /* background-color: #5038a0; */
 }
+
+.home-main__container.follows-page {
+  padding-bottom: 150px;
+  /* background-color: #5038a0; */
+}
+
+.follows-link__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 206.7px;
+  height: 284.7px;
+  margin-left: 50px;
+  /* margin-right: 50px; */
+  margin-top: 50px;
+  /* margin-bottom: 50px; */
+  background: #181818;
+}
+
 .follows-div__artists > img {
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   width: 174.7px;
   height: 174.7px;
   border-radius: 50%;
+  /* background-color: red; */
+}
+.follows-div__artists > p {
+  margin: 0px;
+  width: fit-content;
+  margin-left: 15px;
+}
+
+.follows-div__artists > p:nth-child(2) {
+  /* background-color: aqua; */
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 24px;
+  text-transform: none;
+  color: #fff;
+}
+.follows-div__artists > p:nth-child(3) {
+  /* background-color: red; */
+  color: rgb(179, 179, 179);
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 16px;
+  text-transform: none;
 }

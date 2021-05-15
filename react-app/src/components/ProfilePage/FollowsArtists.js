@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getAllUsers } from "../../store/users";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
-
-import * as followActions from "../../store/follows";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+// import { useParams } from "react-router-dom";
+// import { getAllUsers } from "../../store/users";
+// import * as followActions from "../../store/follows";
 import "./ProfilePage.css";
 
-const FollowsArtists = ({ loggedInUser }) => {
-  console.log(loggedInUser);
+const FollowsArtists = () => {
+  const [usersLoaded, setUsersLoaded] = useState(false);
+
+  //   const user = useSelector((state) => state?.session.user);
+
+  const followings = useSelector((state) => state?.follows.followers);
+
+  //   console.log(followings);
+
+  useEffect(() => {
+    if (followings !== undefined) setUsersLoaded(true);
+  }, [followings, usersLoaded]);
+  //   console.log(usersLoaded);
   return (
-    <div className="artist-follows__container">
-      <div className="follows-div__artists">
-        <img src={loggedInUser?.profile_URL} />
-        <p>
-          <NavLink to={`profile/${loggedInUser?.id}`}>
-            {loggedInUser?.username}
-          </NavLink>
-          Artist
-        </p>
+    usersLoaded && (
+      <div className="home-main__container follows-page" key="follows-page">
+        {followings.map((artists, idx) => {
+          return (
+            <NavLink
+              key={`follows-links-${idx}`}
+              to={`/profile/${artists?.id}`}
+              className="follows-link__container"
+            >
+              <div className="follows-div__artists" key={`follows-${idx}`}>
+                <img src={artists?.profile_URL} alt="profile" />
+                <p>{artists?.username}</p>
+                <p>Artist</p>
+              </div>
+            </NavLink>
+          );
+        })}
       </div>
-    </div>
+    )
   );
 };
 
