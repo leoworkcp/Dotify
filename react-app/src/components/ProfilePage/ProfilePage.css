@@ -177,6 +177,9 @@
   height: 26px;
   width: 52px;
 }
+.messageButtons > div > div > ul {
+  min-height: fit-content;
+}
 
 .messageButtons > button {
   height: 26px;
