@@ -28,6 +28,10 @@ const ProfilePage = ({ loggedInUser }) => {
   function artistButton() {
     history.push(`/profile/${loggedInUser.id}/artists`);
   }
+
+  function followersButton() {
+    history.push(`/profile/${loggedInUser.id}/followers`);
+  }
   // const displaySongs = () => {
   //   setSongsClicked(true);
   //   setPopularClicked(false);
@@ -93,6 +97,7 @@ const ProfilePage = ({ loggedInUser }) => {
                   <div className="user-menu__container">
                     <button onClick={uploadButton}>Uploaded</button>
                     <button onClick={artistButton}>Artists</button>
+                    <button onClick={followersButton}>Followers</button>
                   </div>
                 )}
                 <div className="profile-username">

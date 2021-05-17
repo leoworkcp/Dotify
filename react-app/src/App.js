@@ -18,6 +18,7 @@ import HomePage from "./components/HomePage";
 import Player from "./components/AudioPlayer";
 import ProfileHeader from "./components/ProfilePage/ProfileHeader";
 import FollowsArtists from "./components/ProfilePage/FollowsArtists";
+import FollowingUser from "./components/ProfilePage/FollowingUser";
 import SongPage from "./components/SongPage/index";
 import SearchBar from "./components/SearchBar/index";
 import { findPublicSongs } from "./store/publicSongs";
@@ -149,9 +150,13 @@ export default function App() {
                 <Route path={"/profile/:userid/artists"} exact={true}>
                   <FollowsArtists
                     loggedInUser={loggedInUser}
-                    playing={playing}
-                    setIsPlaying={setIsPlaying}
-                    pauseSong={pauseSong}
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                </Route>
+                <Route path={"/profile/:userid/followers"} exact={true}>
+                  <FollowingUser
+                    loggedInUser={loggedInUser}
                     authenticated={authenticated}
                     setAuthenticated={setAuthenticated}
                   />
