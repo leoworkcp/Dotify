@@ -99,8 +99,8 @@ const CommentForm = ({ songsId }) => {
   useEffect(() => {
     dispatch(getAllUsers()).then((req) => setUsersLoaded(true));
   }, [dispatch]);
-  const allUsers = useSelector((state) => state?.users);
-
+  const allUsers = useSelector((state) => Object.values(state?.users));
+  // console.log(allUsers);
   const commentSubmit = async (e) => {
     e.preventDefault();
 
@@ -168,7 +168,8 @@ const CommentForm = ({ songsId }) => {
   }, [dispatch, liked]);
 
   return (
-    isLoaded && (
+    isLoaded &&
+    usersLoaded && (
       <div className="SignUpModalWrapper">
         <div className="SignUpModalContainer">
           <div className="SignUpModalFormTitleContainer">
@@ -177,12 +178,12 @@ const CommentForm = ({ songsId }) => {
           <div className="comment-form__container">
             {comments?.map((comment, index) => {
               return (
-                <>
-                  {allUsers.map((user) => {
+                <div key={index}>
+                  {allUsers.map((user, idx) => {
                     return (
                       usersLoaded &&
                       user?.id === comment?.user_id && (
-                        <div className="profile-icon__comments">
+                        <div className="profile-icon__comments" key={idx}>
                           <NavLink to={`profile/${comment.user_id}`}>
                             <img src={user?.profile_URL} alt="profile-img" />
                             <p id="profile-username">{user?.username}</p>
@@ -251,7 +252,7 @@ const CommentForm = ({ songsId }) => {
                       )}
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
 

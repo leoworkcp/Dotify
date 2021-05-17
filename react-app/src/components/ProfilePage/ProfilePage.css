@@ -14,7 +14,37 @@
   flex-direction: column;
   background: linear-gradient(#5038a0, #5038a03b);
 }
+.user-menu__container {
+  display: inline-flex;
+  margin-top: 40px;
+  margin-right: 140px;
+  height: 41px;
+  width: 100%;
+  /* float: right; */
+  /* padding-left: 60%; */
+  justify-content: flex-end;
+  /* background-color: #5038a0; */
+}
 
+.user-menu__container > button {
+  margin-right: 20px;
+  min-width: 70px;
+  /* height: 41px; */
+  background-color: transparent;
+  border-radius: 5px;
+
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 3;
+  /* letter-spacing: normal; */
+  /* line-height: 16px; */
+  /* text-transform: none; */
+}
+.user-menu__container > button:focus {
+  transition: all ease-in-out 360ms;
+  background-color: #333;
+}
 .follow {
   /* background-color: red; */
   width: max-content;
@@ -62,7 +92,6 @@
 /* username */
 .profile-username {
   display: flex;
-
   flex-wrap: wrap;
   flex-direction: column;
   position: absolute;
@@ -98,35 +127,6 @@
   /* background-color: #5038a0; */
   text-shadow: #14458f23 -5px 5px;
 }
-@media (max-width: 1396px) {
-  .profile-username {
-    padding-left: 0px;
-
-    font-size: 40px;
-  }
-}
-@media (max-width: 920px) {
-  .profile-username {
-    font-size: 37px;
-  }
-}
-@media (max-width: 860px) {
-  .profile-username > a > h1 {
-    font-size: 64px;
-  }
-}
-@media (max-width: 796px) {
-  .profile-username > a > h1 {
-    font-size: 44px;
-  }
-}
-@media (max-width: 830px) {
-  .profile-username > h1 {
-    margin-left: 160px;
-  }
-}
-
-/* ends here */
 .container-prof {
   display: inline-flex;
 }
@@ -144,23 +144,7 @@
 
   border-radius: 5px;
 }
-@media (max-width: 670px) {
-  .profile-songs-container {
-    margin-right: 0;
-  }
-}
-@media (max-width: 640px) {
-  .profile-songs-container {
-    margin-top: 80px;
-  }
-}
-@media (max-width: 1100px) {
-  #profile-user__page {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-}
+
 .album-cover {
   max-width: 300px;
   max-height: 300px;
@@ -224,4 +208,165 @@
   font-size: 16px;
   margin: 0;
   color: rgba(255, 255, 255, 0.863);
+}
+
+.follows-div__artists {
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 206.7px;
+  height: 284.7px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+  background: #181818; */
+  /* background-color: #5038a0; */
+}
+
+.home-main__container.follows-page {
+  padding-bottom: 150px;
+  /* background-color: #5038a0; */
+  /* min-height: calc(80vh - 60px); */
+}
+.home-main__container.follows-page > h4 {
+  height: fit-content;
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+  position: absolute;
+  left: 320px;
+  /* padding-left: 50px; */
+}
+.home-main__container > h4 {
+  height: fit-content;
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+  position: absolute;
+  left: 320px;
+}
+@media (max-width: 776px) {
+  .home-main__container.follows-page > h4 {
+    display: none;
+  }
+  .home-main__container.follows-page {
+    min-height: calc(80vh - 60px);
+  }
+  .home-main__container > h4 {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .home-main__container.follows-page > a {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 90px;
+
+    /* background-color: #5038a0; */
+  }
+}
+.follows-link__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 206.7px;
+  height: 284.7px;
+  margin-left: 50px;
+  /* margin-right: 50px; */
+  margin-top: 50px;
+  /* margin-bottom: 50px; */
+  /* background: transparent; */
+  background: #494747;
+  /* transition: all ease-in 500ms; */
+}
+.follows-div__artists {
+  background: #181818;
+  height: 100%;
+}
+.follows-div__artists:hover {
+  background: #18181893;
+  transition: all ease-in-out 100ms;
+}
+
+.follows-div__artists > img {
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 174.7px;
+  height: 174.7px;
+  border-radius: 50%;
+  /* background-color: red; */
+}
+.follows-div__artists > p {
+  margin: 0px;
+  width: fit-content;
+  margin-left: 15px;
+}
+
+.follows-div__artists > p:nth-child(2) {
+  /* background-color: aqua; */
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 24px;
+  text-transform: none;
+  color: #fff;
+}
+.follows-div__artists > p:nth-child(3) {
+  /* background-color: red; */
+  color: rgb(179, 179, 179);
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 16px;
+  text-transform: none;
+}
+
+@media (max-width: 1396px) {
+  .profile-username {
+    padding-left: 0px;
+
+    font-size: 40px;
+  }
+}
+@media (max-width: 920px) {
+  .profile-username {
+    font-size: 37px;
+  }
+}
+@media (max-width: 860px) {
+  .profile-username > a > h1 {
+    font-size: 64px;
+  }
+}
+@media (max-width: 796px) {
+  .profile-username > a > h1 {
+    font-size: 44px;
+  }
+}
+@media (max-width: 830px) {
+  .profile-username > h1 {
+    margin-left: 160px;
+  }
+}
+
+/* ends here */
+
+@media (max-width: 670px) {
+  .profile-songs-container {
+    margin-right: 0;
+  }
+}
+@media (max-width: 640px) {
+  .profile-songs-container {
+    margin-top: 80px;
+  }
+}
+@media (max-width: 1100px) {
+  #profile-user__page {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

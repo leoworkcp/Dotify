@@ -127,7 +127,7 @@ const MessageDropdown = ({
   // console.log(open);
   // console.log(modalIsOpenSongForm);
   // comment modal
-  const [openComments, setOpenComments] = useState(false);
+  // const [openComments, setOpenComments] = useState(false);
   const [modalIsOpenComments, setIsOpenComments] = useState(false);
 
   function openModalComments() {
@@ -137,7 +137,7 @@ const MessageDropdown = ({
 
   function closeModalComments() {
     setIsOpenComments(false);
-    setOpenComments(false);
+    // setOpenComments(false);
     setOpen(true);
   }
 
