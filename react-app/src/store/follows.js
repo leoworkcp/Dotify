@@ -1,5 +1,5 @@
 const FIND_USER_FOLLOWS = "follows/findUserFollows";
-const FIND_USER_FOLLOWER = "follows/findUserFollower";
+// const FIND_USER_FOLLOWER = "follows/findUserFollower";
 const REMOVE_USER_FOLLOWS = "follows/removeUserFollows";
 
 const findUserFollows = (userFollows) => ({

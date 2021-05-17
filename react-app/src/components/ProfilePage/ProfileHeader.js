@@ -66,13 +66,16 @@ const ProfilePage = ({ loggedInUser }) => {
     // e.stopPropagation();
     e.preventDefault();
     dispatch(followActions.removeFollow(user?.id, artistId));
+    setTimeout(() => {
+      setFollowsChanged(true);
+    }, 100);
   };
 
   useEffect(() => {
     dispatch(followActions.fetchUserFollows(user?.id));
     // dispatch(playlistActions.fetchUserPlaylists(userId));
     setFollowsChanged(false);
-  }, [dispatch, user?.id, followsChanged]);
+  }, [dispatch, user.id, followsChanged]);
 
   // useEffect(() => {
   //   if (user?.id === artistId) setIsUser(true);
@@ -85,10 +88,10 @@ const ProfilePage = ({ loggedInUser }) => {
   }, [dispatch]);
   const allUsers = useSelector((state) => Object.values(state?.users));
 
-  console.log(isTheUser);
+  // console.log(isTheUser);
   return (
     usersLoaded && (
-      <>
+      <div key={loggedInUser?.id}>
         {allUsers.map((song, idx) => {
           if (Number(userid) === song.id) {
             return (
@@ -121,9 +124,9 @@ const ProfilePage = ({ loggedInUser }) => {
                 </div>
               </div>
             );
-          } else return <></>;
+          } else return <div key={idx}></div>;
         })}
-      </>
+      </div>
     )
   );
 };
