@@ -169,35 +169,31 @@ const LogoutButton = ({
           }}
         >
           <ClickAwayListener onClickAway={handleClose}>
-            {open && (
-              <CustomMenuList style={{ color: "white" }}>
-                {/* <button>Edit</button> */}
+            <CustomMenuList style={{ color: "white" }}>
+              <div className="div-btn__containerEditUser">
+                <CustomMenuItem>
+                  <button
+                    onClick={(e) => openEditUserForm(e)}
+                    // key={`edit${}`}
+                  >
+                    Edit
+                  </button>
+                  <EditIcon style={{ color: "white" }} />
+                </CustomMenuItem>
+              </div>
 
-                <div className="div-btn__containerEditUser">
-                  <CustomMenuItem>
-                    <button
-                      onClick={(e) => openEditUserForm(e)}
-                      // key={`edit${}`}
-                    >
-                      Edit
-                    </button>
-                    <EditIcon style={{ color: "white" }} />
-                  </CustomMenuItem>
-                </div>
-
-                <div className="div-btn__containerEditUser">
-                  <CustomMenuItem>
-                    <button
-                      className="LogoutModalSubmit"
-                      onClick={(e) => onLogout(e)}
-                    >
-                      Log Out
-                    </button>
-                    <ExitToAppIcon style={{ color: "white" }} />
-                  </CustomMenuItem>
-                </div>
-              </CustomMenuList>
-            )}
+              <div className="div-btn__containerEditUser">
+                <CustomMenuItem>
+                  <button
+                    className="LogoutModalSubmit"
+                    onClick={(e) => onLogout(e)}
+                  >
+                    Log Out
+                  </button>
+                  <ExitToAppIcon style={{ color: "white" }} />
+                </CustomMenuItem>
+              </div>
+            </CustomMenuList>
           </ClickAwayListener>
         </Paper>
       </Popper>

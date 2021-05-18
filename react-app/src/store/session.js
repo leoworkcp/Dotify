@@ -69,14 +69,23 @@ export const restoreUser = () => async (dispatch) => {
   return res;
 };
 
-export const updateExistingUser = (user) => async (dispatch) => {
-  console.log(user);
+// export const updateExistingUser = (user) => async (dispatch) => {
+//   console.log(user);
+//   const response = await fetch("/api/auth/edit/", {
+//     method: "PUT",
+//     body: user,
+//   });
+//   const updatedUser = await response.json();
+//   console.log("----------------");
+//   dispatch(editUser(updatedUser));
+// };
+export const updateExistingUser = (userId) => async (dispatch) => {
   const response = await fetch("/api/auth/edit/", {
     method: "PUT",
-    body: user,
+    body: userId,
   });
   const updatedUser = await response.json();
-  console.log("----------------");
+
   dispatch(editUser(updatedUser));
 };
 
@@ -93,6 +102,9 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = null;
       return newState;
+    // case EDIT_USER:
+    //   return action.updatedUser;
+
     case EDIT_USER:
       newState = Object.assign({}, state);
       newState.user = action.updatedUser;

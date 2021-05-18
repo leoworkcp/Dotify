@@ -98,21 +98,37 @@ def unauthorized():
 
 @auth_routes.route('/edit/', methods=['PUT'])
 def edit_user():
-    """
-    Creates a new user and logs them in
-    """
-    user = request.form['id']
-    matched_user = User.query.get(user)
-    if "image" in request.files:
-        image = request.files["image"]
+    # """
+    # Creates a new user and logs them in
+    # """
+    # user = request.form['id']
+    # matched_user = User.query.get(user)
+    # if "image" in request.files:
+    #     image = request.files["image"]
+    #     image.filename = get_unique_filename(image.filename)
+    #     upload = upload_file_to_s3(image)
+    #     url = upload["url"]
+    # else:
+    #     url = None
+    # matched_user.profile_URL = url
+    # db.session.commit()
+    # return matched_user.to_dict()
+    matched_user = User.query.get(request.form['id'])
+    url_image = None
+    if "profile_URL" in request.files:
+        image = request.files["profile_URL"]
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
-        url = upload["url"]
+        url_image = upload["url"]
     else:
-        url = None
-    matched_user.profile_URL = url
+        url_image = matched_user.profile_URL
+    matched_user.username = request.form['username']
+    matched_user.email = request.form['email']
+    matched_user.password = request.form['password']
+    matched_user.profile_URL = url_image
     db.session.commit()
-    return matched_user.to_dict()
+    data = matched_user.to_dict()
+    return data
 
 
 @auth_routes.route('/likes/', methods=['PUT'])
