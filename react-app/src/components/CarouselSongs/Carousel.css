@@ -36,8 +36,8 @@
 .img-controller {
   display: flex;
   justify-content: center;
-  min-height: 300px;
-  min-width: 300px;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .carousel .slide div.legend {
@@ -103,7 +103,12 @@ div.legend > button > span > svg:hover {
   transition: all 0.1ms;
 }
 
-ul.thumbs.animated {
+ul.thumbs.animated > li {
+  height: 80px;
   /* background-color: red; */
   padding: 0;
+}
+
+div.carousel {
+  /* max-height: 116px; */
 }

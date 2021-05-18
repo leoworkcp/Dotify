@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { findPublicSongs } from "../../../store/publicSongs";
 import * as sessionActions from "../../../store/session";
+import { getUserSongs } from "../../../store/songs";
 import "./SignUpForm.css";
 
 const EditUserForm = ({ closeEditUserForm }) => {
@@ -24,9 +26,7 @@ const EditUserForm = ({ closeEditUserForm }) => {
     formData1.append("id", userId);
     formData1.append("username", username);
     formData1.append("email", email);
-
     formData1.append("password", password);
-
     formData1.append("profile_URL", image);
     // console.log(formData1);
 
@@ -41,7 +41,11 @@ const EditUserForm = ({ closeEditUserForm }) => {
       email.includes("@") &&
       email.includes(".")
     ) {
-      const user = await dispatch(sessionActions.updateExistingUser(formData1));
+      const update = await dispatch(
+        sessionActions.updateExistingUser(formData1)
+      );
+      dispatch(getUserSongs(user.id));
+      dispatch(findPublicSongs());
       closeEditUserForm();
     } else if (password !== repeatPassword) {
       return setErrors("Password Most Match");
