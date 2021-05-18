@@ -5,6 +5,8 @@
   justify-content: space-between; */
 }
 .edit-dropdown__container > li {
+  padding-right: 0px;
+  padding-left: 0px;
   /* width: 100%; */
   /* display: flex;
   
@@ -12,10 +14,15 @@
   /* background-color: aqua; */
 }
 .edit-dropdown__container > li > button {
-  /* background-color: aqua; */
+  /* background-color: red; */
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: transparent;
-  width: 100px;
-  text-align: left;
+  width: 100%;
+  margin-right: 5px;
+  margin-left: 5px;
+  /* text-align: left; */
   font-size: 1rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: #fff;

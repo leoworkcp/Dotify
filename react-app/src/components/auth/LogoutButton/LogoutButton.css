@@ -75,14 +75,28 @@
   margin-left: 2px;
   min-height: fit-content;
 }
+.div-btn__containerEditUser > li {
+  /* width: 100%; */
+  /* padding: 0px; */
+  /* margin: 0px; */
+  /* margin-right: 20px; */
+  padding-right: 0px;
+  padding-left: 0px;
+}
 .div-btn__containerEditUser > li > button {
+  /* background-color: red; */
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: transparent;
-  width: 100px;
-  text-align: left;
+  width: 100%;
+  /* text-align: left; */
   font-size: 1rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: #fff;
   letter-spacing: 0.01938em;
+  margin-right: 5px;
+  margin-left: 5px;
   padding: 0px;
 }
 /* #btn-edit {

@@ -217,11 +217,11 @@ const MessageDropdown = ({
                         key={`edit${song.id}`}
                       >
                         Edit
+                        <EditIcon
+                          style={{ color: "white" }}
+                          key={`edit-icon${song.id}`}
+                        />
                       </button>
-                      <EditIcon
-                        style={{ color: "white" }}
-                        key={`edit-icon${song.id}`}
-                      />
                     </CustomMenuItem>
                   </div>
                 </div>
@@ -238,11 +238,11 @@ const MessageDropdown = ({
                         key={`delete${song.id}`}
                       >
                         Delete
+                        <DeleteIcon
+                          style={{ color: "white" }}
+                          key={`delete-icon${song.id}`}
+                        />
                       </button>
-                      <DeleteIcon
-                        style={{ color: "white" }}
-                        key={`delete-icon${song.id}`}
-                      />
                     </CustomMenuItem>
                   </div>
                 </div>
@@ -255,11 +255,11 @@ const MessageDropdown = ({
                     key={`comment${song.id}`}
                   >
                     Comments
+                    <CommentRoundedIcon
+                      style={{ color: "white" }}
+                      key={`comment-icon${song.id}`}
+                    />
                   </button>
-                  <CommentRoundedIcon
-                    style={{ color: "white" }}
-                    key={`comment-icon${song.id}`}
-                  />
                 </CustomMenuItem>
               </div>
 

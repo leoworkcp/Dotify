@@ -177,8 +177,8 @@ const LogoutButton = ({
                     // key={`edit${}`}
                   >
                     Edit
+                    <EditIcon style={{ color: "white" }} />
                   </button>
-                  <EditIcon style={{ color: "white" }} />
                 </CustomMenuItem>
               </div>
 
@@ -189,8 +189,8 @@ const LogoutButton = ({
                     onClick={(e) => onLogout(e)}
                   >
                     Log Out
+                    <ExitToAppIcon style={{ color: "white" }} />
                   </button>
-                  <ExitToAppIcon style={{ color: "white" }} />
                 </CustomMenuItem>
               </div>
             </CustomMenuList>
