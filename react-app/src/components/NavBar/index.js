@@ -3,10 +3,12 @@ import Modal from "react-modal";
 import LogoutButton from "../auth/LogoutButton/index";
 import LoginForm from "../auth/LoginForm/index";
 import SignUpForm from "../auth/SignUpForm/index";
+
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import SongForm from "../SongForm/index";
 import Tooltip from "@material-ui/core/Tooltip";
+
 const customStyles = {
   overlay: {
     position: "fixed",
@@ -78,11 +80,11 @@ const NavBar = ({
       <div className="navbarContainer">
         <div className="developers__link--container">
           <div>
-            <Tooltip title="Portfolio" arrow>
+            <Tooltip title="Portfolio" arrow={true}>
               <a
                 className="developers__link"
                 href="https://leoworkcp.github.io"
-                add
+                add={"true"}
                 target="_blank"
                 rel="noopener noreferrer"
               >
