@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { findPublicSongs } from "../../../store/publicSongs";
 import * as sessionActions from "../../../store/session";
+import { getAllUsers } from "../../../store/users";
+import { findPublicSongs } from "../../../store/publicSongs";
 import { getUserSongs } from "../../../store/songs";
 import "./SignUpForm.css";
 
@@ -46,6 +47,7 @@ const EditUserForm = ({ closeEditUserForm }) => {
       );
       dispatch(getUserSongs(user.id));
       dispatch(findPublicSongs());
+      dispatch(getAllUsers());
       closeEditUserForm();
     } else if (password !== repeatPassword) {
       return setErrors("Password Most Match");
