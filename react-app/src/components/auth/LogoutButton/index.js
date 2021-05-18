@@ -16,6 +16,7 @@ import {
 import { withStyles } from "@material-ui/styles";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 // import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import PersonIcon from "@material-ui/icons/Person";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Modal from "react-modal";
@@ -135,6 +136,11 @@ const LogoutButton = ({
     history.push("/");
   };
 
+  const ProfileBtn = (e) => {
+    e.preventDefault();
+    history.push(`/profile/${loggedInUser.id}`);
+  };
+
   // console.log(authenticated);
   return (
     <div className="user-preferences">
@@ -145,9 +151,12 @@ const LogoutButton = ({
         onClick={(e) => openModal(e)}
         ref={anchorRef}
       >
-        <Tooltip title="Log Out, Edit Profile" arrow={true}>
-          <MoreVertIcon />
-        </Tooltip>
+        {!open && (
+          <Tooltip title="Log Out, Edit Profile" arrow={true}>
+            <MoreVertIcon />
+          </Tooltip>
+        )}
+        {open && <MoreVertIcon />}
       </CustomIconButton>
       <Popper
         open={open}
@@ -170,6 +179,15 @@ const LogoutButton = ({
         >
           <ClickAwayListener onClickAway={handleClose}>
             <CustomMenuList style={{ color: "white" }}>
+              <div className="div-btn__containerEditUser">
+                <button
+                  onClick={(e) => ProfileBtn(e)}
+                  // key={`edit${}`}
+                >
+                  {loggedInUser.username.toUpperCase()}
+                  <PersonIcon style={{ color: "white" }} />
+                </button>
+              </div>
               <div className="div-btn__containerEditUser">
                 <CustomMenuItem>
                   <button
@@ -198,13 +216,23 @@ const LogoutButton = ({
         </Paper>
       </Popper>
       {/* end new stuff */}
-      <div className="profile-icon">
-        <NavLink to={`/profile/${loggedInUser.id}`}>
-          <Tooltip title={loggedInUser.username} arrow>
+      {!open && (
+        <div className="profile-icon">
+          <NavLink to={`/profile/${loggedInUser.id}`}>
+            <Tooltip title={loggedInUser.username} arrow={true}>
+              <img src={loggedInUser?.profile_URL} alt="profile-pic" />
+            </Tooltip>
+          </NavLink>
+        </div>
+      )}
+      {open && (
+        <div className="profile-icon">
+          <NavLink to={`/profile/${loggedInUser.id}`}>
             <img src={loggedInUser?.profile_URL} alt="profile-pic" />
-          </Tooltip>
-        </NavLink>
-      </div>
+          </NavLink>
+        </div>
+      )}
+
       <div className="LoginSongForm">
         <Modal
           isOpen={modalIsOpenEditUserForm}

@@ -25,7 +25,7 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 50%;
-  margin-right: 100px;
+  margin-right: 65px;
   /* z-index: 20; */
   position: absolute;
   top: 10px;
@@ -57,15 +57,15 @@
   /* background-color: aliceblue; */
   border-radius: 0;
   height: 40px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .user-preferences > button > span > svg {
   /* background-color: aliceblue; */
-  margin-right: 18px;
+  /* margin-right: 14px; */
 }
 
 .user-preferences > div {
-  margin-right: 20px;
+  margin-right: 22px;
 }
 .user-preferences > div > div {
   background-color: rgba(24, 24, 24, 0.527);
@@ -98,6 +98,39 @@
   margin-right: 5px;
   margin-left: 5px;
   padding: 0px;
+}
+
+.div-btn__containerEditUser:nth-child(1) {
+  /* display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%; */
+  /* background-color: aqua; */
+  margin-bottom: 8px;
+}
+.div-btn__containerEditUser:nth-child(1) > button {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  /* text-align: left; */
+  font-size: 12px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #fff;
+  letter-spacing: 0.01938em;
+  flex-wrap: wrap;
+  /* margin-right: 5px;
+  margin-left: 5px; */
+  padding: 0px;
+}
+.div-btn__containerEditUser:nth-child(1) > button > svg {
+  font-size: 14px;
+  margin-top: 1px;
+  margin-left: 4px;
+  /* background-color: aqua; */
 }
 /* #btn-edit {
   background-color: red;
