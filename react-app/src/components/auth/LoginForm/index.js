@@ -43,6 +43,14 @@ const LoginForm = ({
   const email1 = "demo@aa.io";
   const password1 = "password";
 
+  const email2 = "brunno_mars@gmail.com";
+  const password2 = "Demouser123";
+
+  const demoUser1 = (e) => {
+    setEmail(email2);
+    setPassword(password2);
+    dispatch(sessionActions.login({ email: email2, password: password2 }));
+  };
   const demoUser = (e) => {
     setEmail(email1);
     setPassword(password1);
@@ -81,7 +89,7 @@ const LoginForm = ({
               placeholder="Email"
               value={email}
               onChange={updateEmail}
-              require
+              require={"true"}
             />
           </div>
           <div className="LoginModalInputContainer">
@@ -92,7 +100,7 @@ const LoginForm = ({
               placeholder="Password"
               value={password}
               onChange={updatePassword}
-              require
+              require={"true"}
             />
           </div>
           <div className="LoginModalButtonContainer">
@@ -107,6 +115,15 @@ const LoginForm = ({
               type="submit"
             >
               Demo User
+            </button>
+          </div>
+          <div className="LoginModalButtonContainer">
+            <button
+              onClick={(e) => demoUser1(e)}
+              className="LoginModalSubmit"
+              type="submit"
+            >
+              Brunno Mars
             </button>
           </div>
           <div>

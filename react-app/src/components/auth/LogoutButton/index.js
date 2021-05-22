@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -100,6 +100,8 @@ const LogoutButton = ({
   const history = useHistory();
   // new stuff
   const anchorRef = useRef(null);
+
+  const [demoUser, setDemoUser] = useState(false);
   const [open, setOpen] = useState(false);
   const [modalIsOpenEditUserForm, setIsOpenEditUserForm] = useState(false);
 
@@ -140,7 +142,9 @@ const LogoutButton = ({
     e.preventDefault();
     history.push(`/profile/${loggedInUser.id}`);
   };
-
+  useEffect(() => {
+    if (loggedInUser.id === 1) setDemoUser(true);
+  }, [demoUser, loggedInUser.id]);
   // console.log(authenticated);
   return (
     <div className="user-preferences">
@@ -188,18 +192,19 @@ const LogoutButton = ({
                   <PersonIcon style={{ color: "white" }} />
                 </button>
               </div>
-              <div className="div-btn__containerEditUser">
-                <CustomMenuItem>
-                  <button
-                    onClick={(e) => openEditUserForm(e)}
-                    // key={`edit${}`}
-                  >
-                    Edit
-                    <EditIcon style={{ color: "white" }} />
-                  </button>
-                </CustomMenuItem>
-              </div>
-
+              {!demoUser && (
+                <div className="div-btn__containerEditUser">
+                  <CustomMenuItem>
+                    <button
+                      onClick={(e) => openEditUserForm(e)}
+                      // key={`edit${}`}
+                    >
+                      Edit
+                      <EditIcon style={{ color: "white" }} />
+                    </button>
+                  </CustomMenuItem>
+                </div>
+              )}
               <div className="div-btn__containerEditUser">
                 <CustomMenuItem>
                   <button
