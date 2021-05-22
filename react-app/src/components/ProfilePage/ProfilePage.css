@@ -152,7 +152,7 @@
 }
 
 .album-cover > img {
-  max-width: 300px;
+  width: 300px;
   max-height: 300px;
 }
 
@@ -176,6 +176,9 @@
   position: absolute;
   height: 26px;
   width: 52px;
+}
+.messageButtons > div > div > ul {
+  min-height: fit-content;
 }
 
 .messageButtons > button {

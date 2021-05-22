@@ -1,4 +1,4 @@
-.LogoutModalSubmit {
+/* .LogoutModalSubmit {
   position: absolute;
   font: inherit;
   border: none;
@@ -11,7 +11,7 @@
   border-radius: 10px;
 
   right: 10px;
-}
+} */
 
 .LogoutModalSubmit:hover {
   color: #fff;
@@ -25,5 +25,115 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 50%;
-  margin-right: 85px;
+  margin-right: 65px;
+  /* z-index: 20; */
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
+
+/* editUser */
+/* .div-btn__containerEditUser {
+  min-height: max-content;
+  position: relative;
+
+  background-color: red;
+} */
+/* .div-btn__containerEditUser > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  right: 85px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background-color: #15883e;
+} */
+
+.user-preferences > button {
+  /* background-color: aliceblue; */
+  border-radius: 0;
+  height: 40px;
+  /* margin-right: 20px; */
+}
+.user-preferences > button > span > svg {
+  /* background-color: aliceblue; */
+  /* margin-right: 14px; */
+}
+
+.user-preferences > div {
+  margin-right: 22px;
+}
+.user-preferences > div > div {
+  background-color: rgba(24, 24, 24, 0.527);
+}
+.user-preferences > div > div > ul {
+  margin-top: 8px;
+  margin-left: 2px;
+  min-height: fit-content;
+}
+.div-btn__containerEditUser > li {
+  /* width: 100%; */
+  /* padding: 0px; */
+  /* margin: 0px; */
+  /* margin-right: 20px; */
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.div-btn__containerEditUser > li > button {
+  /* background-color: red; */
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  /* text-align: left; */
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #fff;
+  letter-spacing: 0.01938em;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 0px;
+}
+
+.div-btn__containerEditUser:nth-child(1) {
+  /* display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%; */
+  /* background-color: aqua; */
+  margin-bottom: 8px;
+}
+.div-btn__containerEditUser:nth-child(1) > button {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  /* text-align: left; */
+  font-size: 12px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #fff;
+  letter-spacing: 0.01938em;
+  flex-wrap: wrap;
+  /* margin-right: 5px;
+  margin-left: 5px; */
+  padding: 0px;
+}
+.div-btn__containerEditUser:nth-child(1) > button > svg {
+  font-size: 14px;
+  margin-top: 1px;
+  margin-left: 4px;
+  /* background-color: aqua; */
+}
+/* #btn-edit {
+  background-color: red;
+} */
+
+/* editUser Ends */

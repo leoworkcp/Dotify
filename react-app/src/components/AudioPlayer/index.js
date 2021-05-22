@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as likeActions from "../../store/likes";
 
 import "./AudioPlayer.css";
-import eqGif from "../LikedSongs/equalizerGIF.gif";
+// import eqGif from "../LikedSongs/equalizerGIF.gif";
 import { NavLink } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -609,7 +609,7 @@ const Player = ({
               </div>
               <div className="like-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <Tooltip title="Add to Your Likes" arrow>
+                  <Tooltip title="Add to Your Likes" arrow={true}>
                     <button>
                       <FavoriteBorderIcon
                         style={{
@@ -625,7 +625,7 @@ const Player = ({
                   songIsLoaded &&
                   !hadLiked &&
                   !playingOwnLiked && (
-                    <Tooltip title="Save to Your Likes" arrow>
+                    <Tooltip title="Save to Your Likes" arrow={true}>
                       <button
                         onClick={(e) => handleAddLike(e, currentSong?.id)}
                       >
@@ -640,7 +640,7 @@ const Player = ({
                     </Tooltip>
                   )}
                 {authenticated && songIsLoaded && hadLiked && !playingOwnLiked && (
-                  <Tooltip title="Remove from Your Likes" arrow>
+                  <Tooltip title="Remove from Your Likes" arrow={true}>
                     <button
                       onClick={(e) => handleRemoveLike(e, currentSong?.id)}
                     >
@@ -658,7 +658,7 @@ const Player = ({
               </div>
               <div className="see-artist__cover">
                 {authenticated && !songIsLoaded && (
-                  <Tooltip title="Song Cover" arrow>
+                  <Tooltip title="Song Cover" arrow={true}>
                     <button onClick={() => setDrag(false)}>
                       <PictureInPictureAltIcon
                         style={{
@@ -671,7 +671,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {!drag && authenticated && songIsLoaded && (
-                  <Tooltip title="Show Cover" arrow>
+                  <Tooltip title="Show Cover" arrow={true}>
                     <button onClick={() => setDrag(true)}>
                       <PictureInPictureAltIcon
                         style={{
@@ -684,7 +684,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {drag && authenticated && songIsLoaded && (
-                  <Tooltip title="Hide Cover" arrow>
+                  <Tooltip title="Hide Cover" arrow={true}>
                     <button onClick={() => setDrag(false)}>
                       <PictureInPictureAltIcon
                         style={{
@@ -706,7 +706,7 @@ const Player = ({
               {/* loop */}
               <div className="loop-controller__container">
                 {authenticated && songIsLoaded && repeatOnce && (
-                  <Tooltip title="Disable Repeat" arrow>
+                  <Tooltip title="Disable Repeat" arrow={true}>
                     <button id="RepeatIcon" onClick={() => loopDeselect()}>
                       <RepeatOneIcon
                         style={{
@@ -719,7 +719,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {authenticated && songIsLoaded && !repeatOnce && (
-                  <Tooltip title="Enable Repeat One" arrow>
+                  <Tooltip title="Enable Repeat One" arrow={true}>
                     <button id="RepeatIcon" onClick={() => RepeatOnce()}>
                       <RepeatIcon
                         style={{
@@ -731,7 +731,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {authenticated && !songIsLoaded && !repeatOnce && (
-                  <Tooltip title="Enable Repeat" arrow>
+                  <Tooltip title="Enable Repeat" arrow={true}>
                     <button id="RepeatIcon">
                       <RepeatIcon
                         style={{
@@ -745,7 +745,7 @@ const Player = ({
               </div>
 
               {authenticated && (
-                <Tooltip title="Previous" arrow>
+                <Tooltip title="Previous" arrow={true}>
                   <button id="SkipPreviousIcon" onClick={() => prevSong()}>
                     <SkipPreviousIcon
                       style={{
@@ -768,7 +768,7 @@ const Player = ({
                 setAuthenticated={setAuthenticated}
               />
               {authenticated && (
-                <Tooltip title="Next" arrow>
+                <Tooltip title="Next" arrow={true}>
                   <button id="SkipNextIcon" onClick={() => nextSong()}>
                     <SkipNextIcon
                       style={{
@@ -783,7 +783,7 @@ const Player = ({
               {/* loop */}
               <div className="loop-controller__container">
                 {authenticated && songIsLoaded && loopActive && (
-                  <Tooltip title="Disable Loop Selector" arrow>
+                  <Tooltip title="Disable Loop Selector" arrow={true}>
                     <button id="LoopIcon" onClick={() => loopDeselect()}>
                       <LoopIcon
                         style={{
@@ -796,7 +796,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {authenticated && songIsLoaded && !loopActive && (
-                  <Tooltip title="Enable Loop Selector" arrow>
+                  <Tooltip title="Enable Loop Selector" arrow={true}>
                     <button id="LoopIcon" onClick={() => loopSelect()}>
                       <LoopIcon
                         style={{
@@ -808,7 +808,7 @@ const Player = ({
                   </Tooltip>
                 )}
                 {authenticated && !songIsLoaded && !loopActive && (
-                  <Tooltip title="Loop Selector" arrow>
+                  <Tooltip title="Loop Selector" arrow={true}>
                     <button id="LoopIcon">
                       <LoopIcon
                         style={{
@@ -823,21 +823,21 @@ const Player = ({
               {/* loop ends */}
               <div className="volume">
                 {authenticated && !songIsLoaded && (
-                  <Tooltip title="Volume" arrow>
+                  <Tooltip title="Volume" arrow={true}>
                     <button>
                       <VolumeUpIcon />
                     </button>
                   </Tooltip>
                 )}
                 {!mute && authenticated && songIsLoaded && (
-                  <Tooltip title="Mute" arrow>
+                  <Tooltip title="Mute" arrow={true}>
                     <button onClick={(e) => onVolumeMute(e)}>
                       <VolumeUpIcon />
                     </button>
                   </Tooltip>
                 )}
                 {mute && authenticated && songIsLoaded && (
-                  <Tooltip title="Unmute" arrow>
+                  <Tooltip title="Unmute" arrow={true}>
                     <button onClick={(e) => onVolumeBack(e)}>
                       <VolumeOffIcon />
                     </button>
@@ -869,7 +869,7 @@ const Player = ({
             </div>
           </div>
           <div className="controllers-queue_screen">
-            <Tooltip title="Shuffle" arrow>
+            <Tooltip title="Shuffle" arrow={true}>
               <div className="shuffle-btn">
                 <ShuffleIcon
                   style={{
@@ -896,7 +896,7 @@ const Player = ({
             </Tooltip>
             <div className="queue-music">
               {authenticated && (
-                <Tooltip title="Queue" arrow>
+                <Tooltip title="Queue" arrow={true}>
                   <button onClick={() => alert("feature in progress")}>
                     <QueueMusicIcon
                       style={{
@@ -912,7 +912,7 @@ const Player = ({
             </div>
             <div className="full-screen">
               {!handle?.active && (
-                <Tooltip title="Full Screen" arrow>
+                <Tooltip title="Full Screen" arrow={true}>
                   <button onClick={handle.enter}>
                     <FullscreenIcon
                       style={{
@@ -926,7 +926,7 @@ const Player = ({
                 </Tooltip>
               )}
               {handle?.active && (
-                <Tooltip title="Exit Screen" arrow>
+                <Tooltip title="Exit Screen" arrow={true}>
                   <button onClick={handle.exit}>
                     <FullscreenExitIcon
                       style={{

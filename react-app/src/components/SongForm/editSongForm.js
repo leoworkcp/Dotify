@@ -150,13 +150,13 @@ const EditSongForm = ({ closeModalSongForm, songsId, song }) => {
               type="file"
               accept="audio/*"
               onChange={updateSong}
-              required
+              // required
             />
             {songLoading && <p>Loading...</p>}
           </div>
           <div className="SignUpModalInputContainer">
             <label>Upload an album image</label>
-            <input type="file" accept="image/*" onChange={updateImage} s />
+            <input type="file" accept="image/*" onChange={updateImage} />
             {imageLoading && <p>Loading...</p>}
           </div>
           <div id="upload-submit-button-div">

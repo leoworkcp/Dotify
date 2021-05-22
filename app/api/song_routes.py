@@ -155,13 +155,15 @@ def edit_song():
         song_file.filename = get_unique_filename(song_file.filename)
         upload = upload_file_to_s3(song_file)
         url_song = upload["url"]
+    else:
+        url_song = matched_song.song
     if "image_url" in request.files:
         image = request.files["image_url"]
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
         url_image = upload["url"]
     else:
-        url_image = 'https://i.stack.imgur.com/l60Hf.png'
+        url_image = matched_song.image_url
     matched_song.name = request.form['name']
     matched_song.description = request.form['description']
     matched_song.album = request.form['album']

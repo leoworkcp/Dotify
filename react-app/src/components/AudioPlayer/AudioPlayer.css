@@ -692,3 +692,7 @@ input[type="range"]::-ms-fill-upper {
   height: 0px;
   transition: all ease-in-out 2s;
 }
+
+/* .drag-container > button{
+  background-color: red;
+} */
